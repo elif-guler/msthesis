@@ -1,0 +1,245 @@
+p* MAPRO Full Analysis Test Run
+
+Command executed:
+
+#+begin_src bash
+bash ../scripts/driver.sh \
+    -n ../data/neidb \
+    < ../data/test_list.txt
+#+end_src
+
+The driver script processes each organism listed in =test_list.txt= independently.
+
+** 1. Aquifex aeolicus VF5 (aae)
+
+Output:
+
+#+begin_example
+Analyzing aae Aquifex aeolicus VF5
+Collecting 1 genome record
+Downloading: tdata.zip
+...
+Error: There are no genome assemblies that match your query.
+#+end_example
+
+Explanation:
+
+- The type strain was found in the Neighbors database.
+- Only one target genome accession was available.
+- NCBI Datasets attempted to download the genome.
+- No complete/chromosome-level assembly was available.
+- As a result, no genome FASTA file was downloaded.
+
+Consequences:
+
+#+begin_example
+ls: cannot access 'aae/targets/'
+ls: cannot access 'aae/neighbors'
+#+end_example
+
+Since no genomes were available, MAPRO could not build a phylogeny and therefore skipped marker discovery for this species.
+
+Result:
+
+- Analysis failed.
+- No markers produced.
+- No primers produced.
+
+---
+
+** 2. Agrobacterium fabrum C58 (afa)
+
+Output:
+
+#+begin_example
+Collecting 20 genome records
+Collecting 68 genome records
+#+end_example
+
+Explanation:
+
+- 20 genomes were identified as target genomes.
+- 68 genomes were identified as neighboring genomes.
+
+The genomes were downloaded and rehydrated successfully.
+
+Output:
+
+#+begin_example
+Found 20 of 20 files for rehydration
+Completed 20 of 20
+
+Found 68 of 68 files for rehydration
+Completed 68 of 68
+#+end_example
+
+A phylogeny was constructed and a representative target genome was selected:
+
+#+begin_example
+using tGCF_003667945.1_ASM366794v1_genomic.fna as target representative
+#+end_example
+
+Marker discovery (Fur):
+
+#+begin_example
+Step             Sequences   Length      Ns
+Subtraction_1        5305    1487141      0
+Intersection         2188     469635  18938
+Subtraction_2          55      39423  26398
+#+end_example
+
+Interpretation:
+
+- Subtraction_1:
+  sequences present in target genomes but absent from neighbors.
+
+- Intersection:
+  sequences shared among all target genomes.
+
+- Subtraction_2:
+  final candidate marker regions.
+
+Final result:
+
+- 55 marker candidates.
+- Total marker length = 39,423 bp.
+
+---
+
+** 3. Aliivibrio fischeri ES114 (afi)
+
+Output:
+
+#+begin_example
+Collecting 12 genome records
+Collecting 15 genome records
+#+end_example
+
+Meaning:
+
+- 12 target genomes.
+- 15 neighboring genomes.
+
+Representative genome:
+
+#+begin_example
+using tGCF_000241785.1_ASM24178v1_genomic.fna as target representative
+#+end_example
+
+Marker discovery:
+
+#+begin_example
+Subtraction_1       4484   3626854     1202
+Intersection        6041   2001815   169339
+Subtraction_2        363     98908    28173
+#+end_example
+
+Interpretation:
+
+- Large amount of target-specific sequence was found.
+- After filtering and intersection steps, 363 candidate markers remained.
+
+Final result:
+
+- 363 marker candidates.
+- Total marker length = 98,908 bp.
+
+---
+
+** 4. Aeromonas hydrophila ATCC 7966 (ahy)
+
+Output:
+
+#+begin_example
+Collecting 4 genome records
+Collecting 5 genome records
+#+end_example
+
+Meaning:
+
+- 4 target genomes.
+- 5 neighboring genomes.
+
+Representative genome:
+
+#+begin_example
+using tGCF_000014805.1_ASM1480v1_genomic.fna as target representative
+#+end_example
+
+Marker discovery:
+
+#+begin_example
+Subtraction_1       1597   530113     0
+Intersection         330    59775  4225
+Subtraction_2         20    11874   776
+#+end_example
+
+Interpretation:
+
+- Much fewer marker regions survived filtering.
+- Only 20 candidate markers remained.
+
+Final result:
+
+- 20 marker candidates.
+- Total marker length = 11,874 bp.
+
+---
+
+** 5. Amycolatopsis mediterranei U32 (ame)
+
+Output:
+
+#+begin_example
+Collecting 5 genome records
+Collecting 49 genome records
+#+end_example
+
+Meaning:
+
+- 5 target genomes.
+- 49 neighboring genomes.
+
+Representative genome:
+
+#+begin_example
+using tGCF_000196835.1_ASM19683v1_genomic.fna as target representative
+#+end_example
+
+Marker discovery:
+
+#+begin_example
+Subtraction_1      12457   4250144       0
+Intersection       11520   4038681     200
+Subtraction_2        539   1228442  643033
+#+end_example
+
+Interpretation:
+
+- Very large amount of sequence survived the first filtering step.
+- More than 1.2 Mb of candidate marker sequence remained.
+- This species appears to have many regions distinguishable from its neighbors.
+
+Final result:
+
+- 539 marker candidates.
+- Total marker length = 1,228,442 bp.
+
+---
+
+** General Workflow
+
+For each organism, MAPRO performs:
+
+1. Identify target and neighboring taxa using the Neighbors database.
+2. Download genomes from NCBI.
+3. Build a phylogeny.
+4. Select a representative target genome.
+5. Create a Fur database.
+6. Run Fur marker discovery.
+7. Produce marker sequences.
+8. Design PCR primers from the discovered markers.
+
+The first organism (Aquifex aeolicus) failed because no suitable assembly was available from NCBI.
+
+All subsequent organisms completed successfully and entered the marker-discovery stage.
