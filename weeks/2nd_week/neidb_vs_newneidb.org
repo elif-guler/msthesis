@@ -1,0 +1,58 @@
+While replicating the Mapro pipeline, I will use the same pipeline,
+the same code but with different databases generated at different times
+
+Run these commands and record the outputs:
+#+begin_src bash
+  pwd
+  git status
+  git branch
+  git log --oneline -n 1
+#+end_src
+
+And fill these information below
+Date:
+Machine:
+Directory:
+Git branch:
+Git commit:
+Git status:
+
+newdb_vs_olddb/
+│
+├── mapro_old/
+│   ├── data/
+│   │   └── neidb
+│   └── analysis/
+│
+└── mapro_new/
+    ├── data/
+    │   └── newNeidb
+    └── analysis/
+
+#+begin_src bash
+  git clone <repo> mapro_old
+  git clone <repo> mapro_new
+#+end_src
+
+then i will perform the two analysis on dfferent directories and
+compare the results
+
+* Comparison Metrics: Old vs. Updated Neighbors Database
+
+The same Mapro pipeline will be executed twice:
+
+1. Using the original Neighbors database (old_neidb)
+2. Using the updated Neighbors database (new_neidb)
+
+The following metrics will be compared for each taxon:
+
+| Metric | Old DB | New DB |
+|---------+---------+---------|
+| Number of target genomes (targets) | | |
+| Number of neighbor genomes (neighbors) | | |
+| Number of markers identified (markers.fasta) | | |
+| Primer pair successfully designed?(y/n)(primers.fasta) | | |
+| Number of primer pairs(should be 0 or 1)(primers.fasta) | | |
+| SCOP result (taxonomy-based sensitivity/specificity)(scop.out) | | |
+| COPS result (corrected sensitivity/specificity)(cops.out) | | |
+| Taxa with annotations (anam.txt) | | |
