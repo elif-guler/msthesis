@@ -1,4 +1,4 @@
-% Created 2026-06-08 Mon 10:13
+% Created 2026-06-19 Fri 15:17
 % Intended LaTeX compiler: pdflatex
 \documentclass[11pt]{article}
 \usepackage[utf8]{inputenc}
@@ -20,14 +20,14 @@
  pdftitle={},
  pdfkeywords={},
  pdfsubject={},
- pdfcreator={Emacs 30.2 (Org mode 9.7.11)}, 
+ pdfcreator={Emacs 30.2 (Org mode 9.7.36)}, 
  pdflang={English}}
 \begin{document}
 
 \tableofcontents
 
 \section{MAPRO Full Analysis Test Run}
-\label{sec:orgac3fa4d}
+\label{sec:orga653e3c}
 
 Command executed:
 
@@ -39,7 +39,7 @@ bash ../scripts/driver.sh \
 
 The driver script processes each organism listed in \texttt{test\_list.txt} independently.
 \subsection{1. Aquifex aeolicus VF5 (aae)}
-\label{sec:orgec11320}
+\label{sec:orgc51af88}
 
 Output:
 
@@ -51,17 +51,7 @@ Downloading: tdata.zip
 Error: There are no genome assemblies that match your query.
 \end{verbatim}
 
-Explanation:
-
-\begin{itemize}
-\item The type strain was found in the Neighbors database.
-\item Only one target genome accession was available.
-\item NCBI Datasets attempted to download the genome.
-\item No complete/chromosome-level assembly was available.
-\item As a result, no genome FASTA file was downloaded.
-\end{itemize}
-
-Consequences:
+The type strain was found in the Neighbors database. Only one target genome accession was available. NCBI Datasets attempted to download the genome. No complete/chromosome-level assembly was available. As a result, no genome FASTA file was downloaded.
 
 \begin{verbatim}
 ls: cannot access 'aae/targets/'
@@ -69,18 +59,8 @@ ls: cannot access 'aae/neighbors'
 \end{verbatim}
 
 Since no genomes were available, MAPRO could not build a phylogeny and therefore skipped marker discovery for this species.
-
-Result:
-
-\begin{itemize}
-\item Analysis failed.
-\item No markers produced.
-\item No primers produced.
-\end{itemize}
-
----
 \subsection{2. Agrobacterium fabrum C58 (afa)}
-\label{sec:orga8a6c0a}
+\label{sec:org33403f5}
 
 Output:
 
@@ -89,24 +69,9 @@ Collecting 20 genome records
 Collecting 68 genome records
 \end{verbatim}
 
-Explanation:
-
-\begin{itemize}
-\item 20 genomes were identified as target genomes.
-\item 68 genomes were identified as neighboring genomes.
-\end{itemize}
+20 genomes were identified as target genomes. 68 genomes were identified as neighboring genomes.
 
 The genomes were downloaded and rehydrated successfully.
-
-Output:
-
-\begin{verbatim}
-Found 20 of 20 files for rehydration
-Completed 20 of 20
-
-Found 68 of 68 files for rehydration
-Completed 68 of 68
-\end{verbatim}
 
 A phylogeny was constructed and a representative target genome was selected:
 
@@ -125,181 +90,20 @@ Subtraction_2          55      39423  26398
 
 Interpretation:
 
-\begin{itemize}
-\item Subtraction\textsubscript{1}:
-sequences present in target genomes but absent from neighbors.
-
-\item Intersection:
-sequences shared among all target genomes.
-
-\item Subtraction\textsubscript{2}:
-final candidate marker regions.
-\end{itemize}
-
-Final result:
-
-\begin{itemize}
-\item 55 marker candidates.
-\item Total marker length = 39,423 bp.
-\end{itemize}
-
----
-\subsection{3. Aliivibrio fischeri ES114 (afi)}
-\label{sec:org45a1de2}
-
-Output:
-
-\begin{verbatim}
-Collecting 12 genome records
-Collecting 15 genome records
-\end{verbatim}
-
-Meaning:
-
-\begin{itemize}
-\item 12 target genomes.
-\item 15 neighboring genomes.
-\end{itemize}
-
-Representative genome:
-
-\begin{verbatim}
-using tGCF_000241785.1_ASM24178v1_genomic.fna as target representative
-\end{verbatim}
-
-Marker discovery:
-
-\begin{verbatim}
-Subtraction_1       4484   3626854     1202
-Intersection        6041   2001815   169339
-Subtraction_2        363     98908    28173
-\end{verbatim}
-
-Interpretation:
-
-\begin{itemize}
-\item Large amount of target-specific sequence was found.
-\item After filtering and intersection steps, 363 candidate markers remained.
-\end{itemize}
-
-Final result:
-
-\begin{itemize}
-\item 363 marker candidates.
-\item Total marker length = 98,908 bp.
-\end{itemize}
-
----
-\subsection{4. Aeromonas hydrophila ATCC 7966 (ahy)}
-\label{sec:orgbcd4cae}
-
-Output:
-
-\begin{verbatim}
-Collecting 4 genome records
-Collecting 5 genome records
-\end{verbatim}
-
-Meaning:
-
-\begin{itemize}
-\item 4 target genomes.
-\item 5 neighboring genomes.
-\end{itemize}
-
-Representative genome:
-
-\begin{verbatim}
-using tGCF_000014805.1_ASM1480v1_genomic.fna as target representative
-\end{verbatim}
-
-Marker discovery:
-
-\begin{verbatim}
-Subtraction_1       1597   530113     0
-Intersection         330    59775  4225
-Subtraction_2         20    11874   776
-\end{verbatim}
-
-Interpretation:
-
-\begin{itemize}
-\item Much fewer marker regions survived filtering.
-\item Only 20 candidate markers remained.
-\end{itemize}
-
-Final result:
-
-\begin{itemize}
-\item 20 marker candidates.
-\item Total marker length = 11,874 bp.
-\end{itemize}
-
----
-\subsection{5. Amycolatopsis mediterranei U32 (ame)}
-\label{sec:orgbd71a7f}
-
-Output:
-
-\begin{verbatim}
-Collecting 5 genome records
-Collecting 49 genome records
-\end{verbatim}
-
-Meaning:
-
-\begin{itemize}
-\item 5 target genomes.
-\item 49 neighboring genomes.
-\end{itemize}
-
-Representative genome:
-
-\begin{verbatim}
-using tGCF_000196835.1_ASM19683v1_genomic.fna as target representative
-\end{verbatim}
-
-Marker discovery:
-
-\begin{verbatim}
-Subtraction_1      12457   4250144       0
-Intersection       11520   4038681     200
-Subtraction_2        539   1228442  643033
-\end{verbatim}
-
-Interpretation:
-
-\begin{itemize}
-\item Very large amount of sequence survived the first filtering step.
-\item More than 1.2 Mb of candidate marker sequence remained.
-\item This species appears to have many regions distinguishable from its neighbors.
-\end{itemize}
-
-Final result:
-
-\begin{itemize}
-\item 539 marker candidates.
-\item Total marker length = 1,228,442 bp.
-\end{itemize}
-
----
+Subtraction\textsubscript{1}: sequences present in target genomes but absent from neighbors.
+Intersection: sequences shared among all target genomes.
+Subtraction\textsubscript{2}: final candidate marker regions.
 \subsection{General Workflow}
-\label{sec:orgc181876}
+\label{sec:org7202cba}
 
 For each organism, MAPRO performs:
 
-\begin{enumerate}
-\item Identify target and neighboring taxa using the Neighbors database.
-\item Download genomes from NCBI.
-\item Build a phylogeny.
-\item Select a representative target genome.
-\item Create a Fur database.
-\item Run Fur marker discovery.
-\item Produce marker sequences.
-\item Design PCR primers from the discovered markers.
-\end{enumerate}
-
-The first organism (Aquifex aeolicus) failed because no suitable assembly was available from NCBI.
-
-All subsequent organisms completed successfully and entered the marker-discovery stage.
+Identify target and neighboring taxa using the Neighbors database.
+Download genomes from NCBI.
+Build a phylogeny.
+Select a representative target genome.
+Create a Fur database.
+Run Fur marker discovery.
+Produce marker sequences.
+Design primers from the discovered markers.
 \end{document}
