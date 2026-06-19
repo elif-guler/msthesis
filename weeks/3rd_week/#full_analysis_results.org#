@@ -1,0 +1,419 @@
+* MAPRO Results with Updated Genome Database (16th of June 2026)
+It took almost 20 hours to finish the full analysis.
+(from jun 16 04.55 pm to jun 17 02.48 pm)
+
+** Old Results
+Starting with 120 organisms, 110 of them had at least one available target and neighbor
+genome assembled to the “complete” level. Of those, 96 had at least one marker region
+shared across all targets and absent from all neighbors, and I could design a primer pair
+for 89 of them. Finally, although all of the primers could be scored, it was only possible to
+correct the primer score for 82 of them. For six primer pairs, the type strain could not be
+found in the local nt database and the score could not be corrected. To correct the primer
+score for Bordetella pertussis the type strain accession was changed from “BX470248.1”
+to “CP039022.1”, the complete genome accession present in our local nt database.(taken from
+Beatriz's thesis)
+
+
+** Dataset Summary
+
+| Metric | Value |
+|----------+-------|
+| Total taxa analyzed |120 (was 120 in the old results) |
+| Taxa producing phylogenetic trees |97  |
+| Taxa producing markers |93 (was 96) |
+| Taxa producing primers |74 (was 89) |
+
+** Pipeline Outcomes
+
+*** Taxa having primers.fasta
+afa afi
+ahy ame
+ban2 bap
+bbi bdi
+bfa bfr
+blo bma
+bpa bpe
+bps bth1
+bth2 cac
+cau cbo1
+cbo2 cbu
+cdi cgl
+cje cpn
+cte ctr1
+cvi1 cvi2
+dra dtu
+dvu ecl
+eco2 efa1
+efa2 fps
+gsu gvi
+hin kvu
+lac lin
+lpn lsa
+mab mci
+mfl mle
+msm mth
+ngo nme
+psy1 psy2
+rba rru
+sag sco
+sdy sep
+sme2 son1
+spy ssa
+tac tma
+tth tye
+vpa xca
+yen ype
+
+
+*** Taxa that have markers.fasta and don't have primers.fasta (some of them are empty)
+The ones that contain markers have too many Ns in the sequencesq
+#+begin_src bash
+  cd analysis
+  for a in */; do
+      [ -f "$a/markers.fasta" ] && [ ! -f "$a/primers.fasta" ] && \
+      { echo -n "$a "; grep -c '^>' "$a/markers.fasta"; }
+  done
+#+end_src
+
+api/ 8
+bbr/ 0
+bbu/ 0
+bce/ 0
+eco1/ 0
+eco3/ 0
+eco4/ 0
+eco5/ 0
+gva/ 0
+kae/ 0
+lmo/ 13 
+mtu2/ 0
+pma/ 0
+ppu/ 3
+sau/ 1
+sen2/ 0
+sfl/ 1
+ssu/ 45
+tde/ 0
+
+*** Taxa that don't have markers (27)
+
+#+begin_src bash
+  for a in */; do
+      [ ! -f "$a/markers.fasta" ] && [ ! -f "$a/primers.fasta" ] && echo "${a%/}"
+  done | sort
+#+end_src
+
+aae
+ban1
+bsu
+ctr2
+eco6
+fnu
+ftu
+hpy
+kpn
+lla
+lpa
+lpl
+mmy
+mpn
+mtu1
+pae
+rpr
+rsp
+sen1
+sfr
+sme1
+smi
+smu
+spn2
+sru
+tel
+vch
+
+
+*** Taxa with zero neighbors (fintac clustered all the taxa in one clade as a target)
+
+#+begin_src bash
+  for a in $(ls -d */); do
+      echo -n "$a "
+      cres $a/all/*
+  done
+#+end_src
+
+bsu
+kpn
+smi
+vch
+
+*** Penalty Scores of the Taxa
+#+begin_src bash
+  for d in ???/; do
+      [ -f "$d/primers.fasta" ] && \
+  	echo "$(basename "$d") $(grep -m1 'penalty:' "$d/primers.fasta" | sed 's/.*penalty: //')"
+  done | sort
+#+end_src
+
+afa 0.081784  afi 0.039887
+ahy 0.017650  ame 0.000142
+bap 8.964893  bbi 0.010189
+bdi 0.037811  bfa 0.021443
+bfr 0.041842  blo 0.157311
+bma 0.650174  bpa 5.323928
+bpe 0.138994  bps 0.203670
+cac 0.009353  cau 0.000142
+cbu 0.002668  cdi 9.727346
+cgl 0.019020  cje 0.039228
+cpn 0.012210  cte 0.005850
+dra 0.010782  dtu 0.017354
+dvu 0.008940  ecl 0.026838
+fps 0.010782  gsu 0.038281
+gvi 0.002096  hin 2.830702
+kvu 0.004155  lac 0.040998
+lin 0.040067  lpn 0.269486
+lsa 0.109407  mab 0.657262
+mci 0.007534  mfl 0.467511
+mle 0.008141  msm 0.032344
+mth 0.000142  ngo 0.073559
+nme 0.394294  rba 0.000142
+rru 0.000760  sag 0.006176
+sco 0.010538  sdy 0.063841
+sep 2.823737  spy 0.021334
+ssa 1.533192  tac 0.009481
+tma 0.105445  tth 4.967392
+tye 0.005411  vpa 1.446570
+xca 0.096745  yen 0.005424
+ype 0.049010
+
+
+*** split percentages for each taxa
+**** old results
+By looking at the split percentages for each of the 110 taxa with genomes available, I
+can infer the error rate of the taxonomical information in the NCBI. The majority of
+the taxa, 61, had a perfect split of 100%. The lowest split percentage was 69.2% for
+Vibrio cholerae, where the target clade consists of the entire phylogenetic tree, hence
+the neighbors could not be distinguished from the targets. This happens twice more for
+Bacillus subtilis and Klebsiella pneumoniae, who have a split score of 78.2% and 90.2%,
+respectively. Figure 3.19 shows the distribution of the split as a function of the number of
+available genomes for each organism.(taken from Beatriz's thesis)
+
+all results
+#+begin_src bash
+   cd analysis
+   for d in */; do
+       if [ -f "$d/all.nwk" ]; then
+   	split=$(fintac "$d/all.nwk"| tail -n +2 | sort -n | awk '{print $5}')
+   	echo "$d $split"
+       fi
+   done | sort -nk2
+#+end_src
+
+
+taxa that have 100% split
+#+begin_src bash
+  for d in */; do
+      if [ -f "$d/all.nwk" ]; then
+          split=$(fintac "$d/all.nwk" | tail -n +2 | sort -n | awk '{print $5}')
+
+          if [ "$split" = "100.00" ]; then
+              echo "$d $split"
+          fi
+      fi
+  done | wc -l
+#+end_src
+51 of them had 100% split
+
+worst 3 taxa:
+- vch %66.67
+- psy1 %80.00
+- bce %82.47
+
+
+"Generally speaking, taxa with more genomes had a better split, but there are some ex-
+ceptions. One of these exceptions is Salmonella enterica, marked in red in Figure 3.19.
+Despite having 1201 genomes, the split score is relatively low, 93.3%, compared to the
+other taxa." Now we do not even have markers
+
+
+*** markers
+
+#+begin_src bash
+  find . -name markers.fasta | wc -l
+#+end_src
+93 taxa have marker
+
+total markers
+#+begin_src bash
+for d in */; do
+    [ -f "$d/markers.fasta" ] || continue
+    grep -c '^>' "$d/markers.fasta"
+done | awk '{s+=$1} END{print s}'
+#+end_src
+
+"After splitting the downloaded genomes into target and neighbor sets, I run Fur to search
+for marker regions. As mentioned above, I could find at least one marker region for 96
+of the taxa, with the number of detected marker regions varying widely. Figure 3.21A
+shows the distribution of the number of markers found for each taxon. On average, 420
+marker regions are detected across all organisms, but less than 111 marker regions could
+be detected for half of them."
+
+Back then rru had 5376 marker regions, now it has 1489
+sco now has the highest number of the marker regions which is 3738
+
+
+the longest marker region was 41.5 kb long and it belonged rba
+now the longest marker region is 64.3 kb long and within rru
+#+begin_src bash
+for d in */; do
+    [ -f "$d/markers.fasta" ] || continue
+
+    awk -v tax="$d" '
+    /^>/{
+        if(len>max) max=len
+        len=0
+        next
+    }
+    {len+=length($0)}
+    END{
+        if(len>max) max=len
+        print tax,max
+    }' "$d/markers.fasta"
+
+done | sort -k2 -n | tail -1
+#+end_src
+
+
+
+*** primers
+74 primer pairs
+
+lengths of the primers:
+#+begin_src bash
+  grep -h -v '^>' */primers.fasta | awk '{print length}' | sort | uniq -c
+#+end_src
+      1 17
+      1 18
+      4 19
+    135 20
+      3 21
+      1 22
+      2 24
+      1 25
+
+biggest percentage of the priers have 20 bps
+
+
+minimum penalty:
+#+begin_src bash
+  grep -h "penalty:" */primers.fasta | awk '{print $3}' | sort -n | head -1
+#+end_src
+0.000142
+
+
+maximum penalty:
+#+begin_src bash
+  grep -h "penalty:" */primers.fasta | awk '{print $3}' | sort -n | tail -1
+#+end_src
+9.727346
+
+
+average penalty:
+#+begin_src bash
+  grep -h "penalty:" */primers.fasta | awk '{s+=$3} END{print s/NR}'
+#+end_src
+0.623132
+
+the taxa which have the lowest penalty:
+#+begin_src bash
+  for d in */; do
+      [ -f "$d/primers.fasta" ] || continue
+      echo "$(grep 'penalty:' "$d/primers.fasta" | awk '{print $3}') $d"
+  done | sort -n | head -1
+#+end_src
+0.000142 ame/
+same result as before
+
+
+the taxa which have the highest penalty:
+#+begin_src bash
+  for d in */; do
+      [ -f "$d/primers.fasta" ] || continue
+      echo "$(grep 'penalty:' "$d/primers.fasta" | awk '{print $3}') $d"
+  done | sort -n | tail    
+#+end_src
+5.323928 bpa/
+8.964893 bap/
+9.727346 cdi/
+bpa was the worst before, now we have bap and cdi as well
+
+
+#+begin_src bash
+for d in */; do
+    if [ -f "$d/scop.out" ]; then
+        echo "$d"
+    fi
+done
+
+#+end_src
+
+
+
+
+
+
+
+
+*** anam.sh
+
+we need to make some changes in the code so that it will continue looping
+before:
+#+begin_src bash
+  if [[ $assembly == "" ]]; then
+      continue
+#+end_src
+
+after:
+#+begin_src bash
+  if [[ $assembly == "" ]]; then
+      cd -
+      continue
+#+end_src
+
+
+i ran the script:
+#+begin_src bash
+  bash ../scripts/anam.sh < ../data/list.txt
+#+end_src
+
+**** Results
+
+Only two taxa have anam.txt
+
+bfa:
+#Annotation for interval (1329064, 1329155)
+
+CP001643.1	Genbank	region	1	3614992	.	+	.	ID=CP001643.1:1..3614992;
+Dbxref=taxon:446465;Is_circular=true;Name=ANONYMOUS;culture-collection=NCIMB:9860;gbkey=Src;
+genome=chromosome;mol_type=genomic DNA;note=type strain of Brachybacterium faecium DSM 4810;
+strain=DSM 4810;type-material=type strain of Brachybacterium faecium
+
+CP001643.1	Genbank	gene	1328670	1329350	.	-	.	ID=gene-Bfae_11720;
+Name=Bfae_11720;gbkey=Gene;gene_biotype=protein_coding;locus_tag=Bfae_11720
+
+CP001643.1	Genbank	CDS	1328670	1329350	.	-	0	ID=cds-ACU85018.1;
+Parent=gene-Bfae_11720;Dbxref=NCBI_GP:ACU85018.1;Name=ACU85018.1;gbkey=CDS;locus_tag=Bfae_11720;
+product=hypothetical protein;protein_id=ACU85018.1;transl_table=11
+
+hin:
+#Annotation for interval (1149673, 1149822)
+L42023.1        Genbank region  1       1830138 .       +       .       ID=L42023.1:1..1830138;
+Dbxref=taxon:71421;Is_circular=true;Name=ANONYMOUS;gbkey=Src;genome=chromosome;mol_type=genomic DNA;
+old-name=Haemophilus influenzae Rd;strain=Rd KW20
+
+L42023.1        Genbank gene    1149653 1150297 .       -       .       ID=gene-HI_1084;Name=HI_1084;
+Note=HI1084;gbkey=Gene;gene_biotype=protein_coding;locus_tag=HI_1084
+
+L42023.1        Genbank CDS     1149653 1150297 .       -       0       ID=cds-AAC22740.1;
+Parent=gene-HI_1084;Dbxref=NCBI_GP:AAC22740.1;Name=AAC22740.1;
+Note=similar to SP:P45390 PID:606130 GB:U00096 PID:1789583 percent identity: 42.03%3B identified by sequence similarity%3B putative;
+gbkey=CDS;locus_tag=HI_1084;product=conserved hypothetical protein;protein_id=AAC22740.1;transl_table=11
