@@ -1,0 +1,33 @@
+"Fur [11, 12] combines targeted genomic subtraction and stringent intersection
+methods to discover unique genomic regions. However, it struggles with highly
+divergent target genomes and/or similar background genomes, and may produce
+few or no candidate signatures. "
+
+They use pan genome minimizer graph:
+
+Instead of mapping an individual's DNA to a single linear "reference genome",
+a pan genome captures the collective genetic diversity of an entire species
+or population. It accounts for all the core genes present in every example and
+the accessory genome (present in only some individuals).
+
+Minimizers are an effective approach to reduce the data complexity and volume
+that needs to be dealt with by genomics methods to efficiently utilize or
+simply query information. This is achieved by creating “sketches” of sequences
+that occupy less space compared to the sequences themselves.
+
+Massive Scalability: It allows researchers to easily map massive datasets
+(e.g., hundreds of thousands of bacterial or human genomes) into a data
+structure that takes up just gigabytes instead of terabytes of memory.
+Improved Accuracy: By using a graph instead of a single reference genome,
+researchers reduce bias, more easily identify complex structural variants
+(like large insertions, deletions, or inversions), and improve the speed of
+mapping sequencing data.
+Tooling: This approach forms the mathematical basis for popular modern
+genomics tools like Minigraph-Cactus and minimizer-space de Bruijn graphs.
+
+Seqwin builds minimizer adjacency graphs (edges reflect
+consecutive minimizers along genomes) for comparative analyses.
+
+Compared to Fur, Seqwin identified more signatures with comparable running
+time and peak memory (Tables S1 and 2). Fur produced zero signatures in
+several experiments, most likely due to its stringent search strategy.
