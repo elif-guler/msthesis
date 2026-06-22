@@ -29,7 +29,7 @@ approximation results
 
 * TaxID and Parent TaxID Analysis
 
-for each strain in the approximationlist.txt, the corresponding taxid
+for each strain in the newlist.txt, the corresponding taxid
 was retrieved using the taxi. the parent taxid is then obtained from the
 taxon table in neidb. the number of genomes associated with both the strain
 and its parent was determined using the supplied sql query.
