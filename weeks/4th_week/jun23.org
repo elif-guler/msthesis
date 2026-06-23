@@ -343,3 +343,24 @@ tde
 
 
 i will run the full analysis on these taxa again
+#+begin_src bash
+  ../scripts/driver.sh -n ../data/neidb < ../data/newlist_failed.txt
+#+end_src
+
+from 23, 12 of them now generated primers.fasta:
+#+begin_src bash
+  find . -name primers.fasta
+#+end_src
+
+bbr
+bbu
+eco4
+eco5
+kae
+lmo
+ppu
+sfr
+smi
+sru
+ssu
+tde
