@@ -1,0 +1,188 @@
+from the table we constructed yesterday, I can check which taxa can be good candidates to answer this
+question: is moving from the target strain to the parent (to be used in neighbors tool) meaningful?
+
+#+begin_src bash
+  echo -e "strain\tparent_id\tparent_rank"
+
+  while read line
+  do
+      code=$(echo "$line" | cut -f1)
+      strain=$(echo "$line" | cut -f3)
+
+      pid=$(taxi "$strain" neidb |
+                tail -n 1 |
+                awk '{print $2}')
+
+      prank=$(ants $pid neidb |
+                  tail -n 1 |
+                  awk '{print $NF}')
+
+      echo -e "$code\t$pid\t$prank"
+
+  done < newlist.txt
+
+#+end_src
+
+| strain | parent_id | parent_rank |
+| afi    |       668 | species     |
+| ahy    |    196023 | subspecies  |
+| ame    |     33910 | species     |
+| api    |     48296 | species     |
+| ban1   |      1392 | species     |
+| ban2   |      1392 | species     |
+| bap    |    118099 | specialis   |
+| bbi    |      1681 | species     |
+| bbr    |       518 | species     |
+| bbu    |       139 | species     |
+| bce    |      1396 | species     |
+| bdi    |   1355477 | species     |
+| bfr    |       817 | species     |
+| blo    |    216816 | species     |
+| bma    |     13373 | species     |
+| bpa    |       519 | species     |
+| bpe    |       520 | species     |
+| bps    |     28450 | species     |
+| bsu    |    135461 | subspecies  |
+| bth1   |       818 | species     |
+| bth2   |    180856 | rank        |
+| cbo1   |     36826 | rank        |
+| cbo2   |     36826 | rank        |
+| cbu    |       777 | species     |
+| cdi    |      1496 | species     |
+| cgl    |      1718 | species     |
+| cje    |     32022 | subspecies  |
+| cpn    |     83558 | species     |
+| ctr1   |       813 | species     |
+| ctr2   |    471472 | strain      |
+| cvi1   |    155892 | species     |
+| cvi2   |    155892 | species     |
+| ecl    |    336306 | subspecies  |
+| eco1   |     83334 | rank        |
+| eco2   |    685037 | rank        |
+| eco3   |   1038927 | rank        |
+| eco4   |       562 | species     |
+| eco5   |       562 | species     |
+| eco6   |     83333 | strain      |
+| efa1   |      1351 | species     |
+| efa2   |      1352 | species     |
+| fnu    |     76856 | subspecies  |
+| fps    |     96345 | species     |
+| ftu    |    177416 | strain      |
+| gsu    |     35554 | species     |
+| gva    |      2702 | species     |
+| hin    |       727 | species     |
+| hpy    |       210 | species     |
+| kae    |       548 | species     |
+| kpn    |     72407 | subspecies  |
+| kvu    |     92945 | species     |
+| lac    |      1579 | species     |
+| lin    |     57678 | rank        |
+| lla    |      1360 | subspecies  |
+| lmo    |      1639 | species     |
+| lpn    |     91891 | subspecies  |
+| mab    |     36809 | species     |
+| mci    |    278148 | rank        |
+| mle    |      1769 | species     |
+| mmy    |     44101 | strain      |
+| msm    |      1772 | species     |
+| mtu1   |      1773 | species     |
+| mtu2   |      1765 | biotype     |
+| ngo    |       485 | species     |
+| nme    |       491 | serogroup   |
+| pae    |    208964 | strain      |
+| ppu    |       303 | species     |
+| psy1   |       323 | rank        |
+| psy2   |       321 | rank        |
+| rpr    |       782 | species     |
+| rru    |      1085 | species     |
+| sag    |    216466 | serogroup   |
+| sau    |      1280 | species     |
+| sco    |      1902 | species     |
+| sdy    |       622 | species     |
+| sen1   |    488338 | rank        |
+| sen2   |     90370 | rank        |
+| sep    |      1282 | species     |
+| sfl    |     42897 | serotype    |
+| sfr    |       380 | species     |
+| sme1   |       382 | species     |
+| sme2   |    110321 | species     |
+| smi    |     28037 | species     |
+| smu    |      1309 | species     |
+| son1   |     70863 | species     |
+| spn2   |      1313 | species     |
+| spy    |    301447 | serotype    |
+| sru    |    146919 | species     |
+| ssa    |      1305 | species     |
+| ssu    |      1307 | species     |
+| tde    |       158 | species     |
+| tma    |      2336 | species     |
+| tth    |       274 | species     |
+| tye    |     28262 | species     |
+| vch    |       686 | rank        |
+| vpa    |       670 | species     |
+| xca    |       340 | rank        |
+| yen    |    150052 | subspecies  |
+| ype    |       632 | species     |
+
+
+
+
+
+
+
+in the previous genomes.sh, the relevant part is as follows:
+
+#+begin_src bash
+  mkdir $dir
+  cd $dir
+  db="../$db"
+  tid=$(taxi "$strain" $db |
+            tail -n +2 |
+            awk '{print $2}')
+  echo $tid |
+      neighbors -l $db > acc.txt
+  for a in t n; do
+      grep ^${a} acc.txt |
+          awk '{print $2}' > ${a}acc.txt
+  done
+#+end_src
+
+now we changed it to:
+
+#+begin_src bash
+  mkdir $dir
+  cd $dir
+  db="../$db"
+  pid=$(taxi "$strain" $db |
+            tail -n +2 |
+            awk '{print $2}')
+  target=$pid
+  if [[ "$pr" == "species" ]]; then
+      target=$(taxi "$strain" $db |
+                   tail -n +2 |
+                   awk '{print $1}')
+  fi
+  
+  for a in t n; do
+    grep ^${a} acc.txt |
+          awk '{print $2}' > ${a}acc.txt
+  done
+
+
+#+end_src
+
+
+
+we forgot to add the correct way of writing the code block
+#+begin_src sh <<Get genome accessions, Pr. \ref{pr:gen}>>=
+  pr=$(ants $pid $db |
+           tail -n 1 |
+           awk '{print $NF}')
+#+end_src
+
+and we deleted this one while rewriting the parts
+#+begin_src sh <<Get genome accessions, Pr. \ref{pr:gen}>>=
+  echo $target |
+      neighbors -l $db > acc.txt
+#+end_src
+

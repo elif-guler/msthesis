@@ -1,0 +1,110 @@
+from the table we constructed yesterday, I can check which taxa can be good candidates to answer this
+question: is moving from the target strain to the parent (to be used in neighbors tool) meaningful?
+
+some examples can be checked:
+
+
+these strains should be examined individually because the current genomes.sh uses the parent taxon
+as the target. specifically for eco4 and eco5, the parent taxon contain thousands of genomes, making
+the distinction between targets and neighbors very stringent.
+
+| strain |   taxid | number_of_taxid | parent_taxid | number_of_parent_taxid |
+|---------+---------+-----------------+--------------+------------------------|
+| eco1    |  386585 |               1 |        83334 |                    164 |
+| eco2    |  685038 |               1 |       685037 |                      0 |
+| eco3    | 1133852 |               1 |      1038927 |                      6 |
+| eco4    |  585056 |               1 |          562 |                   8084 |
+| eco5    |  585057 |               1 |          562 |                   8084 |
+| eco6    |  511145 |              30 |        83333 |                     24 |
+
+
+below, we have very close numbers for parent and the target strain so I can take a look at how these
+change between two different versions of genomes.sh
+
+| strain | taxid | number_of_taxid | parent_taxid | number_of_parent_taxid |
+|---------+---------+-----------------+--------------+------------------------|
+| ame | 749927 | 1 | 33910 | 1 |
+| ahy | 380703 | 1 | 196023 | 2 |
+| cbo1 | 413999 | 1 | 36826 | 1 |
+| cbo2 | 441771 | 1 | 36826 | 1 |
+| mci | 765698 | 1 | 278148 | 1 |
+| mle | 272631 | 1 | 1769 | 1 |
+| rpr | 272947 | 1 | 782 | 1 |
+| rru | 269796 | 1 | 1085 | 1 |
+| fnu | 190304 | 6 | 76856 | 4 |
+| tma | 243274 | 4 | 2336 | 3 |
+
+
+here, the parents have zero genomes, i don't know how their results are constructed. so i can check
+these as well.
+
+| strain | taxid | number_of_taxid | parent_taxid | number_of_parent_taxid |
+|---------+---------+-----------------+--------------+------------------------|
+| bap | 107806 | 2 | 118099 | 0 |
+| bth2 | 281309 | 1 | 180856 | 0 |
+| eco2 | 685038 | 1 | 685037 | 0 |
+| lin | 189518 | 1 | 57678 | 0 |
+| mmy | 272632 | 1 | 44101 | 0 |
+| nme | 122586 | 1 | 491 | 0 |
+| sag | 208435 | 1 | 216466 | 0 |
+| son1 | 211586 | 2 | 70863 | 0 |
+| spy | 160490 | 2 | 301447 | 0 |
+| tye | 289376 | 1 | 28262 | 0 |
+
+
+in the previous genomes.sh, the relevant part is as follows:
+
+#+begin_src bash
+  mkdir $dir
+  cd $dir
+  db="../$db"
+  tid=$(taxi "$strain" $db |
+            tail -n +2 |
+            awk '{print $2}')
+  echo $tid |
+      neighbors -l $db > acc.txt
+  for a in t n; do
+      grep ^${a} acc.txt |
+          awk '{print $2}' > ${a}acc.txt
+  done
+#+end_src
+
+now we changed it to:
+
+#+begin_src bash
+  mkdir $dir
+  cd $dir
+  db="../$db"
+  pid=$(taxi "$strain" $db |
+            tail -n +2 |
+            awk '{print $2}')
+  target=$pid
+  if [[ "$pr" == "species" ]]; then
+      target=$(taxi "$strain" $db |
+                   tail -n +2 |
+                   awk '{print $1}')
+  fi
+  
+  for a in t n; do
+    grep ^${a} acc.txt |
+          awk '{print $2}' > ${a}acc.txt
+  done
+
+
+#+end_src
+
+
+
+we forgot to add the correct way of writing the code block
+#+begin_src sh <<Get genome accessions, Pr. \ref{pr:gen}>>=
+  pr=$(ants $pid $db |
+           tail -n 1 |
+           awk '{print $NF}')
+#+end_src
+
+and we deleted this one while rewriting the parts
+#+begin_src sh <<Get genome accessions, Pr. \ref{pr:gen}>>=
+  echo $target |
+      neighbors -l $db > acc.txt
+#+end_src
+
