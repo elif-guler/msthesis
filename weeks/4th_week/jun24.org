@@ -1,0 +1,173 @@
+#+begin_src bash
+  date
+  ../scripts/driver.sh -n ../data/neidb -c -b /ssd01/Nt/nt < ../data/newlist_failed.txt
+  date
+
+  nohup bash check_primers.sh > check_p.log &
+#+end_src
+
+we still do not get cops.out with the new list. newlist_failed.txt contains 23 strain that i checked
+yesterday. (the ones that failed while generating primers in the old version and have species as their
+parents)
+
+
+#+begin_src bash
+  find . -name scop.out -exec sh -c '
+  for f; do
+      echo "$f"
+      grep -E "^(Sensitivity|Specificity):" "$f"
+      echo
+  done
+  ' sh {} +
+#+end_src
+
+I checked if there's any difference between the new and old approach on a strain that has a
+subspecies ranked parent. (ecl)
+the results were the same in terms of its primers generated as expected. scop.out is identical
+as well. I couldnt generate cops.out but it should also be the same.
+
+then i checked newlist_failed.txt. since 12 of them now have primers.fasta in the new version, i
+could also have scop.out files for them
+(again no cops.out is generated. we might still have a problem with the section where cops.out
+is generated in primers.sh. leafLabel stays undefined in the code block.)
+
+
+#+begin_src bash
+./lmo/scop.out
+Sensitivity:	0.00768
+Specificity:	1
+
+./sfr/scop.out
+Sensitivity:	0.0909
+Specificity:	1
+
+./tde/scop.out
+Sensitivity:	0.261
+Specificity:	0.857
+
+./eco4/scop.out
+Sensitivity:	0.0017
+Specificity:	0.27
+
+./sru/scop.out
+Sensitivity:	0.222
+Specificity:	1
+
+./eco5/scop.out
+Sensitivity:	0.00407
+Specificity:	1
+
+./kae/scop.out
+Sensitivity:	0.0471
+Specificity:	1
+
+./ssu/scop.out
+Sensitivity:	0.00617
+Specificity:	0.5
+
+./bbr/scop.out
+Sensitivity:	0.245
+Specificity:	0.117
+
+./ppu/scop.out
+Sensitivity:	0.37
+Specificity:	0.952
+
+./smi/scop.out
+Sensitivity:	0.333
+Specificity:	0.667
+
+./bbu/scop.out
+Sensitivity:	0.184
+Specificity:	1
+#+end_src
+
+sensitivity is low for all of them, and 7 out of 12 have more than 0.9 specifity. since ecl's primers
+didn't change as its parent is not a species, running the analysis again for all the list may not
+give promising results.
+
+
+
+
+
+!! make the changes on primers.sh
+!! read prim documentation (especially cops and scop)
+!! check the 12 examples' scop results and see if there's any biological explanation
+
+
+
+
+
+*** another idea (maybe check later)
+
+i can check the species that didn't fail to generate primers in the previous version and have
+parents that are on the species level.
+
+#+begin_src bash
+  while IFS=$'\t' read -r code acc strain
+  do
+      pid=$(taxi "$strain" ../data/neidb |
+                tail -n 1 |
+                awk '{print $2}')
+
+      prank=$(ants "$pid" ../data/neidb |
+                  tail -n 1 |
+                  awk '{print $NF}')
+
+      if [[ "$prank" == "species" ]]
+      then
+          echo "$code"
+      fi
+  done < ../data/list.txt | sort > species_parent.txt
+
+  find . name primers.fasta |
+      cut -d/ -f2 |
+      sort > old_primers.txt
+
+  comm -12 old_primer.txt species_parent.txt
+#+end_src
+
+these are the ones i will be checking now:
+afi
+ame
+ban2
+bbi
+bdi
+bfr
+blo
+bma
+bpa
+bpe
+bps
+bth1
+cbu
+cdi
+cgl
+cpn
+ctr1
+cvi1
+cvi2
+efa1
+efa2
+fps
+gsu
+hin
+kvu
+lac
+mab
+mle
+msm
+mth
+ngo
+rru
+sco
+sdy
+sep
+sme2
+son1
+ssa
+tma
+tth
+tye
+vpa
+ype
