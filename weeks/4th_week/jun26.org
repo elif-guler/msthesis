@@ -1,0 +1,100 @@
+in the primer checking step, for the newly obtained 12 primers from the taxa that failed before, we got
+really low sensitivity scores for all the primers and some of them also have low specificity score.
+
+to obtain correct sensitivity scores, i changed primers.sh such that it will check whether target
+strain's parent is on the species level or not (same logic as we did in genomes.sh):
+#+begin_src bash
+  pid=$(taxi "$strain" $ndb |
+            tail -n +2 |
+            awk '{print $2}')
+
+  pr=$(ants $pid $ndb |
+           tail -n 1 |
+           awk '{print $NF}')
+
+  target=$pid
+
+  if [[ "$pr" == "species" ]]; then
+      target=$(taxi "$strain" $ndb |
+                   tail -n +2 |
+                   awk '{print $1}')
+  fi
+#+end_src
+
+after that i run the script below again:
+#+begin_src bash
+  date
+../scripts/driver.sh -n ../data/neidb -c -b /ssd01/Nt/nt < ../data/newlist_failed.txt
+  date
+#+end_src
+
+** scop and cops
+
+in scop:
+input:
+- one or more primers intended for one reaction mix
+- a set of target taxon ids
+- blast database linked to the ncbi taxonomy
+
+output:
+- sensitivity: Tp/(Tp + Fn)
+- specificity: Tp/(Tp + Fp)
+  
+it basically finds whether the relevant primer actually generate a PCR amplicon in the
+genomes of the target organisms or not. if so, in which genomes does it produce one,
+and does it also generate one in non-target genomes?
+
+here, we assume that the taxonomy is correct for the data we use from blast. but
+there will be cases that it's not. so we use cops in that case
+
+in cops:
+input:
+- the output of scop ( true positives, false positives, false negatives)
+- reference accession taken from blast
+- treshold distance (ex. if its 0.002, we will put the relevant example in the same
+  group with reference genome if the difference is less then 0.2%)
+
+phylonium calculates the distance of the genomes to their reference. by looking at the
+distance results, it decides whether it should stay in the category that scop calculated
+or not.
+
+normally it doesn't check true positives but if we put -p flag it check them as well.
+if the distance is bigger than the treshold that it puts TP to FP category.
+
+in the end it generates the new list and calculates sensitivity and specificity again.
+
+
+
+the full analysis with the new genomes.sh and primers.sh is not finished yet, but we
+can see the pattern from the results obtained for now:
+
+#+begin_src bash
+  ./lmo/scop.out
+Sensitivity:	0.214
+Specificity:	0.75
+
+./eco4/scop.out
+Sensitivity:	1
+Specificity:	0.027
+
+./eco5/scop.out
+Sensitivity:	1
+Specificity:	0.0417
+
+./kae/scop.out
+Sensitivity:	1
+Specificity:	0.25
+
+./bbr/scop.out
+Sensitivity:	0
+Specificity:	0
+
+./bbu/scop.out
+Sensitivity:	0.5
+Specificity:	0.143
+
+#+end_src
+
+this time, their sensitivity is increased but specificity is decreased dramatically.
+maybe next week we can apply the new version on another taxon that already had primers
+before and check if it gives better results with the new version or not.
