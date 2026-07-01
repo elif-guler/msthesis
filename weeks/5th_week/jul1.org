@@ -1,0 +1,192 @@
+we made some changes in the dev branch
+
+** changes with the genomes.sh
+
+before, genomes.sh needed 4 options, now it takes 5 options, with the addition of -a flag.
+here, we need to have the accession of type strain. this is later going to be used to look
+up the genome accession corresponding to the type sequence accession using Entrez. (typeAcc)
+
+then we added the block below to check if tacc.txt contains the genome of the type strain.
+if we do not have a match, we add the typeAcc to the tacc.txt
+
+#+begin_src bash
+  typeAcc=""
+  typeAcc=$(elink -db nuccore \
+  		-id $acc \
+  		-target assembly|esummary|xtract \
+  		-pattern DocumentSummary \
+  		-element Genbank)
+  match=$(grep $typeAcc acc.txt)
+  if [[ ! $match ]]; then
+      echo $typeAcc >> tacc.txt
+  fi
+#+end_src
+
+
+** changes with the primers.sh
+
+similar to the change we did in genomes.sh, we again check whether the target's parent is on the
+species level or not. according to that, our target changes between target strain and parent
+
+#+begin_src bash
+  pid=$(taxi "$strain" $ndb |
+            tail -n +2 |
+            awk '{print $2}')
+
+  pr=$(ants $pid $ndb |
+           tail -n 1 |
+           awk '{print $NF}')
+
+  target=$pid
+
+  if [[ "$pr" == "species" ]]; then
+      target=$(taxi "$strain" $ndb |
+                   tail -n +2 |
+                   awk '{print $1}')
+  fi
+#+end_src
+
+according to these changes, we added the new flag of genomes.sh to driver.sh as well.
+#+begin_src bash
+  bash ../scripts/genomes.sh -t "$type" -a "$acc" \
+     -d $dir -n $ndb
+#+end_src
+
+i also added the dependencies assembly_summary_genbank.txt and assembly_summary_refseq.txt to
+the Makefile of data directory
+#+begin_src bash
+  newNeidb: taxdump.tar.gz prokaryotes.txt eukaryotes.txt viruses.txt \
+        assembly_summary_genbank.txt assembly_summary_refseq.txt
+  	test ! -f neidb || rm neidb
+  	makeNeiDb
+  assembly_summary_genbank.txt:
+	wget https://ftp.ncbi.nlm.nih.gov/genomes/ASSEMBLY_REPORTS/assembly_summary_genbank.txt
+
+  assembly_summary_refseq.txt:
+	wget https://ftp.ncbi.nlm.nih.gov/genomes/ASSEMBLY_REPORTS/assembly_summary_refseq.txt	
+#+end_src
+we need to change the neidb since the cloud data is not functional anymore.
+
+
+the taxa below were the ones that have their parent as species, and failed to generate primers
+with the old version. again, 2 of them did not generate any primers. the ones with the primers
+now have both scop and cops results
+
+#+begin_src bash
+=== bbr/ ===
+scop.out
+Sensitivity:	0.245
+Specificity:	0.117
+cops.out
+Sensitivity:	0.817
+Specificity:	1
+
+=== bbu/ ===
+scop.out
+cops.out
+
+=== eco4/ ===
+scop.out
+cops.out
+
+=== eco5/ ===
+scop.out
+Sensitivity:	0.00407
+Specificity:	1
+cops.out
+Sensitivity:	1
+Specificity:	1
+
+=== kae/ ===
+scop.out
+Sensitivity:	0.0471
+Specificity:	1
+cops.out
+Sensitivity:	0.2
+Specificity:	1
+
+=== lmo/ ===
+scop.out
+Sensitivity:	0.00768
+Specificity:	1
+cops.out
+
+=== ppu/ ===
+scop.out
+Sensitivity:	0.37
+Specificity:	0.952
+cops.out
+Sensitivity:	0.955
+Specificity:	1
+
+=== sfr/ ===
+scop.out
+Sensitivity:	0.0909
+Specificity:	1
+cops.out
+Sensitivity:	0.111
+Specificity:	1
+
+=== smi/ ===
+scop.out
+Sensitivity:	0.333
+Specificity:	0.667
+cops.out
+Sensitivity:	0.75
+Specificity:	0.667
+
+=== sru/ ===
+scop.out
+Sensitivity:	0.222
+Specificity:	1
+cops.out
+Sensitivity:	0.4
+Specificity:	1
+
+=== ssu/ ===
+scop.out
+Sensitivity:	0.00617
+Specificity:	0.5
+cops.out
+Sensitivity:	0.1
+Specificity:	0.5
+
+=== tde/ ===
+scop.out
+Sensitivity:	0.261
+Specificity:	0.857
+cops.out
+Sensitivity:	1
+Specificity:	0.857
+#+end_src
+
+now that i tried with the toy analysis everthing is working fine, i will do the full analysis run
+on the 120 taxa once again.
+
+#+begin_src bash
+elif@thymine:~/ch_mapro/mapro/analysis$ bash exampleChecking.sh 
+Analyzing aae Aquifex aeolicus VF5
+Analyzing ecl Enterobacter cloacae subsp. cloacae ATCC 13047
+typeAcc: CP001918.1
+a: targets/tGCA_000025565.1_ASM2556v1_genomic.fna
+leafLabel: tGCA_000025565.1_ASM2556v1_genomic.fna
+elif@thymine:~/ch_mapro/mapro/analysis$ ls
+aae  ecl  exampleChecking.sh  examplePrimers.sh
+elif@thymine:~/ch_mapro/mapro/analysis$ cd ecl
+elif@thymine:~/ch_mapro/mapro/analysis/ecl$ cat scop.out 
+PrimerSet:	primers.fasta
+Sensitivity:	0.5
+Specificity:	0.167
+TruePositives:	CP083821.1 CP130342.1
+FalsePositives:	CP078537.1 CP078538.1 CP078539.1 CP085080.1 CP092042.1 CP092635.1 CP103611.1 CP104836.1 CP135475.1 OW968328.1
+FalseNegatives:	AP018340.1 CP001918.1
+elif@thymine:~/ch_mapro/mapro/analysis/ecl$ cat cops.out 
+PrimerSet:	primers.fasta
+Sensitivity:	0.923
+Specificity:	1
+TruePositives:	CP078537.1 CP078538.1 CP078539.1 CP083821.1 CP085080.1 CP092042.1 CP092635.1 CP103611.1 CP104836.1 CP130342.1 CP135475.1 OW968328.1
+FalseNegatives:	CP001918.1 0
+elif@thymine:~/ch_mapro/mapro/analysis/ecl$ 
+#+end_src
+
+
