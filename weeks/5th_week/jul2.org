@@ -1,0 +1,82 @@
+** full run results with new additions to the scripts (explained in yesterdays's notes)
+
+#+begin_src bash
+  bash ../scripts/driver.sh -n ../data/neidb < ../data/list.txt
+#+end_src
+
+the run stopped at: mth     CP000232.1      Moorella thermoacetica ATCC 39073
+
+#+begin_src bash
+  Error: No identifiers read from file: 'tacc.txt'
+       File should have 1 identifier per row and no spaces or quotes
+
+Use datasets download genome accession <command> --help for detailed help about a command.
+
+New version of client (18.32.0) available at https://ftp.ncbi.nlm.nih.gov/pub/datasets/command-line/LATEST/linux-amd64/datasets.
+Error: There are no genome assemblies that match your query.
+Please try again using different search criteria.
+
+
+Use datasets download genome accession <command> --help for detailed help about a command.
+
+ls: cannot access 'mth/targets/': No such file or directory
+ls: cannot access 'mth/neighbors': No such file or directory
+#+end_src
+
+i checked the reason by focusing on the new two code blocks in genomes.sh
+
+mth's parent is on the species level, so this makes some changes for the taxon with the new version
+#+begin_src bash
+elif@thymine:~/ch_mapro/mapro/data$ taxi "Moorella thermoacetica ATCC 39073" neidb
+# ID      Parent  Name
+  264732  1525    Moorella thermoacetica ATCC 39073
+elif@thymine:~/ch_mapro/mapro/data$ ants 1525 neidb
+# Back  ID       Name                       Rank
+  9     1        root                       no rank
+  8     131567   cellular organisms         cellular root
+  7     2        Bacteria                   domain
+  6     1783272  Bacillati                  kingdom
+  5     1239     Bacillota                  phylum
+  4     186801   Clostridia                 class
+  3     3039167  Neomoorellales             order
+  2     3039168  Neomoorellaceae            family
+  1     44260    Neomoorella                genus
+  0     1525     Neomoorella thermoacetica  species
+elif@thymine:~/ch_mapro/mapro/data$ 
+#+end_src
+
+
+the reason is that now we added the logic below, mth doesn't have any targets in tacc.txt, and have only
+one neighbor in nacc.txt. 
+#+begin_src bash
+pid=$(taxi "$strain" $db |
+            tail -n +2 |
+            awk '{print $2}')
+pr=$(ants $pid $db |
+           tail -n 1 |
+           awk '{print $NF}')
+target=$pid
+if [[ "$pr" == "species" ]]; then
+    target=$(taxi "$strain" $db |
+                tail -n +2 |
+                awk '{print $1}')
+fi
+neighbors -t $target -l $db > acc.txt
+for a in t n; do
+    grep ^${a} acc.txt |
+          awk '{print $2}' > ${a}acc.txt
+done
+#+end_src
+
+in addition to that, elink code block did not return any ids. so at the end we have an empty tacc.txt.
+#+begin_src bash
+  elink -db nuccore -id "CP000232.1" -target assembly |
+      esummary |
+      xtract -pattern DocumentSummary -element Genbank
+#+end_src
+
+
+we checked if it will work by putting the parent as a target, but the run stopped again. we couldnt find
+what is the real reason.
+
+now i try to run the analysis starting from the taxon after mth

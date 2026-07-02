@@ -190,3 +190,22 @@ elif@thymine:~/ch_mapro/mapro/analysis/ecl$
 #+end_src
 
 
+
+#+begin_src bash
+elif@thymine:~/ch_mapro/mapro/analysis/bbu$ cat scop.out 
+PrimerSet:	primers.fasta
+Sensitivity:	0.5
+Specificity:	0.143
+TruePositives:	AE000794.2
+FalsePositives:	CP019923.1 CP161196.1 CP179384.1 U76405.1 U84554.1 U84556.1
+FalseNegatives:	AE000783.1
+elif@thymine:~/ch_mapro/mapro/analysis/bbu$ cat cops.out 
+PrimerSet:	primers.fasta
+Sensitivity:	0.8
+Specificity:	0.571
+TruePositives:	AE000794.2 CP019923.1 CP161196.1 CP179384.1
+FalsePositives:	U76405.1 NaN U84554.1 NaN U84556.1 NaN
+FalseNegatives:	AE000783.1 0
+elif@thymine:~/ch_mapro/mapro/analysis/bbu$ 
+
+#+end_src
