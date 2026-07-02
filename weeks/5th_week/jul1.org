@@ -209,3 +209,8 @@ FalseNegatives:	AE000783.1 0
 elif@thymine:~/ch_mapro/mapro/analysis/bbu$ 
 
 #+end_src
+specifically for bbu, we got interesting results with cops. in this case, we checked the fasta files of
+false positives and they were giving zero match with the target strain.
+
+we noted that phylonim does not distinguish between a strain that is very far away from the target and
+a strain that does not exist.
