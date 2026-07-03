@@ -1,0 +1,97 @@
+* MAPRO Benchmark Pipeline (FUR vs Seqwin)
+
+This pipeline will be used to compare:
+- FUR-based marker discovery (current MAPRO version)
+- Seqwin-based marker discovery (new method replacing FUR)
+
+------------------------------------------------------------
+
+* Step 1: Input data
+- NCBI taxon name (type strain)
+- Type accession (reference genome)
+- Neighbor database (taxonomy + relationships)
+
+------------------------------------------------------------
+
+* Step 2: Genome collection (genomes.sh)
+- Download target genomes (same species/subspecies)
+- Download neighbor genomes (closest relatives)
+- Output:
+  - targets/
+  - neighbors/
+  - all/ (combined genomes)
+  - all.nwk (phylogenetic tree)
+
+------------------------------------------------------------
+
+* Step 3: Tree building
+- Build phylogenetic tree from all genomes
+- Identify:
+  - target clade
+  - neighbor clade
+- Output:
+  - all.nwk
+
+------------------------------------------------------------
+
+* Step 4: Marker discovery (this part is the important comparison step)
+
+** MAPRO baseline (FUR version)
+- Input: targets + neighbors
+- Tool:
+  - makeFurDb
+  - fur
+- Output:
+  - markers.fasta
+
+** Seqwin version (REPLACEMENT TEST)
+- Replace fur with seqwin
+- Input: same targets + neighbors genomes
+- Output:
+  - signatures.fasta (equivalent of markers.fasta)
+
+compare signatures.fasta and markers.fasta at this step
+
+------------------------------------------------------------
+
+* Step 5: Primer design (primers.sh)
+- Input: markers.fasta (or Seqwin signatures converted to same format)
+- Tool:
+  - primer3
+- Output:
+  - primers.fasta
+
+------------------------------------------------------------
+
+* Step 6: Primer evaluation (scop + cops)
+- Input: primers.fasta + BLAST database
+
+Outputs:
+- scop.out (raw evaluation)
+- cops.out (corrected evaluation)
+
+Extract metrics:
+- Sensitivity
+- Specificity
+
+------------------------------------------------------------
+
+* Step 7: Annotation (anam.sh)
+- Input: primers + genome + GFF
+- Output:
+  - anam.txt (amplicon annotation)
+
+------------------------------------------------------------
+
+* What can we compare
+
+Between FUR and Seqwin:
+
+1. Marker/signature quality
+   - how many taxa successfully produce markers
+   - number of valid signatures
+   - distribution of penalties
+
+2. Discrimination performance
+   - sensitivity (from scop/cops)
+   - specificity (from scop/cops)
