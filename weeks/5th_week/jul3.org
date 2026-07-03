@@ -1,4 +1,4 @@
-* MAPRO Benchmark Pipeline (FUR vs Seqwin)
+** MAPRO Benchmark Pipeline (FUR vs Seqwin)
 
 This pipeline will be used to compare:
 - FUR-based marker discovery (current MAPRO version)
@@ -6,14 +6,14 @@ This pipeline will be used to compare:
 
 ------------------------------------------------------------
 
-* Step 1: Input data
+*** Step 1: Input data
 - NCBI taxon name (type strain)
 - Type accession (reference genome)
 - Neighbor database (taxonomy + relationships)
 
 ------------------------------------------------------------
 
-* Step 2: Genome collection (genomes.sh)
+*** Step 2: Genome collection (genomes.sh)
 - Download target genomes (same species/subspecies)
 - Download neighbor genomes (closest relatives)
 - Output:
@@ -24,7 +24,7 @@ This pipeline will be used to compare:
 
 ------------------------------------------------------------
 
-* Step 3: Tree building
+*** Step 3: Tree building
 - Build phylogenetic tree from all genomes
 - Identify:
   - target clade
@@ -34,9 +34,9 @@ This pipeline will be used to compare:
 
 ------------------------------------------------------------
 
-* Step 4: Marker discovery (this part is the important comparison step)
+*** Step 4: Marker discovery (this part is the important comparison step)
 
-** MAPRO baseline (FUR version)
+**** MAPRO baseline (FUR version)
 - Input: targets + neighbors
 - Tool:
   - makeFurDb
@@ -44,7 +44,7 @@ This pipeline will be used to compare:
 - Output:
   - markers.fasta
 
-** Seqwin version (REPLACEMENT TEST)
+**** Seqwin version (REPLACEMENT TEST)
 - Replace fur with seqwin
 - Input: same targets + neighbors genomes
 - Tool:
@@ -58,7 +58,7 @@ Compare markers.fasta and signatures.fasta at this step
 
 ------------------------------------------------------------
 
-* Step 5: Primer design (primers.sh)
+*** Step 5: Primer design (primers.sh)
 - Input: markers.fasta (or Seqwin signatures converted to same format)
 - Tool:
   - primer3
@@ -67,7 +67,7 @@ Compare markers.fasta and signatures.fasta at this step
 
 ------------------------------------------------------------
 
-* Step 6: Primer evaluation (scop + cops)
+*** Step 6: Primer evaluation (scop + cops)
 - Input: primers.fasta + BLAST database
 
 Outputs:
@@ -80,14 +80,14 @@ Extract metrics:
 
 ------------------------------------------------------------
 
-* Step 7: Annotation (anam.sh)
+*** Step 7: Annotation (anam.sh)
 - Input: primers + genome + GFF
 - Output:
   - anam.txt (amplicon annotation)
 
 ------------------------------------------------------------
 
-* What can we compare
+*** What can we compare
 
 Between FUR and Seqwin:
 
