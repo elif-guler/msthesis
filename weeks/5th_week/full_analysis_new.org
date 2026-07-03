@@ -1,0 +1,959 @@
+* MAPRO Results with Updated Scripts
+** Dataset Summary
+
+| Metric | Value |
+|---------+-------|
+| Total taxa analyzed |119 (was 120 in the old results)   |
+| Taxa producing phylogenetic trees | 89 (was 97)   |
+| Taxa producing markers | 61 (was 80)   |
+| Taxa producing primers | 61 (was 74)   |
+
+** Pipeline Outcomes
+
+*** Taxa having primers.fasta
+
+#+begin_src bash
+find . -name primers.fasta | sed 's|^./||; s|/primers.fasta$||' | sort
+#+end_src
+afi
+ahy
+bap
+bbi
+bbr
+bbu
+bfa
+bfr
+bma
+bpa
+bps
+bth2
+cbo1
+cbo2
+cdi
+cje
+cte
+cvi2
+dtu
+ecl
+eco2
+eco4
+eco5
+efa1
+efa2
+fps
+gsu
+hin
+kae
+lac
+lin
+lmo
+lpn
+lsa
+mci
+mfl
+msm
+ngo
+nme
+ppu
+psy1
+psy2
+rru
+sag
+sco
+sdy
+sep
+sfr
+sme2
+smi
+son1
+spy
+sru
+ssu
+tac
+tde
+tma
+tth
+vpa
+xca
+yen
+
+
+*** Taxa that have markers.fasta but do not have primers.fasta
+
+#+begin_src bash
+cd analysis
+for a in */; do
+[ -f "$a/markers.fasta" ] && [ ! -f "$a/primers.fasta" ] && {
+echo -n "$a "
+grep -c '^>' "$a/markers.fasta"
+}
+done
+#+end_src
+ame/ 0
+ban2/ 0
+bce/ 0
+blo/ 0
+bpe/ 0
+cac/ 0
+cbu/ 0
+cgl/ 0
+cpn/ 0
+ctr1/ 0
+cvi1/ 0
+dra/ 0
+dvu/ 0
+eco1/ 0
+eco3/ 0
+gva/ 0
+kvu/ 0
+mab/ 0
+mle/ 0
+mtu2/ 0
+pma/ 0
+sau/ 1
+sen2/ 0
+sfl/ 0
+ype/ 0
+
+all of them are now empty
+
+*** Penalty scores
+
+#+begin_src bash
+for d in ???/; do
+[ -f "$d/primers.fasta" ] &&
+echo "$(basename "$d") $(grep -m1 'penalty:' "$d/primers.fasta" | sed 's/.*penalty: //')"
+done | sort
+#+end_src
+afi 0.000142
+ahy 0.017650
+bap 8.964893
+bbi 0.023626
+bbr 0.014161
+bbu 0.150145
+bfa 0.021443
+bfr 0.002096
+bma 0.022736
+bpa 0.013241
+bps 0.003470
+bth2 0.019909
+cbo1 0.048752
+cbo2 0.048752
+cdi 0.018616
+cje 0.039228
+cte 0.005850
+cvi2 0.022342
+dtu 0.017354
+ecl 0.026838
+eco2 0.025697
+eco4 0.006176
+eco5 0.059356
+efa1 0.008702
+efa2 0.003839
+fps 0.015145
+gsu 0.000142
+hin 0.012210
+kae 0.000142
+lac 0.061899
+lin 0.040067
+lmo 0.054385
+lpn 0.269486
+lsa 0.105318
+mci 0.007534
+mfl 0.037130
+msm 0.012108
+ngo 0.019020
+nme 0.394294
+ppu 0.006176
+psy1 0.004155
+psy2 0.040223
+rru 0.007653
+sag 0.006176
+sco 0.010538
+sdy 0.004785
+sep 0.003425
+sfr 0.008376
+sme2 0.002668
+smi 0.002096
+son1 0.008151
+spy 0.021334
+sru 0.000597
+ssu 0.014795
+tac 0.009481
+tde 0.016595
+tma 0.010782
+tth 0.013659
+vpa 0.005748
+xca 0.096745
+yen 0.005424
+
+
+!! this time, the average penalty score is 0.18. compared to the results i obtained 2 weeks ago (avg was 0.7)
+average penalty score lowered by 75%.
+
+*** Split percentages
+
+**** Split percentages for all taxa
+
+afi    100.00
+ahy     88.89
+ame    100.00
+ban2    95.24
+bap     99.39
+bbi    100.00
+bbr    100.00
+bbu    100.00
+bce     96.43
+bfa    100.00
+bfr    100.00
+blo     98.84
+bma    100.00
+bpa    100.00
+bpe    100.00
+bps    100.00
+bsu     83.49
+bth2   100.00
+cac    100.00
+cbo1    87.50
+cbo2    87.50
+cbu    100.00
+cdi    100.00
+cgl     80.00
+cje     95.06
+cpn    100.00
+cte    100.00
+ctr1   100.00
+cvi1   100.00
+cvi2   100.00
+dra     95.08
+dtu    100.00
+dvu     75.00
+ecl    100.00
+eco1    96.85
+eco2   100.00
+eco3   100.00
+eco4   100.00
+eco5   100.00
+efa1   100.00
+efa2   100.00
+fps    100.00
+gsu    100.00
+gva     83.33
+hin    100.00
+kae    100.00
+kpn     92.89
+kvu    100.00
+lac    100.00
+lin    100.00
+lmo    100.00
+lpn     86.27
+lsa    100.00
+mab    100.00
+mci    100.00
+mfl    100.00
+mle    100.00
+msm    100.00
+mtu2    99.53
+ngo    100.00
+nme     94.74
+pma     97.06
+ppu    100.00
+psy1    81.82
+psy2    83.93
+rru    100.00
+sag    100.00
+sau     98.41
+sco    100.00
+sdy    100.00
+sen2    99.84
+sep    100.00
+sfl     87.10
+sfr    100.00
+sme2   100.00
+smi    100.00
+son1   100.00
+spy     96.43
+sru    100.00
+ssu    100.00
+tac    100.00
+tde    100.00
+tma     87.50
+tth    100.00
+vch     68.75
+vpa    100.00
+xca     99.55
+yen     90.00
+ype     96.88
+
+
+**** Taxa with 100% split
+
+#+begin_src bash
+  for d in */; do
+  if [ -f "$d/all.nwk" ]; then
+  split=$(fintac "$d/all.nwk" | tail -n +2 | sort -n | awk '{print $5}')
+  [ "$split" = "100.00" ] && echo "$d $split"
+  fi
+  done
+
+  echo
+  echo "Count:"
+  for d in */; do
+  if [ -f "$d/all.nwk" ]; then
+  split=$(fintac "$d/all.nwk" | tail -n +2 | sort -n | awk '{print $5}')
+  [ "$split" = "100.00" ] && echo "$d"
+  fi
+  done | wc -l
+#+end_src
+
+afi/ 100.00
+ame/ 100.00
+bbi/ 100.00
+bbr/ 100.00
+bbu/ 100.00
+bfa/ 100.00
+bfr/ 100.00
+bma/ 100.00
+bpa/ 100.00
+bpe/ 100.00
+bps/ 100.00
+bth2/ 100.00
+cac/ 100.00
+cbu/ 100.00
+cdi/ 100.00
+cpn/ 100.00
+cte/ 100.00
+ctr1/ 100.00
+cvi1/ 100.00
+cvi2/ 100.00
+dtu/ 100.00
+ecl/ 100.00
+eco2/ 100.00
+eco3/ 100.00
+eco4/ 100.00
+eco5/ 100.00
+efa1/ 100.00
+efa2/ 100.00
+fps/ 100.00
+gsu/ 100.00
+hin/ 100.00
+kae/ 100.00
+kvu/ 100.00
+lac/ 100.00
+lin/ 100.00
+lmo/ 100.00
+lsa/ 100.00
+mab/ 100.00
+mci/ 100.00
+mfl/ 100.00
+mle/ 100.00
+msm/ 100.00
+ngo/ 100.00
+ppu/ 100.00
+rru/ 100.00
+sag/ 100.00
+sco/ 100.00
+sdy/ 100.00
+sep/ 100.00
+sfr/ 100.00
+sme2/ 100.00
+smi/ 100.00
+son1/ 100.00
+sru/ 100.00
+ssu/ 100.00
+tac/ 100.00
+tde/ 100.00
+tth/ 100.00
+vpa/ 100.00
+
+
+**** Lowest split percentages
+
+vch     68.75
+dvu     75.00
+gva     83.33
+
+*** Markers
+
+**** Number of taxa with markers
+
+#+begin_src bash
+find . -name markers.fasta | wc -l
+#+end_src
+61
+
+**** Taxon with the most markers
+#+begin_src bash
+  for d in */; do
+    [ -f "$d/markers.fasta" ] || continue
+    count=$(grep -c '^>' "$d/markers.fasta")
+    echo "$count ${d%/}"
+done | sort -nr | head -n 1
+#+end_src
+3738 sco
+
+**** Longest marker
+
+#+begin_src bash
+for d in */; do
+[ -f "$d/markers.fasta" ] || continue
+
+awk -v tax="$d" '
+/^>/{
+    if(len>max) max=len
+    len=0
+    next
+}
+{len+=length($0)}
+END{
+    if(len>max) max=len
+    print tax,max
+}' "$d/markers.fasta"
+
+done | sort -k2 -n | tail -1
+#+end_src
+bpa/ 77772
+
+
+*** Primers
+
+**** Primer lengths
+
+#+begin_src bash
+grep -h -v '^>' */primers.fasta | awk '{print length}' | sort | uniq -c
+#+end_src
+120 of them are 20 bps, 1 of them is 22 bps, 1 of them is 25 bps.
+
+**** Minimum penalty
+
+#+begin_src bash
+grep -h "penalty:" */primers.fasta | awk '{print $3}' | sort -n | head -1
+#+end_src
+0.000142 afi
+
+
+**** Maximum penalty
+
+#+begin_src bash
+grep -h "penalty:" */primers.fasta | awk '{print $3}' | sort -n | tail -1
+#+end_src
+8.964893 bap
+
+
+**** Average penalty
+
+#+begin_src bash
+grep -h "penalty:" */primers.fasta | awk '{s+=$3} END{print s/NR}'
+#+end_src
+0.178909
+
+
+**** Taxa with the lowest penalty
+
+#+begin_src bash
+for d in */; do
+[ -f "$d/primers.fasta" ] || continue
+echo "$(grep 'penalty:' "$d/primers.fasta" | awk '{print $3}') $d"
+done | sort -n | head
+#+end_src
+0.000142 afi/
+0.000142 gsu/
+0.000142 kae/
+0.000597 sru/
+0.002096 bfr/
+0.002096 smi/
+0.002668 sme2/
+0.003425 sep/
+0.003470 bps/
+0.003839 efa2/
+
+
+**** Taxa with the highest penalty
+
+#+begin_src bash
+for d in */; do
+[ -f "$d/primers.fasta" ] || continue
+echo "$(grep 'penalty:' "$d/primers.fasta" | awk '{print $3}') $d"
+done | sort -n | tail
+#+end_src
+0.048752 cbo2/
+0.054385 lmo/
+0.059356 eco5/
+0.061899 lac/
+0.096745 xca/
+0.105318 lsa/
+0.150145 bbu/
+0.269486 lpn/
+0.394294 nme/
+8.964893 bap/
+
+
+*** SCOP and COPS results
+| afi  | SCOP: | sens=1      | spec=1       | COPS: | sens=1     | spec=1      |
+| ahy  | SCOP: | sens=0.75   | spec=0.429   | COPS: | sens=1     | spec=0.857  |
+| bap  | SCOP: | sens=1      | spec=0.993   | COPS: | sens=1     | spec=1      |
+| bbi  | SCOP: | sens=1      | spec=0.1     | COPS: | sens=1     | spec=0.2    |
+| bbr  | SCOP: | sens=0      | spec=0       | COPS: | sens=0.917 | spec=1      |
+| bbu  | SCOP: | sens=0.5    | spec=0.143   | COPS: | sens=0.8   | spec=0.571  |
+| bfa  | SCOP: | sens=1      | spec=1       | COPS: | sens=1     | spec=1      |
+| bfr  | SCOP: | sens=1      | spec=0.0233  | COPS: | sens=1     | spec=0.209  |
+| bma  | SCOP: | sens=1      | spec=0.00625 | COPS: | sens=1     | spec=0.0312 |
+| bpa  | SCOP: | sens=1      | spec=0.333   | COPS: | sens=1     | spec=0.333  |
+| bps  | SCOP: | sens=1      | spec=0.667   | COPS: | sens=1     | spec=1      |
+| bth2 | SCOP: | sens=1      | spec=0.333   | COPS: | sens=1     | spec=1      |
+| cbo1 | SCOP: | sens=0.667  | spec=0.5     | COPS: | sens=0.889 | spec=1      |
+| cbo2 | SCOP: | sens=0.667  | spec=0.5     | COPS: | sens=0.889 | spec=1      |
+| cdi  | SCOP: | sens=1      | spec=0.25    | COPS: | sens=1     | spec=1      |
+| cje  | SCOP: | sens=1      | spec=0.0916  | COPS: | sens=1     | spec=1      |
+| cte  | SCOP: | sens=1      | spec=1       | COPS: | sens=1     | spec=1      |
+| cvi2 | SCOP: | sens=1      | spec=0.333   | COPS: | sens=1     | spec=0.667  |
+| dtu  | SCOP: | sens=1      | spec=1       | COPS: | sens=1     | spec=1      |
+| ecl  | SCOP: | sens=1      | spec=0.111   | COPS: | sens=1     | spec=1      |
+| eco2 | SCOP: | sens=0.5    | spec=0.0217  | COPS: | sens=0.889 | spec=0.174  |
+| eco4 | SCOP: | sens=1      | spec=0.027   | COPS: | sens=1     | spec=0.027  |
+| eco5 | SCOP: | sens=1      | spec=0.0417  | COPS: | sens=1     | spec=0.0417 |
+| efa1 | SCOP: | sens=1      | spec=0.2     | COPS: | sens=1     | spec=1      |
+| efa2 | SCOP: | sens=0.5    | spec=0.25    | COPS: | sens=0.667 | spec=0.5    |
+| fps  | SCOP: | sens=1      | spec=0.0909  | COPS: | sens=1     | spec=0.818  |
+| gsu  | SCOP: | sens=1      | spec=0.5     | COPS: | sens=1     | spec=1      |
+| hin  | SCOP: | sens=1      | spec=0.25    | COPS: | sens=1     | spec=1      |
+| kae  | SCOP: | sens=1      | spec=0.25    | COPS: | sens=1     | spec=1      |
+| lac  | SCOP: | sens=1      | spec=0.0417  | COPS: | sens=1     | spec=0.333  |
+| lin  | SCOP: | sens=1      | spec=0.667   | COPS: | sens=1     | spec=0.667  |
+| lmo  | SCOP: | sens=0.214  | spec=0.75    | COPS: | sens=      | spec=       |
+| lpn  | SCOP: | sens=1      | spec=0.144   | COPS: | sens=1     | spec=1      |
+| lsa  | SCOP: | sens=1      | spec=0.1     | COPS: | sens=1     | spec=0.1    |
+| mci  | SCOP: | sens=1      | spec=0.4     | COPS: | sens=1     | spec=1      |
+| mfl  | SCOP: | sens=1      | spec=0.25    | COPS: | sens=1     | spec=1      |
+| msm  | SCOP: | sens=1      | spec=0.214   | COPS: | sens=1     | spec=1      |
+| ngo  | SCOP: | sens=1      | spec=0.0192  | COPS: | sens=1     | spec=0.538  |
+| nme  | SCOP: | sens=0.667  | spec=0.154   | COPS: | sens=1     | spec=0.308  |
+| ppu  | SCOP: | sens=1      | spec=0.0714  | COPS: | sens=1     | spec=1      |
+| psy1 | SCOP: | sens=1      | spec=0.467   | COPS: | sens=1     | spec=1      |
+| psy2 | SCOP: | sens=0.778  | spec=0.583   | COPS: | sens=1     | spec=0.917  |
+| rru  | SCOP: | sens=0.5    | spec=0.5     | COPS: | sens=0.5   | spec=0.5    |
+| sag  | SCOP: | sens=1      | spec=0.0357  | COPS: | sens=1     | spec=0.179  |
+| sco  | SCOP: | sens=0.0667 | spec=0.105   | COPS: | sens=      | spec=       |
+| sdy  | SCOP: | sens=0      | spec=NaN     | COPS: | sens=      | spec=       |
+| sep  | SCOP: | sens=0.5    | spec=0.25    | COPS: | sens=0.5   | spec=0.25   |
+| sfr  | SCOP: | sens=0.5    | spec=1       | COPS: | sens=      | spec=       |
+| sme2 | SCOP: | sens=1      | spec=0.25    | COPS: | sens=1     | spec=0.25   |
+| smi  | SCOP: | sens=1      | spec=0.111   | COPS: | sens=1     | spec=0.111  |
+| son1 | SCOP: | sens=1      | spec=1       | COPS: | sens=1     | spec=1      |
+| spy  | SCOP: | sens=1      | spec=0.0396  | COPS: | sens=1     | spec=0.99   |
+| sru  | SCOP: | sens=1      | spec=0.5     | COPS: | sens=1     | spec=1      |
+| ssu  | SCOP: | sens=1      | spec=0.5     | COPS: | sens=1     | spec=0.5    |
+| tac  | SCOP: | sens=1      | spec=1       | COPS: | sens=1     | spec=1      |
+| tde  | SCOP: | sens=1      | spec=0.143   | COPS: | sens=1     | spec=0.143  |
+| tma  | SCOP: | sens=1      | spec=0.667   | COPS: | sens=1     | spec=1      |
+| tth  | SCOP: | sens=1      | spec=0.125   | COPS: | sens=1     | spec=0.75   |
+| vpa  | SCOP: | sens=NaN    | spec=0       | COPS: | sens=1     | spec=0.233  |
+| xca  | SCOP: | sens=0.993  | spec=0.885   | COPS: | sens=1     | spec=0.942  |
+| yen  | SCOP: | sens=1      | spec=0.6     | COPS: | sens=1     | spec=1      |
+
+*** anam.sh
+2 weeks ago we only had 2 anam.txt since the annotation of primers we generated were not online.
+this time we obtained anam.txt for all 61 taxa that have primers:
+#+begin_src bash
+for d in */; do
+    [ -f "$d/anam.txt" ] || continue
+
+    echo "===== ${d%/} ====="
+    head -n 5 "$d/anam.txt"
+    echo
+done
+#+end_src
+
+===== afi =====
+#Annotation for interval (21499, 21617)
+CP000022.1	Genbank	region	1	45849	.	+	.	ID=CP000022.1:1..45849;Dbxref=taxon:312309;Is_circular=true;Name=pES100;gbkey=Src;genome=plasmid;mol_type=genomic DNA;plasmid-name=pES100;strain=ES114
+CP000022.1	Genbank	gene	21087	21581	.	+	.	ID=gene-VF_B0031;Name=VF_B0031;gbkey=Gene;gene_biotype=protein_coding;locus_tag=VF_B0031;old_locus_tag=VFB31
+CP000022.1	Genbank	CDS	21087	21581	.	+	0	ID=cds-AAW88273.1;Parent=gene-VF_B0031;Dbxref=NCBI_GP:AAW88273.1;Name=AAW88273.1;gbkey=CDS;locus_tag=VF_B0031;product=hypothetical protein;protein_id=AAW88273.1;transl_table=11
+CP000022.1	Genbank	gene	21584	22063	.	+	.	ID=gene-VF_B0032;Name=VF_B0032;gbkey=Gene;gene_biotype=protein_coding;locus_tag=VF_B0032;old_locus_tag=VFB32
+
+===== ahy =====
+#Annotation for interval (4179148, 4179280)
+CP000462.1	Genbank	region	1	4744448	.	+	.	ID=CP000462.1:1..4744448;Dbxref=ATCC:7966,taxon:380703;Is_circular=true;Name=ANONYMOUS;gbkey=Src;genome=chromosome;mol_type=genomic DNA;note=type strain of Aeromonas hydrophila subsp. hydrophila ATCC 7966;strain=ATCC 7966;sub-species=hydrophila;type-material=type strain of Aeromonas hydrophila
+CP000462.1	Genbank	gene	4178866	4180110	.	-	.	ID=gene-AHA_3752;Name=AHA_3752;gbkey=Gene;gene_biotype=protein_coding;locus_tag=AHA_3752
+CP000462.1	Genbank	CDS	4178866	4180110	.	-	0	ID=cds-ABK39140.1;Parent=gene-AHA_3752;Dbxref=NCBI_GP:ABK39140.1;Name=ABK39140.1;Note=identified by match to protein family HMM PF07690;gbkey=CDS;locus_tag=AHA_3752;product=multidrug transporter homolog;protein_id=ABK39140.1;transl_table=11
+
+===== bap =====
+#Annotation for interval (20694, 20782)
+BA000003.2	DDBJ	region	1	640681	.	+	.	ID=BA000003.2:1..640681;Dbxref=taxon:107806;Is_circular=true;gbkey=Src;isolate=Tokyo1998;mol_type=genomic DNA;nat-host=Acyrthosiphon pisum;note=primary endosymbiont of Acyrthosiphon pisum%3B~synonym: Buchnera sp. APS;strain=APS
+
+===== bbi =====
+#Annotation for interval (1075579, 1075699)
+CP001840.1	Genbank	region	1	2214656	.	+	.	ID=CP001840.1:1..2214656;Dbxref=taxon:702459;Is_circular=true;Name=ANONYMOUS;gbkey=Src;genome=chromosome;isolation-source=infant stool sample;mol_type=genomic DNA;nat-host=Homo sapiens;strain=PRL2010
+CP001840.1	Genbank	sequence_feature	1070624	1110984	.	-	.	ID=id-CP001840.1:1070624..1110984;Note=Bbif-1 prophage element;gbkey=misc_feature
+CP001840.1	Genbank	gene	1075328	1076032	.	-	.	ID=gene-BBPR_0879;Name=rlfA;gbkey=Gene;gene=rlfA;gene_biotype=protein_coding;locus_tag=BBPR_0879
+CP001840.1	Genbank	CDS	1075328	1076032	.	-	0	ID=cds-ADP35956.1;Parent=gene-BBPR_0879;Dbxref=NCBI_GP:ADP35956.1;Name=ADP35956.1;gbkey=CDS;gene=rlfA;locus_tag=BBPR_0879;product=RlfA phagic protein;protein_id=ADP35956.1;transl_table=11
+
+===== bbr =====
+#Annotation for interval (3540812, 3540903)
+HE965806.1	EMBL	region	1	5264383	.	+	.	ID=HE965806.1:1..5264383;Dbxref=taxon:568707;Is_circular=true;gbkey=Src;mol_type=genomic DNA;strain=253
+HE965806.1	EMBL	gene	3540734	3541453	.	-	.	ID=gene-BN112_3282;Name=wbmP;gbkey=Gene;gene=wbmP;gene_biotype=protein_coding;locus_tag=BN112_3282;old_locus_tag=BB253_3282
+HE965806.1	EMBL	CDS	3540734	3541453	.	-	0	ID=cds-CCJ55197.1;Parent=gene-BN112_3282;Dbxref=EnsemblGenomes-Gn:BN112_3282,EnsemblGenomes-Tr:CCJ55197,InterPro:IPR014985,UniProtKB/TrEMBL:K4QN62,NCBI_GP:CCJ55197.1;Name=CCJ55197.1;gbkey=CDS;gene=wbmP;locus_tag=BN112_3282;product=conserved hypothetical protein;protein_id=CCJ55197.1;transl_table=11
+
+===== bbu =====
+#Annotation for interval (28023, 28113)
+AE000794.2	Genbank	region	1	28155	.	+	.	ID=AE000794.2:1..28155;Dbxref=taxon:224326;Name=lp28-1;gbkey=Src;genome=plasmid;mol_type=genomic DNA;plasmid-name=lp28-1;strain=B31;type-material=type strain of Borrelia burgdorferi
+AE000794.2	Genbank	gene	26997	28073	.	+	.	ID=gene-BB_F0041;Name=BB_F0041;gbkey=Gene;gene_biotype=protein_coding;locus_tag=BB_F0041
+AE000794.2	Genbank	CDS	26997	28073	.	+	0	ID=cds-AET25136.1;Parent=gene-BB_F0041;Dbxref=NCBI_GP:AET25136.1;Name=AET25136.1;Note=identified by similarity to GB:AAC45733.1%3B match to protein family HMM PF00921;gbkey=CDS;locus_tag=BB_F0041;product=outer surface protein VlsE1;protein_id=AET25136.1;transl_table=11
+
+===== bfa =====
+#Annotation for interval (1329064, 1329155)
+CP001643.1	Genbank	region	1	3614992	.	+	.	ID=CP001643.1:1..3614992;Dbxref=taxon:446465;Is_circular=true;Name=ANONYMOUS;culture-collection=NCIMB:9860;gbkey=Src;genome=chromosome;mol_type=genomic DNA;note=type strain of Brachybacterium faecium DSM 4810;strain=DSM 4810;type-material=type strain of Brachybacterium faecium
+CP001643.1	Genbank	gene	1328670	1329350	.	-	.	ID=gene-Bfae_11720;Name=Bfae_11720;gbkey=Gene;gene_biotype=protein_coding;locus_tag=Bfae_11720
+CP001643.1	Genbank	CDS	1328670	1329350	.	-	0	ID=cds-ACU85018.1;Parent=gene-Bfae_11720;Dbxref=NCBI_GP:ACU85018.1;Name=ACU85018.1;gbkey=CDS;locus_tag=Bfae_11720;product=hypothetical protein;protein_id=ACU85018.1;transl_table=11
+
+===== bfr =====
+#Annotation for interval (3292213, 3292289)
+AP006841.1	DDBJ	region	1	5277274	.	+	.	ID=AP006841.1:1..5277274;Dbxref=taxon:295405;Is_circular=true;gbkey=Src;mol_type=genomic DNA;strain=YCH46
+AP006841.1	DDBJ	gene	3292052	3293620	.	+	.	ID=gene-BF2876;Name=BF2876;gbkey=Gene;gene_biotype=protein_coding;locus_tag=BF2876
+AP006841.1	DDBJ	CDS	3292052	3293620	.	+	0	ID=cds-BAD49625.1;Parent=gene-BF2876;Dbxref=NCBI_GP:BAD49625.1;Name=BAD49625.1;Note=unknown;gbkey=CDS;locus_tag=BF2876;product=hypothetical protein;protein_id=BAD49625.1;transl_table=11
+
+===== bma =====
+#Annotation for interval (566650, 566758)
+CP000011.2	Genbank	region	1	2325379	.	+	.	ID=CP000011.2:1..2325379;Dbxref=ATCC:23344,taxon:243160;Is_circular=true;Name=2;chromosome=2;gbkey=Src;genome=chromosome;mol_type=genomic DNA;note=small chromosome;strain=ATCC 23344;type-material=type strain of Burkholderia mallei
+
+===== bpa =====
+#Annotation for interval (513206, 513305)
+HE965803.1	EMBL	region	1	4887379	.	+	.	ID=HE965803.1:1..4887379;Dbxref=taxon:1208660;Is_circular=true;gbkey=Src;mol_type=genomic DNA;strain=Bpp5
+HE965803.1	EMBL	gene	513009	513455	.	-	.	ID=gene-BN117_0484;Name=BN117_0484;gbkey=Gene;gene_biotype=protein_coding;locus_tag=BN117_0484;old_locus_tag=BPP5_0484
+HE965803.1	EMBL	CDS	513009	513455	.	-	0	ID=cds-CCJ47817.1;Parent=gene-BN117_0484;Dbxref=EnsemblGenomes-Gn:BN117_0484,EnsemblGenomes-Tr:CCJ47817,UniProtKB/TrEMBL:K0M841,NCBI_GP:CCJ47817.1;Name=CCJ47817.1;gbkey=CDS;locus_tag=BN117_0484;product=Hypothetical protein;protein_id=CCJ47817.1;transl_table=11
+
+===== bps =====
+#Annotation for interval (3965571, 3965702)
+BX571965.1	EMBL	region	1	4074542	.	+	.	ID=BX571965.1:1..4074542;Dbxref=taxon:272560;Is_circular=true;Name=1;chromosome=1;gbkey=Src;mol_type=genomic DNA;strain=K96243
+BX571965.1	EMBL	sequence_feature	3964397	3975872	.	-	.	ID=id-BX571965.1:3964397..3975872;Note=Genomic island GI 12%3B~Possible prophage;gbkey=misc_feature
+BX571965.1	EMBL	gene	3964455	3966017	.	-	.	ID=gene-BPSL3342;Name=BPSL3342;gbkey=Gene;gene_biotype=protein_coding;locus_tag=BPSL3342
+BX571965.1	EMBL	CDS	3964455	3966017	.	-	0	ID=cds-CAH37355.1;Parent=gene-BPSL3342;Dbxref=EnsemblGenomes-Gn:BPSL3342,EnsemblGenomes-Tr:CAH37355,GOA:Q63PN1,InterPro:IPR003959,InterPro:IPR027417,UniProtKB/TrEMBL:Q63PN1,NCBI_GP:CAH37355.1;Name=CAH37355.1;Note=Similar to Salmonella typhimurium IbfA protein SWALL:BAB91598 (EMBL:AP005147) (518 aa) fasta scores: E(): 1.1e-14%2C 25.86%25 id in 491 aa%2C and to Bacteriophage lambda EA59 protein SWALL:VE59_LAMBD (SWALL:P03754) (525 aa) fasta scores: E(): 0.67%2C 24.57%25 id in 293 aa;gbkey=CDS;locus_tag=BPSL3342;product=putative bacteriophage protein;protein_id=CAH37355.1;transl_table=11
+
+===== bth2 =====
+#Annotation for interval (5003735, 5003820)
+AE017355.1	Genbank	region	1	5237682	.	+	.	ID=AE017355.1:1..5237682;Dbxref=taxon:281309;Is_circular=true;Name=ANONYMOUS;gbkey=Src;genome=chromosome;mol_type=genomic DNA;old-name=Bacillus thuringiensis serovar konkukian str. 97-27;serovar=konkukian;strain=97-27
+AE017355.1	Genbank	gene	5003456	5004538	.	-	.	ID=gene-BT9727_4950;Name=BT9727_4950;gbkey=Gene;gene_biotype=protein_coding;locus_tag=BT9727_4950
+AE017355.1	Genbank	CDS	5003456	5004538	.	-	0	ID=cds-AAT61140.1;Parent=gene-BT9727_4950;Dbxref=NCBI_GP:AAT61140.1;Name=AAT61140.1;gbkey=CDS;locus_tag=BT9727_4950;product=conserved hypothetical protein%2C possible glycosyl transferase;protein_id=AAT61140.1;transl_table=11
+
+===== cbo1 =====
+#Annotation for interval (2227133, 2227235)
+AM412317.1	EMBL	region	1	3886916	.	+	.	ID=AM412317.1:1..3886916;Dbxref=taxon:413999;Is_circular=true;gbkey=Src;mol_type=genomic DNA;strain=ATCC 3502
+AM412317.1	EMBL	gene	2227099	2229138	.	-	.	ID=gene-CBO2090;Name=CBO2090;gbkey=Gene;gene_biotype=protein_coding;locus_tag=CBO2090
+AM412317.1	EMBL	CDS	2227099	2229138	.	-	0	ID=cds-CAL83630.1;Parent=gene-CBO2090;Dbxref=InterPro:IPR027417,UniProtKB/TrEMBL:A5I3L1,NCBI_GP:CAL83630.1;Name=CAL83630.1;gbkey=CDS;locus_tag=CBO2090;product=conserved hypothetical protein;protein_id=CAL83630.1;transl_table=11
+
+===== cbo2 =====
+#Annotation for interval (2155994, 2156096)
+CP000727.1	Genbank	region	1	3760560	.	+	.	ID=CP000727.1:1..3760560;Dbxref=taxon:441771;Is_circular=true;Name=ANONYMOUS;gbkey=Src;genome=chromosome;mol_type=genomic DNA;strain=Hall
+CP000727.1	Genbank	gene	2155960	2157999	.	-	.	ID=gene-CLC_2032;Dbxref=Pathema:CLC_2032;Name=CLC_2032;gbkey=Gene;gene_biotype=protein_coding;locus_tag=CLC_2032
+CP000727.1	Genbank	CDS	2155960	2157999	.	-	0	ID=cds-ABS39257.1;Parent=gene-CLC_2032;Dbxref=NCBI_GP:ABS39257.1,Pathema:CLC_2032;Name=ABS39257.1;gbkey=CDS;locus_tag=CLC_2032;product=conserved hypothetical protein;protein_id=ABS39257.1;transl_table=11
+
+===== cdi =====
+#Annotation for interval (1306291, 1306415)
+AM180355.1	EMBL	region	1	4290252	.	+	.	ID=id0;Dbxref=taxon:272563;Is_circular=true;gb-synonym=Clostridium difficile 630;gbkey=Src;mol_type=genomic DNA;old-name=Peptoclostridium difficile 630;strain=630
+AM180355.1	EMBL	sequence_feature	1284327	1314871	.	-	.	ID=id1166;Note=conjugative transposon 4. Carry lantibiotic resistance genes. Most of its conjugative functions are shared with Tn1549-like conjugative transposons (C. difficile ConTn2 and ConTn5). It also share regulatory functions (Orf7%2C 8 and 9) with Tn916-like conjugative transposons (C. difficile ConTn1%2C 3(Tn5397)%2C 6 and 7.;gbkey=misc_feature
+AM180355.1	EMBL	gene	1305705	1306664	.	-	.	ID=gene1277;Name=CD630_11090;gbkey=Gene;gene_biotype=protein_coding;locus_tag=CD630_11090
+AM180355.1	EMBL	CDS	1305705	1306664	.	-	0	ID=cds1173;Parent=gene1277;Dbxref=EnsemblGenomes-Gn:CD630_11090,EnsemblGenomes-Tr:CAJ67959,GOA:Q18AW5,InterPro:IPR001091,InterPro:IPR002941,InterPro:IPR017985,InterPro:IPR029063,UniProtKB/TrEMBL:Q18AW5,NCBI_GP:CAJ67959.1;Name=CAJ67959.1;gbkey=CDS;old_locus_tag=CD1109;product=DNA-methyltransferase%2C cytosine-N4-specific%3B Tn1549-like%2C CTn4-Orf10;protein_id=CAJ67959.1;transl_table=11
+
+===== cje =====
+#Annotation for interval (560176, 560295)
+AL111168.1	EMBL	region	1	1641481	.	+	.	ID=AL111168.1:1..1641481;Dbxref=taxon:192222;Is_circular=true;gbkey=Src;mol_type=genomic DNA;strain=NCTC 11168;sub-species=jejuni
+AL111168.1	EMBL	gene	559852	560520	.	-	.	ID=gene-Cj0602c;Name=Cj0602c;gbkey=Gene;gene_biotype=protein_coding;locus_tag=Cj0602c
+AL111168.1	EMBL	CDS	559852	560520	.	-	0	ID=cds-CAL34748.1;Parent=gene-Cj0602c;Dbxref=EnsemblGenomes-Gn:Cj0602c,EnsemblGenomes-Tr:CAL34748,GOA:Q0PAR5,InterPro:IPR005302,InterPro:IPR011037,InterPro:IPR015808,UniProtKB/TrEMBL:Q0PAR5,NCBI_GP:CAL34748.1;Name=CAL34748.1;Note=Original (2000) note: Cj0602c%2C unknown%2C len: 222 aa%3B similar to hypothetical proteins e.g. YIIM_ECOLI (234 aa)%2C fasta scores%3B opt: 298 z-score: 406.4 E(): 2.4e-15%2C30.4%25 identity in 207 aa overlap. No Hp match%3B~Updated (2006) note: Pfam domains PF03475 3-alpha domain and PF03473 MOSC domain were identified within CDS. Product modified to more specific family member due to motif match. Functional classification - Misc;gbkey=CDS;inference=protein motif:Pfam:PF03475;locus_tag=Cj0602c;product=MOSC-domain containing protein;protein_id=CAL34748.1;transl_table=11
+AL111168.1	EMBL	sequence_feature	560050	560418	.	-	.	ID=id-Cj0602c-2;Note=HMMPfam hit to PF03473%2C MOSC domain%2C score 2.2e-44;gbkey=misc_feature;inference=protein motif:Pfam:PF03473;locus_tag=Cj0602c
+
+===== cte =====
+#Annotation for interval (2116339, 2116465)
+AE006470.1	Genbank	region	1	2154946	.	+	.	ID=AE006470.1:1..2154946;Dbxref=taxon:194439;Is_circular=true;Name=ANONYMOUS;gbkey=Src;genome=chromosome;mol_type=genomic DNA;strain=TLS;type-material=type strain of Chlorobium tepidum
+AE006470.1	Genbank	gene	2116113	2117273	.	+	.	ID=gene-CT2253;Name=CT2253;gbkey=Gene;gene_biotype=protein_coding;locus_tag=CT2253
+AE006470.1	Genbank	CDS	2116113	2117273	.	+	0	ID=cds-AAM73468.1;Parent=gene-CT2253;Dbxref=NCBI_GP:AAM73468.1;Name=AAM73468.1;Note=identified by similarity to EGAD:161309%3B match to protein family HMM PF06114;gbkey=CDS;locus_tag=CT2253;product=conserved hypothetical protein;protein_id=AAM73468.1;transl_table=11
+
+===== cvi2 =====
+#Annotation for interval (482891, 483013)
+CP001340.1	Genbank	region	1	4042929	.	+	.	ID=CP001340.1:1..4042929;Dbxref=taxon:565050;Is_circular=true;Name=ANONYMOUS;gbkey=Src;genome=chromosome;mol_type=genomic DNA;strain=NA1000
+CP001340.1	Genbank	sequence_feature	473055	499084	.	-	.	ID=id-CP001340.1:473055..499084;Note=putative mobile genetic element;gbkey=misc_feature
+CP001340.1	Genbank	gene	482231	483454	.	-	.	ID=gene-CCNA_00469;Name=CCNA_00469;experiment=gene is essential according to Tn-seq experiments of Christen%2C et al. (2011) Mol Syst Biol. 30%3B7:528. doi: 10.1038/msb.2011.58;gbkey=Gene;gene_biotype=protein_coding;locus_tag=CCNA_00469
+CP001340.1	Genbank	CDS	482231	483454	.	-	0	ID=cds-ACL93934.2;Parent=gene-CCNA_00469;Dbxref=NCBI_GP:ACL93934.2;Name=ACL93934.2;experiment=EXISTENCE:LC-MS,EXISTENCE:Ribosome profiling,Start codon verified by LC-MS;gbkey=CDS;locus_tag=CCNA_00469;product=GT1-family glycosyltransferase;protein_id=ACL93934.2;transl_table=11
+
+===== dtu =====
+#Annotation for interval (365144, 365270)
+CP001251.1	Genbank	region	1	1855560	.	+	.	ID=CP001251.1:1..1855560;Dbxref=taxon:515635;Is_circular=true;Name=ANONYMOUS;gbkey=Src;genome=chromosome;mol_type=genomic DNA;strain=DSM 6724;type-material=type strain of Dictyoglomus turgidum
+CP001251.1	Genbank	gene	364668	365261	.	-	.	ID=gene-Dtur_0358;Name=Dtur_0358;gbkey=Gene;gene_biotype=protein_coding;locus_tag=Dtur_0358
+CP001251.1	Genbank	CDS	364668	365261	.	-	0	ID=cds-ACK41669.1;Parent=gene-Dtur_0358;Dbxref=NCBI_GP:ACK41669.1;Name=ACK41669.1;gbkey=CDS;inference=ab initio prediction:Prodigal:1.4;locus_tag=Dtur_0358;product=hypothetical protein;protein_id=ACK41669.1;transl_table=11
+CP001251.1	Genbank	signal_peptide_region_of_CDS	365202	365261	.	-	.	ID=id-ACK41669.1:1..20;Note=Signal predicted by SignalP 3.0 HMM (Signal peptide probability 0.859) with cleavage site probability 0.517 at residue 20;Parent=cds-ACK41669.1;gbkey=Prot
+
+===== ecl =====
+#Annotation for interval (3496726, 3496869)
+CP001918.1	Genbank	region	1	5314581	.	+	.	ID=CP001918.1:1..5314581;Dbxref=taxon:716541;Is_circular=true;Name=ANONYMOUS;culture-collection=ATCC:13047;gbkey=Src;genome=chromosome;mol_type=genomic DNA;note=type strain of Enterobacter cloacae subsp. cloacae;strain=ATCC 13047;sub-species=cloacae;type-material=type strain of Enterobacter cloacae
+CP001918.1	Genbank	gene	3496295	3496876	.	+	.	ID=gene-ECL_03420;Name=ECL_03420;gbkey=Gene;gene_biotype=protein_coding;locus_tag=ECL_03420
+CP001918.1	Genbank	CDS	3496295	3496876	.	+	0	ID=cds-ADF62954.1;Parent=gene-ECL_03420;Dbxref=NCBI_GP:ADF62954.1;Name=ADF62954.1;gbkey=CDS;locus_tag=ECL_03420;product=putative regulatory protein;protein_id=ADF62954.1;transl_table=11
+
+===== eco2 =====
+#Annotation for interval (61462, 61537)
+CP001856.1	Genbank	region	1	147060	.	+	.	ID=CP001856.1:1..147060;Dbxref=taxon:685038;Name=pO83_CORR;gbkey=Src;genome=plasmid;mol_type=genomic DNA;note=strain associated with Crohn's Disease;plasmid-name=pO83_CORR;serotype=O83:H1;strain=NRG 857C
+CP001856.1	Genbank	gene	61154	61975	.	+	.	ID=gene-NRG857_30117;Name=NRG857_30117;gbkey=Gene;gene_biotype=protein_coding;locus_tag=NRG857_30117
+CP001856.1	Genbank	CDS	61154	61975	.	+	0	ID=cds-ADR29920.1;Parent=gene-NRG857_30117;Dbxref=NCBI_GP:ADR29920.1;Name=ADR29920.1;Note=Sequence similarity to: YP_002527552.1 hypothetical protein pO103_96 [Escherichia coli];gbkey=CDS;locus_tag=NRG857_30117;product=putatitive beta-lactamase;protein_id=ADR29920.1;transl_table=11
+
+===== eco4 =====
+#Annotation for interval (1005407, 1005513)
+CU928163.2	EMBL	region	1	5202090	.	+	.	ID=id0;Dbxref=taxon:585056;Is_circular=true;gbkey=Src;mol_type=genomic DNA;strain=UMN026
+CU928163.2	EMBL	gene	1004947	1006998	.	+	.	ID=gene987;Name=A;gbkey=Gene;gene=A;gene_biotype=protein_coding;locus_tag=ECUMN_0971
+CU928163.2	EMBL	CDS	1004947	1006998	.	+	0	ID=cds952;Parent=gene987;Dbxref=EnsemblGenomes-Gn:ECUMN_0971,EnsemblGenomes-Tr:CAR12180,GOA:B7NAC7,InterPro:IPR008766,InterPro:IPR020220,UniProtKB/TrEMBL:B7NAC7,NCBI_GP:CAR12180.1;Name=CAR12180.1;Note=Evidence 2a : Function of homologous gene experimentally demonstrated in an other organism%3B PubMedId : 2352277%3B Product type h : extrachromosomal origin;gbkey=CDS;gene=A;product=Replication gene A protein from bacteriophage origin;protein_id=CAR12180.1;transl_table=11
+
+===== eco5 =====
+#Annotation for interval (544218, 544313)
+CU928164.2	EMBL	region	1	5132068	.	+	.	ID=CU928164.2:1..5132068;Dbxref=taxon:585057;Is_circular=true;gbkey=Src;mol_type=genomic DNA;strain=IAI39
+
+===== efa1 =====
+#Annotation for interval (2221371, 2221494)
+AE016830.1	Genbank	region	1	3218031	.	+	.	ID=AE016830.1:1..3218031;Dbxref=taxon:226185;Is_circular=true;Name=ANONYMOUS;gbkey=Src;genome=chromosome;mol_type=genomic DNA;strain=V583
+AE016830.1	Genbank	gene	2220066	2221478	.	-	.	ID=gene-EF_2303;Name=EF_2303;gbkey=Gene;gene_biotype=protein_coding;locus_tag=EF_2303;old_locus_tag=EF2303
+AE016830.1	Genbank	CDS	2220066	2221478	.	-	0	ID=cds-AAO82029.1;Parent=gene-EF_2303;Dbxref=NCBI_GP:AAO82029.1;Name=AAO82029.1;Note=similar to GP:8100671%3B identified by sequence similarity%3B putative;gbkey=CDS;locus_tag=EF_2303;product=hypothetical protein;protein_id=AAO82029.1;transl_table=11
+
+===== efa2 =====
+#Annotation for interval (210039, 210128)
+CP003586.1	Genbank	region	1	251926	.	+	.	ID=CP003586.1:1..251926;Dbxref=taxon:333849;Is_circular=true;Name=3;country=USA: University of Texas Medical School;gbkey=Src;genome=plasmid;mol_type=genomic DNA;nat-host=Homo sapiens;old-name=Enterococcus faecium;plasmid-name=3;strain=DO
+CP003586.1	Genbank	gene	207224	210313	.	-	.	ID=gene-HMPREF0351_13051;Name=HMPREF0351_13051;gbkey=Gene;gene_biotype=protein_coding;locus_tag=HMPREF0351_13051
+CP003586.1	Genbank	CDS	207224	210313	.	-	0	ID=cds-AFK60675.1;Parent=gene-HMPREF0351_13051;Dbxref=NCBI_GP:AFK60675.1;Name=AFK60675.1;gbkey=CDS;locus_tag=HMPREF0351_13051;product=alpha-mannosidase;protein_id=AFK60675.1;transl_table=11
+
+===== fps =====
+#Annotation for interval (2399274, 2399376)
+AM398681.2	EMBL	region	1	2860382	.	+	.	ID=AM398681.2:1..2860382;Dbxref=taxon:402612;Is_circular=true;gbkey=Src;mol_type=genomic DNA;strain=JIP02/86
+AM398681.2	EMBL	gene	2398341	2399387	.	-	.	ID=gene-FP1282;Name=FP1282;gbkey=Gene;gene_biotype=protein_coding;locus_tag=FP1282
+AM398681.2	EMBL	CDS	2398341	2399387	.	-	0	ID=cds-CAL43365.1;Parent=gene-FP1282;Dbxref=EnsemblGenomes-Gn:FP1282,EnsemblGenomes-Tr:CAL43365,GOA:A6GZ42,InterPro:IPR011761,InterPro:IPR013815,InterPro:IPR013816,InterPro:IPR016185,UniProtKB/TrEMBL:A6GZ42,NCBI_GP:CAL43365.1;Name=CAL43365.1;gbkey=CDS;locus_tag=FP1282;product=Probable carbamoyl-phosphate synthase;protein_id=CAL43365.1;transl_table=11
+
+===== gsu =====
+#Annotation for interval (2862798, 2862898)
+AE017180.2	Genbank	region	1	3814128	.	+	.	ID=AE017180.2:1..3814128;Dbxref=taxon:243231;Is_circular=true;Name=ANONYMOUS;gbkey=Src;genome=chromosome;mol_type=genomic DNA;strain=PCA;type-material=type strain of Geobacter sulfurreducens
+AE017180.2	Genbank	gene	2862303	2862977	.	-	.	ID=gene-GSU2596;Name=GSU2596;gbkey=Gene;gene_biotype=protein_coding;locus_tag=GSU2596
+AE017180.2	Genbank	CDS	2862303	2862977	.	-	0	ID=cds-AAR35969.1;Parent=gene-GSU2596;Dbxref=NCBI_GP:AAR35969.1;Name=AAR35969.1;gbkey=CDS;locus_tag=GSU2596;product=lipoprotein%2C putative;protein_id=AAR35969.1;transl_table=11
+
+===== hin =====
+#Annotation for interval (1581308, 1581413)
+L42023.1	Genbank	region	1	1830138	.	+	.	ID=L42023.1:1..1830138;Dbxref=taxon:71421;Is_circular=true;Name=ANONYMOUS;gbkey=Src;genome=chromosome;mol_type=genomic DNA;old-name=Haemophilus influenzae Rd;strain=Rd KW20
+L42023.1	Genbank	gene	1581221	1581412	.	+	.	ID=gene-HI_1510;Name=HI_1510;Note=HI1510;gbkey=Gene;gene_biotype=protein_coding;locus_tag=HI_1510
+L42023.1	Genbank	CDS	1581221	1581412	.	+	0	ID=cds-AAC23157.1;Parent=gene-HI_1510;Dbxref=NCBI_GP:AAC23157.1;Name=AAC23157.1;Note=similar to GP:1834290 percent identity: 44.64%3B identified by sequence similarity%3B putative;gbkey=CDS;locus_tag=HI_1510;product=conserved hypothetical protein;protein_id=AAC23157.1;transl_table=11
+L42023.1	Genbank	gene	1581412	1582875	.	+	.	ID=gene-HI_1511;Name=HI_1511;Note=HI1511;gbkey=Gene;gene_biotype=protein_coding;locus_tag=HI_1511
+
+===== kae =====
+#Annotation for interval (1907898, 1908009)
+CP002824.1	Genbank	region	1	5280350	.	+	.	ID=CP002824.1:1..5280350;Dbxref=taxon:1028307;Is_circular=true;Name=ANONYMOUS;gbkey=Src;genome=chromosome;mol_type=genomic DNA;old-name=Enterobacter aerogenes KCTC 2190;strain=KCTC 2190;type-material=type strain of Enterobacter aerogenes
+CP002824.1	Genbank	gene	1902344	1912195	.	-	.	ID=gene-EAE_09030;Name=EAE_09030;gbkey=Gene;gene_biotype=protein_coding;locus_tag=EAE_09030
+CP002824.1	Genbank	CDS	1902344	1912195	.	-	0	ID=cds-AEG96728.1;Parent=gene-EAE_09030;Dbxref=NCBI_GP:AEG96728.1;Name=AEG96728.1;Note=COG3210 Large exoproteins involved in heme utilization or adhesion;gbkey=CDS;locus_tag=EAE_09030;product=hemagglutinin-related protein;protein_id=AEG96728.1;transl_table=11
+
+===== lac =====
+#Annotation for interval (1109526, 1109637)
+CP000033.3	Genbank	region	1	1993560	.	+	.	ID=CP000033.3:1..1993560;Dbxref=taxon:272621;Is_circular=true;Name=ANONYMOUS;gbkey=Src;genome=chromosome;mol_type=genomic DNA;strain=NCFM
+CP000033.3	Genbank	gene	1108657	1110240	.	-	.	ID=gene-LBA1131;Name=LBA1131;gbkey=Gene;gene_biotype=protein_coding;locus_tag=LBA1131
+CP000033.3	Genbank	CDS	1108657	1110240	.	-	0	ID=cds-AAV42974.1;Parent=gene-LBA1131;Dbxref=NCBI_GP:AAV42974.1;Name=AAV42974.1;gbkey=CDS;locus_tag=LBA1131;product=ABC transporter ATP binding and permease protein;protein_id=AAV42974.1;transl_table=11
+
+===== lin =====
+#Annotation for interval (2666585, 2666725)
+AE010300.2	Genbank	region	1	4338762	.	+	.	ID=AE010300.2:1..4338762;Dbxref=taxon:189518;Is_circular=true;Name=I;chromosome=I;gbkey=Src;genome=chromosome;mol_type=genomic DNA;serovar=Lai;strain=56601
+AE010300.2	Genbank	gene	2665393	2666922	.	-	.	ID=gene-LA_2681;Name=LA_2681;gbkey=Gene;gene_biotype=protein_coding;locus_tag=LA_2681;old_locus_tag=LA2681
+AE010300.2	Genbank	CDS	2665393	2666922	.	-	0	ID=cds-AAN49880.1;Parent=gene-LA_2681;Dbxref=NCBI_GP:AAN49880.1;Name=AAN49880.1;gbkey=CDS;locus_tag=LA_2681;product=hypothetical protein;protein_id=AAN49880.1;transl_table=11
+
+===== lmo =====
+#Annotation for interval (1144981, 1145112)
+AL591824.1	EMBL	region	1	2944528	.	+	.	ID=AL591824.1:1..2944528;Dbxref=taxon:169963;Is_circular=true;gbkey=Src;mol_type=genomic DNA;strain=EGD-e
+
+===== lpn =====
+#Annotation for interval (3297426, 3297565)
+AE017354.1	Genbank	region	1	3397754	.	+	.	ID=AE017354.1:1..3397754;Dbxref=taxon:272624;Is_circular=true;Name=ANONYMOUS;gbkey=Src;genome=chromosome;mol_type=genomic DNA;strain=Philadelphia 1;sub-species=pneumophila;type-material=type strain of Legionella pneumophila
+AE017354.1	Genbank	gene	3296964	3298451	.	+	.	ID=gene-lpg2912;Name=lpg2912;gbkey=Gene;gene_biotype=protein_coding;locus_tag=lpg2912
+AE017354.1	Genbank	CDS	3296964	3298451	.	+	0	ID=cds-AAU28958.1;Parent=gene-lpg2912;Dbxref=NCBI_GP:AAU28958.1;Name=AAU28958.1;gbkey=CDS;locus_tag=lpg2912;product=hypothetical protein;protein_id=AAU28958.1;transl_table=11
+
+===== lsa =====
+#Annotation for interval (1368580, 1368672)
+CP000233.1	Genbank	region	1	1827111	.	+	.	ID=CP000233.1:1..1827111;Dbxref=taxon:362948;Is_circular=true;Name=ANONYMOUS;gbkey=Src;genome=chromosome;mol_type=genomic DNA;old-name=Lactobacillus salivarius UCC118;strain=UCC118
+CP000233.1	Genbank	region	1	1827111	.	+	.	ID=id-CP000233.1:1..1827111;Note=Source DNA is available from Eva McArdle at Alimentary Pharmabiotic Centre (e.mcardle@ucc.ie);gbkey=Comment
+CP000233.1	Genbank	pseudogene	1365326	1369126	.	-	.	ID=gene-LSL_1319;Name=rlpA;gbkey=Gene;gene=rlpA;gene_biotype=pseudogene;locus_tag=LSL_1319;pseudo=true
+CP000233.1	Genbank	sequence_feature	1365326	1369126	.	-	.	ID=id-LSL_1319;Note=Similar to hypothetical surface protein RlpA%3B nonfunctional due to interrupting stop codon;gbkey=misc_feature;gene=rlpA;locus_tag=LSL_1319;pseudo=true
+
+===== mci =====
+#Annotation for interval (5145650, 5145764)
+CP002447.1	Genbank	region	1	6264489	.	+	.	ID=CP002447.1:1..6264489;Dbxref=taxon:765698;Is_circular=true;Name=ANONYMOUS;biovar=biserrulae WSM1271;collection-date=29-Apr-1993;country=Italy: 5 km before Bottida%2C Sardinia;gbkey=Src;genome=chromosome;lat-lon=40.3827 N 9.01201 E;mol_type=genomic DNA;nat-host=Astragalus pelecinus;old-name=Mesorhizobium ciceri bv. biserrulae WSM1271;strain=WSM1271
+CP002447.1	Genbank	gene	5145759	5146886	.	+	.	ID=gene-Mesci_4996;Name=Mesci_4996;gbkey=Gene;gene_biotype=protein_coding;locus_tag=Mesci_4996
+CP002447.1	Genbank	CDS	5145759	5146886	.	+	0	ID=cds-ADV14097.1;Parent=gene-Mesci_4996;Dbxref=NCBI_GP:ADV14097.1;Name=ADV14097.1;Note=KEGG: tfu:Tfu_0012 hypothetical protein;gbkey=CDS;inference=similar to AA sequence:KEGG:Tfu_0012;locus_tag=Mesci_4996;product=hypothetical protein;protein_id=ADV14097.1;transl_table=11
+
+===== mfl =====
+#Annotation for interval (27972, 28089)
+AE017263.1	Genbank	region	1	793224	.	+	.	ID=AE017263.1:1..793224;Dbxref=ATCC:33453,taxon:265311;Is_circular=true;Name=ANONYMOUS;gbkey=Src;genome=chromosome;mol_type=genomic DNA;strain=L1%3B ATCC 33453;type-material=type strain of Acholeplasma florum
+AE017263.1	Genbank	gene	27767	29887	.	+	.	ID=gene-Mfl020;Name=Mfl020;gbkey=Gene;gene_biotype=protein_coding;locus_tag=Mfl020
+AE017263.1	Genbank	CDS	27767	29887	.	+	0	ID=cds-AAT75376.1;Parent=gene-Mfl020;Dbxref=NCBI_GP:AAT75376.1;Name=AAT75376.1;gbkey=CDS;locus_tag=Mfl020;product=unknown lipoprotein;protein_id=AAT75376.1;transl_table=4
+
+===== msm =====
+#Annotation for interval (926093, 926168)
+CP000480.1	Genbank	region	1	6988209	.	+	.	ID=CP000480.1:1..6988209;Dbxref=taxon:246196;Is_circular=true;Name=ANONYMOUS;gbkey=Src;genome=chromosome;mol_type=genomic DNA;old-name=Mycobacterium smegmatis MC2 155;strain=MC2 155
+CP000480.1	Genbank	pseudogene	925620	926796	.	-	.	ID=gene-MSMEG_0841;Name=MSMEG_0841;Note=hypothetical protein%3B this gene contains a frame shift which is not the result of sequencing error%3B identified by Glimmer2%3B putative;gbkey=Gene;gene_biotype=pseudogene;locus_tag=MSMEG_0841;pseudo=true
+
+===== ngo =====
+#Annotation for interval (530428, 530540)
+AE004969.1	Genbank	region	1	2153922	.	+	.	ID=AE004969.1:1..2153922;Dbxref=taxon:242231;Is_circular=true;Name=ANONYMOUS;gbkey=Src;genome=chromosome;mol_type=genomic DNA;old-name=Neisseria gonorrhoeae FA1090;strain=FA 1090
+AE004969.1	Genbank	gene	527868	531488	.	+	.	ID=gene-NGO_0553;Name=NGO_0553;gbkey=Gene;gene_biotype=protein_coding;locus_tag=NGO_0553
+AE004969.1	Genbank	CDS	527868	531488	.	+	0	ID=cds-AAW89287.1;Parent=gene-NGO_0553;Dbxref=NCBI_GP:AAW89287.1;Name=AAW89287.1;gbkey=CDS;inference=EXISTENCE: similar to AA sequence:RefSeq:WP_003706103.1;locus_tag=NGO_0553;product=TonB-dependent receptor;protein_id=AAW89287.1;transl_table=11
+
+===== nme =====
+#Annotation for interval (2223852, 2223964)
+AE002098.2	Genbank	region	1	2272360	.	+	.	ID=AE002098.2:1..2272360;Dbxref=taxon:122586;Is_circular=true;Name=ANONYMOUS;gbkey=Src;genome=chromosome;mol_type=genomic DNA;serogroup=B;strain=MC58
+AE002098.2	Genbank	gene	2222737	2224188	.	+	.	ID=gene-NMB2105;Name=mafB;gbkey=Gene;gene=mafB;gene_biotype=protein_coding;locus_tag=NMB2105
+AE002098.2	Genbank	CDS	2222737	2224188	.	+	0	ID=cds-AAF62340.1;Parent=gene-NMB2105;Dbxref=NCBI_GP:AAF62340.1;Name=AAF62340.1;Note=identified by similarity to GP:4838555%3B match to protein family HMM PF06255;gbkey=CDS;gene=mafB;locus_tag=NMB2105;product=mafB protein;protein_id=AAF62340.1;transl_table=11
+
+===== ppu =====
+#Annotation for interval (6155838, 6155983)
+AE015451.2	Genbank	region	1	6181873	.	+	.	ID=AE015451.2:1..6181873;Dbxref=taxon:160488;Is_circular=true;Name=ANONYMOUS;gbkey=Src;genome=chromosome;mol_type=genomic DNA;strain=KT2440
+AE015451.2	Genbank	gene	6155396	6156166	.	-	.	ID=gene-PP_5399;Name=PP_5399;gbkey=Gene;gene_biotype=protein_coding;locus_tag=PP_5399
+AE015451.2	Genbank	CDS	6155396	6156166	.	-	0	ID=cds-AAN70963.1;Parent=gene-PP_5399;Dbxref=NCBI_GP:AAN70963.1;Name=AAN70963.1;Note=Evidence 4 : Homologs of previously reported genes of unknown function;gbkey=CDS;locus_tag=PP_5399;product=conserved protein of unknown function;protein_id=AAN70963.1;transl_table=11
+
+===== psy1 =====
+#Annotation for interval (2452775, 2452652)
+AE016853.1	Genbank	region	1	6397126	.	+	.	ID=AE016853.1:1..6397126;Dbxref=taxon:223283;Is_circular=true;Name=ANONYMOUS;gbkey=Src;genome=chromosome;mol_type=genomic DNA;pathovar=tomato;strain=DC3000;type-material=reference strain of Pseudomonas syringae group genomosp. 3
+AE016853.1	Genbank	gene	2452514	2454061	.	+	.	ID=gene-PSPTO_2226;Name=PSPTO_2226;gbkey=Gene;gene_biotype=protein_coding;locus_tag=PSPTO_2226;old_locus_tag=PSPTO2226
+AE016853.1	Genbank	CDS	2452514	2454061	.	+	0	ID=cds-AAO55742.1;Parent=gene-PSPTO_2226;Dbxref=NCBI_GP:AAO55742.1;Name=AAO55742.1;Note=similar to GP:12025688%3B identified by sequence similarity%3B putative;gbkey=CDS;locus_tag=PSPTO_2226;product=conserved domain protein;protein_id=AAO55742.1;transl_table=11
+
+===== psy2 =====
+#Annotation for interval (132094, 132224)
+CP000075.1	Genbank	region	1	6093698	.	+	.	ID=CP000075.1:1..6093698;Dbxref=taxon:205918;Is_circular=true;Name=ANONYMOUS;gbkey=Src;genome=chromosome;mol_type=genomic DNA;pathovar=syringae;strain=B728a
+CP000075.1	Genbank	gene	131737	132393	.	+	.	ID=gene-Psyr_0122;Name=Psyr_0122;gbkey=Gene;gene_biotype=protein_coding;locus_tag=Psyr_0122
+CP000075.1	Genbank	CDS	131737	132393	.	+	0	ID=cds-AAY35195.1;Parent=gene-Psyr_0122;Dbxref=InterPro:IPR003680,NCBI_GP:AAY35195.1;Name=AAY35195.1;gbkey=CDS;locus_tag=Psyr_0122;product=NAD(P)H dehydrogenase (quinone);protein_id=AAY35195.1;transl_table=11
+
+===== rru =====
+#Annotation for interval (50471, 50582)
+CP000231.1	Genbank	region	1	53732	.	+	.	ID=CP000231.1:1..53732;Dbxref=ATCC:11170,taxon:269796;Is_circular=true;Name=unnamed;gbkey=Src;genome=plasmid;mol_type=genomic DNA;plasmid-name=unnamed;strain=ATCC 11170;type-material=type strain of Rhodospirillum rubrum
+CP000231.1	Genbank	gene	49682	50716	.	+	.	ID=gene-Rru_B0047;Name=Rru_B0047;gbkey=Gene;gene_biotype=protein_coding;locus_tag=Rru_B0047
+CP000231.1	Genbank	CDS	49682	50716	.	+	0	ID=cds-ABC24643.1;Parent=gene-Rru_B0047;Dbxref=InterPro:IPR001509,InterPro:IPR002198,InterPro:IPR005913,NCBI_GP:ABC24643.1;Name=ABC24643.1;gbkey=CDS;locus_tag=Rru_B0047;product=NAD-dependent epimerase/dehydratase;protein_id=ABC24643.1;transl_table=11
+
+===== sag =====
+#Annotation for interval (1851097, 1851167)
+AE009948.1	Genbank	region	1	2160267	.	+	.	ID=AE009948.1:1..2160267;Dbxref=taxon:208435;Is_circular=true;Name=ANONYMOUS;gbkey=Src;genome=chromosome;mol_type=genomic DNA;serotype=V;strain=2603V/R
+AE009948.1	Genbank	sequence_feature	1833201	1867137	.	+	.	ID=id-AE009948.1:1833201..1867137;Note=putative lysogenic prophage LambdaSa2 region%3B nonfunctional prophage;gbkey=misc_feature
+AE009948.1	Genbank	gene	1849791	1851503	.	-	.	ID=gene-SAG1855;Name=SAG1855;gbkey=Gene;gene_biotype=protein_coding;locus_tag=SAG1855
+AE009948.1	Genbank	CDS	1849791	1851503	.	-	0	ID=cds-AAN00718.1;Parent=gene-SAG1855;Dbxref=NCBI_GP:AAN00718.1;Name=AAN00718.1;Note=identified by match to PFAM protein family HMM PF03354;gbkey=CDS;locus_tag=SAG1855;product=prophage LambdaSa2%2C terminase large subunit%2C putative;protein_id=AAN00718.1;transl_table=11
+
+===== sco =====
+#Annotation for interval (3386277, 3386374)
+AL645882.2	EMBL	region	1	8667507	.	+	.	ID=AL645882.2:1..8667507;Dbxref=taxon:100226;gbkey=Src;mol_type=genomic DNA;old-name=Streptomyces coelicolor;strain=A3(2)
+
+===== sdy =====
+#Annotation for interval (3845234, 3845344)
+CP000034.1	Genbank	region	1	4369232	.	+	.	ID=CP000034.1:1..4369232;Dbxref=taxon:300267;Is_circular=true;Name=ANONYMOUS;gbkey=Src;genome=chromosome;mol_type=genomic DNA;serotype=1;strain=Sd197
+CP000034.1	Genbank	pseudogene	3842708	3845713	.	-	.	ID=gene-SDY_4106;Name=yjdA;Note=SDY4106%3B contains IS1 insertion%3B original product: putative vimentin;gbkey=Gene;gene=yjdA;gene_biotype=pseudogene;locus_tag=SDY_4106;pseudo=true
+
+===== sep =====
+#Annotation for interval (20697, 20838)
+AE015934.1	Genbank	region	1	24365	.	+	.	ID=AE015934.1:1..24365;Dbxref=ATCC:12228,taxon:176280;Is_circular=true;Name=pSE-12228-05;gbkey=Src;genome=plasmid;mol_type=genomic DNA;plasmid-name=pSE-12228-05;strain=ATCC 12228
+AE015934.1	Genbank	gene	20036	20908	.	+	.	ID=gene-SE_p519;Name=SE_p519;gbkey=Gene;gene_biotype=protein_coding;locus_tag=SE_p519;old_locus_tag=p519
+AE015934.1	Genbank	CDS	20036	20908	.	+	0	ID=cds-AAO06199.1;Parent=gene-SE_p519;Dbxref=NCBI_GP:AAO06199.1;Name=AAO06199.1;gbkey=CDS;locus_tag=SE_p519;product=hypothetical protein;protein_id=AAO06199.1;transl_table=11
+
+===== sfr =====
+#Annotation for interval (93768, 93837)
+CP000874.1	Genbank	region	1	2430033	.	+	.	ID=CP000874.1:1..2430033;Dbxref=taxon:394;Is_circular=true;Name=pNGR234b;gbkey=Src;genome=plasmid;mol_type=genomic DNA;old-name=Rhizobium sp. NGR234;plasmid-name=pNGR234b;strain=NGR234
+CP000874.1	Genbank	gene	93781	94194	.	-	.	ID=gene-NGR_b01050;Name=NGR_b01050;gbkey=Gene;gene_biotype=protein_coding;locus_tag=NGR_b01050
+CP000874.1	Genbank	CDS	93781	94194	.	-	0	ID=cds-ACP21572.1;Parent=gene-NGR_b01050;Dbxref=NCBI_GP:ACP21572.1;Name=ACP21572.1;gbkey=CDS;locus_tag=NGR_b01050;product=hypothetical protein;protein_id=ACP21572.1;transl_table=11
+
+===== sme2 =====
+#Annotation for interval (594003, 593896)
+CP000740.1	Genbank	region	1	1245408	.	+	.	ID=CP000740.1:1..1245408;Dbxref=taxon:366394;Is_circular=true;Name=pSMED02;gb-synonym=Ensifer medicae WSM419;gbkey=Src;genome=plasmid;mol_type=genomic DNA;plasmid-name=pSMED02;strain=WSM419
+CP000740.1	Genbank	gene	593433	594233	.	+	.	ID=gene-Smed_5625;Name=Smed_5625;gbkey=Gene;gene_biotype=protein_coding;locus_tag=Smed_5625
+CP000740.1	Genbank	CDS	593433	594233	.	+	0	ID=cds-ABR64367.1;Parent=gene-Smed_5625;Dbxref=InterPro:IPR002611,InterPro:IPR003593,NCBI_GP:ABR64367.1;Name=ABR64367.1;Note=PFAM: IstB domain protein ATP-binding protein~SMART: AAA ATPase~KEGG: ret:RHE_PA00081 probable insertion sequence ATP-binding protein%2C IS21 family;gbkey=CDS;locus_tag=Smed_5625;product=IstB domain protein ATP-binding protein;protein_id=ABR64367.1;transl_table=11
+
+===== smi =====
+#Annotation for interval (1931563, 1931634)
+FN568063.1	EMBL	region	1	2146611	.	+	.	ID=FN568063.1:1..2146611;Dbxref=taxon:365659;Is_circular=true;country=Germany;gbkey=Src;mol_type=genomic DNA;strain=B6
+FN568063.1	EMBL	mobile_genetic_element	1930320	1931850	.	+	.	ID=id-FN568063.1:1930320..1931850;gbkey=mobile_element;mobile_element_type=insertion sequence:ISSmi3
+FN568063.1	EMBL	gene	1930432	1931598	.	+	.	ID=gene-smi_1857;Name=tnpC;gbkey=Gene;gene=tnpC;gene_biotype=protein_coding;locus_tag=smi_1857
+FN568063.1	EMBL	CDS	1930432	1931598	.	+	0	ID=cds-CBJ23097.1;Parent=gene-smi_1857;Dbxref=EnsemblGenomes-Gn:smi_1857,EnsemblGenomes-Tr:CBJ23097,GOA:D3HB47,InterPro:IPR001584,InterPro:IPR012337,InterPro:IPR025246,UniProtKB/TrEMBL:D3HB47,NCBI_GP:CBJ23097.1;Name=CBJ23097.1;Note=COG2826%2C IS30 family;gbkey=CDS;gene=tnpC;locus_tag=smi_1857;product=transposase%2C ISSmi3;protein_id=CBJ23097.1;transl_table=11
+
+===== son1 =====
+#Annotation for interval (4548509, 4548654)
+AE014299.2	Genbank	region	1	4969811	.	+	.	ID=AE014299.2:1..4969811;Dbxref=taxon:211586;Is_circular=true;Name=ANONYMOUS;gbkey=Src;genome=chromosome;mol_type=genomic DNA;strain=MR-1;type-material=type strain of Shewanella oneidensis
+AE014299.2	Genbank	gene	4548072	4550090	.	-	.	ID=gene-SO_4356;Name=SO_4356;gbkey=Gene;gene_biotype=protein_coding;locus_tag=SO_4356
+AE014299.2	Genbank	CDS	4548072	4550090	.	-	0	ID=cds-AAN57324.1;Parent=gene-SO_4356;Dbxref=NCBI_GP:AAN57324.1;Name=AAN57324.1;gbkey=CDS;locus_tag=SO_4356;product=predicted lipoprotein;protein_id=AAN57324.1;transl_table=11
+
+===== spy =====
+#Annotation for interval (122711, 122851)
+AE004092.2	Genbank	region	1	1852433	.	+	.	ID=AE004092.2:1..1852433;Dbxref=taxon:160490;Is_circular=true;Name=ANONYMOUS;gbkey=Src;genome=chromosome;mol_type=genomic DNA;serotype=M1;strain=SF370
+AE004092.2	Genbank	gene	122250	123602	.	-	.	ID=gene-SPy_0131;Name=SPy_0131;gbkey=Gene;gene_biotype=protein_coding;locus_tag=SPy_0131;old_locus_tag=SPy0131
+AE004092.2	Genbank	CDS	122250	123602	.	-	0	ID=cds-AAK33241.1;Parent=gene-SPy_0131;Dbxref=NCBI_GP:AAK33241.1;Name=AAK33241.1;Note=Best Blastp hit %3D emb|CAB54046.1| (AJ245436) hypothetical protein%2C 57.8 kD [Pseudomonas putida];gbkey=CDS;locus_tag=SPy_0131;product=conserved hypothetical protein;protein_id=AAK33241.1;transl_table=11
+
+===== sru =====
+#Annotation for interval (930805, 930897)
+CP000159.1	Genbank	region	1	3551823	.	+	.	ID=CP000159.1:1..3551823;Dbxref=taxon:309807;Is_circular=true;Name=ANONYMOUS;gbkey=Src;genome=chromosome;mol_type=genomic DNA;strain=DSM 13855%3B M31;type-material=type strain of Salinibacter ruber
+CP000159.1	Genbank	region	1	3551823	.	+	.	ID=id-CP000159.1:1..3551823;Note=Salinibacter ruber strain M31T DSM13855 was obtained from the DSMZ (German Collection of Microorganisms and Cell Cultures) culture collection at http://www.dsmz.de/microorganisms/html/strains/strain.dsm013855.html . The S. ruber growth medium is described at http://www.dsmz.de/microorganisms/html/media/medium000936.html (DSMZ medium 936).;gbkey=Comment
+
+===== ssu =====
+#Annotation for interval (5903, 5982)
+FM252033.1	EMBL	region	1	24579	.	+	.	ID=FM252033.1:1..24579;Dbxref=taxon:568814;Is_circular=true;Name=pBM407;collection-date=2004;country=Viet Nam:Ho Chi Minh City;gbkey=Src;genome=plasmid;isolation-source=human case of meningitis;mol_type=genomic DNA;plasmid-name=pBM407;strain=BM407
+FM252033.1	EMBL	gene	5724	7214	.	-	.	ID=gene-SSUBM407_p010;Name=repR;gbkey=Gene;gene=repR;gene_biotype=protein_coding;locus_tag=SSUBM407_p010
+FM252033.1	EMBL	CDS	5724	7214	.	-	0	ID=cds-CAZ55669.1;Parent=gene-SSUBM407_p010;Dbxref=EnsemblGenomes-Gn:SSUBM407_p010,EnsemblGenomes-Tr:CAZ55669,InterPro:IPR014820,UniProtKB/TrEMBL:C6GYS7,NCBI_GP:CAZ55669.1;Name=CAZ55669.1;gbkey=CDS;gene=repR;locus_tag=SSUBM407_p010;product=protein RepR;protein_id=CAZ55669.1;transl_table=11
+
+===== tac =====
+#Annotation for interval (598889, 598989)
+CP001818.1	Genbank	region	1	1848474	.	+	.	ID=CP001818.1:1..1848474;Dbxref=taxon:525903;Is_circular=true;Name=ANONYMOUS;gbkey=Src;genome=chromosome;mol_type=genomic DNA;strain=DSM 6589;type-material=type strain of Thermanaerovibrio acidaminovorans
+CP001818.1	Genbank	gene	597964	598977	.	+	.	ID=gene-Taci_0559;Name=Taci_0559;gbkey=Gene;gene_biotype=protein_coding;locus_tag=Taci_0559
+CP001818.1	Genbank	CDS	597964	598977	.	+	0	ID=cds-ACZ18795.1;Parent=gene-Taci_0559;Dbxref=InterPro:IPR000843,InterPro:IPR001761,NCBI_GP:ACZ18795.1;Name=ACZ18795.1;Note=PFAM: periplasmic binding protein/LacI transcriptional regulator%3B regulatory protein LacI~SMART: regulatory protein LacI~KEGG: aav:Aave_4199 transcriptional regulator%2C LacI family;gbkey=CDS;inference=protein motif:PFAM:PF00532;locus_tag=Taci_0559;product=transcriptional regulator%2C LacI family;protein_id=ACZ18795.1;transl_table=11
+
+===== tde =====
+#Annotation for interval (1182361, 1182456)
+AE017226.1	Genbank	region	1	2843201	.	+	.	ID=AE017226.1:1..2843201;Dbxref=ATCC:35405,taxon:243275;Is_circular=true;Name=ANONYMOUS;gbkey=Src;genome=chromosome;mol_type=genomic DNA;strain=ATCC 35405;type-material=type strain of Treponema denticola
+AE017226.1	Genbank	gene	1181938	1182945	.	-	.	ID=gene-TDE_1144;Name=TDE_1144;gbkey=Gene;gene_biotype=protein_coding;locus_tag=TDE_1144;old_locus_tag=TDE1144
+AE017226.1	Genbank	CDS	1181938	1182945	.	-	0	ID=cds-AAS11633.1;Parent=gene-TDE_1144;Dbxref=NCBI_GP:AAS11633.1;Name=AAS11633.1;Note=identified by Glimmer2%3B putative;gbkey=CDS;locus_tag=TDE_1144;product=hypothetical protein;protein_id=AAS11633.1;transl_table=11
+
+===== tma =====
+#Annotation for interval (1160264, 1160399)
+AE000512.1	Genbank	region	1	1860725	.	+	.	ID=AE000512.1:1..1860725;Dbxref=taxon:243274;Is_circular=true;Name=ANONYMOUS;gbkey=Src;genome=chromosome;mol_type=genomic DNA;strain=MSB8;type-material=type strain of Thermotoga maritima
+AE000512.1	Genbank	gene	1160121	1161284	.	+	.	ID=gene-TM_1147;Name=TM_1147;gbkey=Gene;gene_biotype=protein_coding;locus_tag=TM_1147;old_locus_tag=TM1147
+AE000512.1	Genbank	CDS	1160121	1161284	.	+	0	ID=cds-AAD36223.1;Parent=gene-TM_1147;Dbxref=NCBI_GP:AAD36223.1;Name=AAD36223.1;Note=similar to PID:558266 percent identity: 58.48%3B identified by sequence similarity%3B putative;gbkey=CDS;locus_tag=TM_1147;product=conserved hypothetical protein;protein_id=AAD36223.1;transl_table=11
+
+===== tth =====
+#Annotation for interval (613872, 613979)
+AP008226.1	DDBJ	region	1	1849742	.	+	.	ID=AP008226.1:1..1849742;Dbxref=taxon:300852;Is_circular=true;Name=1;chromosome=1;gbkey=Src;mol_type=genomic DNA;strain=HB8;type-material=type strain of Thermus thermophilus
+AP008226.1	DDBJ	gene	613510	614523	.	-	.	ID=gene-TTHA0645;Name=TTHA0645;gbkey=Gene;gene=TTHA0645;gene_biotype=protein_coding
+AP008226.1	DDBJ	CDS	613510	614523	.	-	0	ID=cds-BAD70468.1;Parent=gene-TTHA0645;Dbxref=NCBI_GP:BAD70468.1;Name=BAD70468.1;Note=similar to EMB:CAG37941.1 percent identity 32 in 257 aa;gbkey=CDS;gene=TTHA0645;product=putative glycosyltransferase;protein_id=BAD70468.1;transl_table=11
+
+===== vpa =====
+#Annotation for interval (938343, 938418)
+BA000032.2	DDBJ	region	1	1877212	.	+	.	ID=BA000032.2:1..1877212;Dbxref=taxon:223926;Is_circular=true;Name=2;chromosome=2;gbkey=Src;mol_type=genomic DNA;strain=O3:K6;substrain=RIMD 2210633
+BA000032.2	DDBJ	gene	938278	938595	.	-	.	ID=gene-VPA0896;Name=VPA0896;gbkey=Gene;gene=VPA0896;gene_biotype=protein_coding
+BA000032.2	DDBJ	CDS	938278	938595	.	-	0	ID=cds-BAC62239.1;Parent=gene-VPA0896;Dbxref=NCBI_GP:BAC62239.1;Name=BAC62239.1;Note=unknown;gbkey=CDS;gene=VPA0896;product=hypothetical protein;protein_id=BAC62239.1;transl_table=11
+
+===== xca =====
+#Annotation for interval (632778, 632856)
+AE008922.1	Genbank	region	1	5076188	.	+	.	ID=AE008922.1:1..5076188;Dbxref=taxon:190485;Is_circular=true;Name=ANONYMOUS;culture-collection=ATCC:33913;gbkey=Src;genome=chromosome;mol_type=genomic DNA;pathovar=campestris;strain=ATCC 33913;type-material=type strain of Xanthomonas campestris
+AE008922.1	Genbank	gene	632372	635275	.	+	.	ID=gene-XCC0524;Name=XCC0524;gbkey=Gene;gene_biotype=protein_coding;locus_tag=XCC0524
+AE008922.1	Genbank	CDS	632372	635275	.	+	0	ID=cds-AAM39840.1;Parent=gene-XCC0524;Dbxref=NCBI_GP:AAM39840.1;Name=AAM39840.1;Note=identified by sequence similarity%3B putative%3B ORF located using Blastx/Glimmer/Genemark;gbkey=CDS;locus_tag=XCC0524;product=helicase;protein_id=AAM39840.1;transl_table=11
+
+===== yen =====
+#Annotation for interval (3894480, 3894610)
+AM286415.1	EMBL	region	1	4615899	.	+	.	ID=AM286415.1:1..4615899;Dbxref=taxon:393305;Is_circular=true;gbkey=Src;mol_type=genomic DNA;strain=8081;sub-species=enterocolitica
+AM286415.1	EMBL	sequence_feature	3761922	3960673	.	+	.	ID=id-AM286415.1:3761922..3960673;Note=The plasticity zone%3B PZ;gbkey=misc_feature;standard_name=PZ
+AM286415.1	EMBL	gene	3894393	3896750	.	+	.	ID=gene-YE3579;Name=YE3579;gbkey=Gene;gene_biotype=protein_coding;locus_tag=YE3579
+AM286415.1	EMBL	CDS	3894393	3896750	.	+	0	ID=cds-CAL13605.1;Parent=gene-YE3579;Dbxref=EnsemblGenomes-Gn:YE3579,EnsemblGenomes-Tr:CAL13605,GOA:A1JQF6,InterPro:IPR001638,InterPro:IPR001789,InterPro:IPR003594,InterPro:IPR003661,InterPro:IPR004358,InterPro:IPR005467,InterPro:IPR009082,InterPro:IPR011006,UniProtKB/TrEMBL:A1JQF6,NCBI_GP:CAL13605.1;Name=CAL13605.1;Note=Two-component regulatory system family%2C sensor kinase protein. Similar to Yersinia enterocolitica putative sensory transduction histidine kinase YsrS SWALL:Q9KKI7 (EMBL:AF005744) (791 aa) fasta scores: E(): 0%2C 87 38d in 785 aa. Similar to YE3561%2C 87.134 0dentity (87.35638ngapped) in 785 aa overlap;gbkey=CDS;inference=similar to sequence:INSDC:AF005744;locus_tag=YE3579;product=sensor kinase protein;protein_id=CAL13605.1;transl_table=11
+
+
+
+
+*** General observations
+
+** Dataset Yield & Selectivity
+- Total analyzed taxa dropped slightly from 120 to 119 because we eliminated mth.
+- Phylogenetic tree generation fell from 97 to 89 taxa.
+- Taxa producing markers decreased from 80 to 61.
+- Final primer yield dropped from 74 to 61 successful taxa.
+
+** Primer Quality & Penalty Scores
+- Average primer penalty score dropped by 75% (from 0.7 down to 0.18).
+- Maximum penalty decreased from 9.727 (cdi) to 8.964 (bap).
+- Resolved severe penalty anomalies for both =cdi= (9.72 -> 0.018) and =bpa= (5.32 -> 0.013).
+- Lowest penalty tied at 0.000142, now shared by =afi=, =gsu=, and =kae=.
+
+** Clade Splitting Accuracy
+- Perfect 100% phylogenetic splits increased from 51 to 59 taxa.
+- New lowest split trio: =vch= (68.75%), =dvu= (75.00%), and =gva= (83.33%).
+
+** Marker Characteristics
+- =sco= has 3,738 markers with highest number in both runs
+- Maximum marker length increased from 64.3 kb (=rru=) to 77.77 kb (=bpa=).
+
+** Annotation Success (anam.txt)
+- Successful annotations are obtained from just 2 taxa to all 61 primer-producing taxa.
+- Selected primers now map exclusively to well-documented accessions.
