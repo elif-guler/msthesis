@@ -47,10 +47,14 @@ This pipeline will be used to compare:
 ** Seqwin version (REPLACEMENT TEST)
 - Replace fur with seqwin
 - Input: same targets + neighbors genomes
+- Tool:
+  - seqwin
+    - --tar-dir targets/
+    - --neg-dir neighbors/
 - Output:
   - signatures.fasta (equivalent of markers.fasta)
 
-compare signatures.fasta and markers.fasta at this step
+Compare markers.fasta and signatures.fasta at this step
 
 ------------------------------------------------------------
 
