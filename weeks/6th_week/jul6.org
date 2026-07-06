@@ -1,0 +1,95 @@
+*** Seqwin notes (continued)
+
+they used fur dataset's 6 strain of e.coli for benchmarking.
+#+begin_src bash
+  eco1	BA000007.3	Escherichia coli O157:H7 str. Sakai
+  eco2	CP001855.1	Escherichia coli O83:H1 str. NRG 857C
+  eco3	CP003289.1	Escherichia coli O104:H4 str. 2011C-3493
+  eco4	CU928163.2	Escherichia coli UMN026
+  eco5	CU928164.2	Escherichia coli IAI39
+  eco6	U00096.3	Escherichia coli str. K-12 substr. MG1655
+#+end_src
+
+for testing, they used these 3:
+
+- Clostridioides difficile — ID 1496
+- Mycobacterium tuberculosis — ID 1773
+- Salmonella enterica subsp. enterica — ID 59201
+
+what we have in fur dataset:
+#+begin_src bash
+  cdi	AM180355.1	Clostridioides difficile 630 - ID 272563 - Parent 1496
+  mtu1	AL123456.3	Mycobacterium tuberculosis H37Rv - ID 83332 - Parent 1773
+  mtu2	LT708304.1	Mycobacterium tuberculosis variant bovis AF2122/97 - ID 233413 - Parent 1765
+  sen1	AE006468.2	Salmonella enterica subsp. enterica serovar Typhimurium str. LT2 - ID 99287 - Parent 90371
+  sen2	AL513382.1	Salmonella enterica subsp. enterica serovar Typhi str. CT18 - ID 220341 - Parent 90370
+#+end_src
+#+begin_src bash
+  (base) elif@bioinfo1268:~/maprodev/mapro/data$ taxi "Salmonella enterica subsp. enterica" neidb
+  # ID       Parent   Name
+  59201    28901    Salmonella enterica subsp. enterica
+#+end_src
+
+
+#+begin_src bash
+  seqwin \
+    --tar-paths targets.txt \
+    --neg-paths neighbors.txt \
+    -o seqwin-out \
+    --overwrite
+#+end_src
+
+
+
+in markers.sh, I changed the relevant part from:
+#+begin_src bash
+  cd $dir
+  makeFurDb -t targets -n neighbors -d all.db
+  fur -d all.db |
+      cleanSeq > markers.fasta
+#+end_src
+to:
+#+begin_src bash
+  cd $dir
+  seqwin \
+      --tar-dir targets \
+      --neg-dir neighbors \
+      -o seqwin-out \
+      --overwrite
+
+  if [[ -f seqwin-out/signatures.fasta ]]; then
+      cp seqwin-out/signatures.fasta markers.fasta
+  else
+      echo "Seqwin did not produce signatures.fasta"
+      exit 1
+  fi
+#+end_src
+
+then i made a list with 6 e.coli strains and ran the analysis. seqwin worked and gave results
+for eco1, but mapro gave an error while trying to delete all.db, since seqwin does not generate
+all.db. so i will delete this line in drivers.sh and try again:
+#+begin_src bash
+   rm -r $dir/all.db
+#+end_src
+
+
+now the loop didnt work for list.txt. pipeline executes the first line of list.txt and stops.
+i searched for the reason:
+one of the background commands or sub-scripts inside the loop is consuming stdin (Standard Input).
+the entire loop shares the same standard input. When a tool inside scripts runs, it inherits that
+standard input, swallows the remaining lines of your file, and leaves nothing left for the next
+iteration of your while read loop.
+
+i will change this part in driver.sh:
+#+begin_src bash
+  while read dir acc type; do
+#+end_src
+to this:
+#+begin_src bash
+  while read -u 3 dir acc type; do
+#+end_src
+in the end of the loop we will have:
+#+begin_src bash
+  done 3<&0
+#+end_src
+this will map the file descriptor (3) to redirect into driver.sh and use list.txt again
