@@ -80,16 +80,15 @@ the entire loop shares the same standard input. When a tool inside scripts runs,
 standard input, swallows the remaining lines of your file, and leaves nothing left for the next
 iteration of your while read loop.
 
-i will change this part in driver.sh:
+to prevent this, i added </dev/null after every bash command inside driver.sh:
 #+begin_src bash
-  while read dir acc type; do
+  bash ../scripts/genomes.sh -t "$type" -a "$acc" \
+       -d $dir -n $ndb </dev/null
+  ...
+  bash ../scripts/markers.sh -d $dir </dev/null
+  ...
+  bash ../scripts/primers.sh -d $dir </dev/null
+  ...
+  bash ../scripts/primers.sh -c -d $dir -b $bdb -t "$type" \
+       -a $acc -n "$ndb" </dev/null
 #+end_src
-to this:
-#+begin_src bash
-  while read -u 3 dir acc type; do
-#+end_src
-in the end of the loop we will have:
-#+begin_src bash
-  done 3<&0
-#+end_src
-this will map the file descriptor (3) to redirect into driver.sh and use list.txt again
