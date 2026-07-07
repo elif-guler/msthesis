@@ -1,0 +1,221 @@
+now that i have the results of e.coli examples, we can see the comparison on these:
+(i discarded eco4 for now since it takes too long to get the results with both)
+*** markers generated with fur
+eco1      0
+eco2      2
+eco3      0
+eco5      3
+eco6      0
+*** markers generated with seqwin
+eco1    544
+eco2      5
+eco3    229
+eco5      7
+eco6      0
+
+*** primers generated after using fur for markers
+#+begin_src bash
+===== eco1/primers.fasta =====
+cat: eco1/primers.fasta: No such file or directory
+
+===== eco2/primers.fasta =====
+>f penalty: 0.025697
+TATTTCTCATAGTGGGGCGT
+>r
+GGCTACAGCATATCCACTTG
+
+===== eco3/primers.fasta =====
+cat: eco3/primers.fasta: No such file or directory
+
+===== eco5/primers.fasta =====
+>f penalty: 0.059356
+GTGAAGGAGGCTTTACTTGG
+>r
+ACATGCTGCAATACATGGTT
+
+===== eco6/primers.fasta =====
+cat: eco6/primers.fasta: No such file or directory
+#+end_src
+
+*** primers generated after using seqwin for markers
+#+begin_src bash
+===== eco1/primers.fasta =====
+>f penalty: 0.000142
+AACACCGACAGTTGATGAAG
+>r
+TACTGAAGCAACTGCAACTC
+
+===== eco2/primers.fasta =====
+>f penalty: 0.075217
+TCCCTGCGTCGCTAATATAT
+>r
+AGACAACCTGCGTCTAGTTA
+
+===== eco3/primers.fasta =====
+>f penalty: 0.000760
+AATGGACGACAGTTCTGTTG
+>r
+CATCATCATGCATGCCCATA
+
+===== eco5/primers.fasta =====
+>f penalty: 0.059356
+GTGAAGGAGGCTTTACTTGG
+>r
+ACATGCTGCAATACATGGTT
+
+===== eco6/primers.fasta =====
+cat: eco6/primers.fasta: No such file or directory
+#+end_src
+
+
+#+begin_src bash
+  for d in eco*; do
+      echo "===== $d ====="
+      awk '
+      /^>/ {
+          if (NR > 1) print len
+          n++
+          len = 0
+          next
+      }
+      {
+          len += length($0)
+      }
+      END {
+          if (n > 0) print len
+          printf("Total markers: %d\n\n", n)
+      }
+      ' "$d/markers.fasta"
+  done
+
+
+#+end_src
+
+
+for the targets and neighbors, they don't have any checks inside the tool. the user should define
+what is the target and what is the neighbor. then it creates a data frame and label each genome
+whether it is a target or not depending on already given information. so it should be supervised.
+#+begin_src python
+  class Assemblies(pd.DataFrame):
+    """Package all input genome assemblies as a pandas DataFrame.
+
+    Attributes:
+        path (pd.Series[Path]): Assembly paths.
+        is_target (pd.Series[bool]): True for target assemblies.
+        record_ids (pd.Series[tuple[str, ...] | None]): Record IDs of each assembly.
+    """
+    def __init__(self, tar_paths: list[Path], neg_paths: list[Path]) -> None:
+        """Package all input genome assemblies as a pandas DataFrame.
+
+        Args:
+            tar_paths (list[Path]): A list of paths to target assemblies.
+            neg_paths (list[Path]): A list of paths to non-target assemblies.
+        """
+        data = dict(
+            path=tar_paths + neg_paths,
+            is_target=[True]*len(tar_paths) + [False]*len(neg_paths),
+            record_ids=None
+        )
+        super().__init__(data)
+#+end_src
+
+
+
+for specificity and sensitivity, they have signatures.csv
+example:
+#+begin_src bash
+fasta_header,length,conservation,f_tar_hits,divergence,f_neg_hits,avg_repeats_tar,avg_pident_tar,avg_repeats_neg,avg_pident_neg,rep_ratio,n_nodes
+0-CP000020.2-2047180:2047891,711,1.0,1.0,0.29067041725269577,1.0,8.0,0.18530239099859352,5.0,0.22680887638693548,1.0,7
+0-CP000020.2-1440778:1441473,695,1.0,1.0,0.271462829736211,1.0,10.0,0.12863309352517988,8.666666666666666,0.1165947242206235,1.0,8
+0-CP000020.2-357762:358183,421,1.0,1.0,0.25098970704671414,1.0,54.0,0.18003870854227147,63.666666666666664,0.1801099078062724,1.0,5
+0-CP000020.2-2048962:2050136,1174,1.0,1.0,0.24673480976717774,1.0,10.0,0.11695059625212949,7.666666666666667,0.12076471701684649,1.0,10
+#+end_src
+
+In their wiki page, they have these information:
+"How to evaluate signature specificity
+
+In signatures.csv, two columns are especially relevant for specificity: divergence and f_neg_hits.
+
+These values are computed by aligning each signature against all non-target genomes with BLAST.
+If a genome has multiple hits of the signature, only the best one is reported.
+
+For example, suppose there are 1000 non-target genomes. If a signature has a BLAST hit in 300 of
+them and no BLAST hit in the remaining 700:
+
+    f_neg_hits = 300 / 1000 = 0.3
+    divergence = D / (1000 * L), where D is the number of mismatches and gaps in the 300 genomes with
+    a BLAST hit, L is the length of the signature.
+
+This means that divergence should never be interpreted by itself.
+
+For example, a low divergence value can occur in two very different situations:
+
+    The signature has a BLAST hit in only a few non-target genomes (low f_neg_hits)
+    The signature has few mismatches / gaps in most non-target genomes (high f_neg_hits)
+
+These two cases have opposite biological meanings, so divergence must always be interpreted together
+with f_neg_hits."
+
+Having low f_neg_hits and low divergence may be a good mesure to have a marker since it points that
+the marker is specific for the targets.
+But also, having high divergence and low f_neq_hits can also be a nice example to check since it
+may show a common feature of two dictint taxa.
+
+
+Sensitivity scores are shown under "conservation" column.
+
+SInce fur does not have any built-in checking function for these two measures, it might be a better
+idea to check their primer results for a fair comparison. We also cannot apply the same checking
+parameters to fur because of its difference of how fur is designed:
+
+| Metric     | Seqwin's Approach             | Fur's Approach              |
+|------------+-------------------------------+-----------------------------|
+| f_neg_hits |                               |                             |
+|            | Allows neighbor cross-        | Instantly deletes any       |
+|            | reactivity, then calculates   | sequence where a neighbor   |
+|            | the fraction for evaluation.  | hit makes value > 0         |
+|------------+-------------------------------+-----------------------------|
+| divergence |                               |                             |
+|            | Uses BLAST after graph phase  | Treats any neighbor match   |
+|            | to check how bad the          | even an imperfect one       |
+|            | accidental matches are.       | as a failure; cuts upfront. |
+
+
+
+
+I can use stan to generate simulated targets and neighbors and then compare the speed of two tools:
+#+begin_src bash
+  (base) elif@bioinfo1268:~/stan_try$ /usr/bin/time -v -o makefurdb.res makeFurDb -t targets/ -n neighbors/ -d test.db 
+  (base) elif@bioinfo1268:~/stan_try$ cat makefurdb.res 
+  	Command being timed: "makeFurDb -t targets/ -n neighbors/ -d test.db"
+  	User time (seconds): 0.11
+  	System time (seconds): 0.04
+  	Percent of CPU this job got: 70%
+  	Elapsed (wall clock) time (h:mm:ss or m:ss): 0:00.22
+  	Average shared text size (kbytes): 0
+  	Average unshared data size (kbytes): 0
+  	Average stack size (kbytes): 0
+  	Average total size (kbytes): 0
+  	Maximum resident set size (kbytes): 37136
+  	Average resident set size (kbytes): 0
+  	Major (requiring I/O) page faults: 341
+  	Minor (reclaiming a frame) page faults: 8672
+  	Voluntary context switches: 1011
+  	Involuntary context switches: 4
+  	Swaps: 0
+  	File system inputs: 69352
+  	File system outputs: 552
+  	Socket messages sent: 0
+  	Socket messages received: 0
+  	Signals delivered: 0
+  	Page size (bytes): 4096
+  	Exit status: 0
+
+
+  	
+  /usr/bin/time -f "%U %E %M" makeFurDb -t targets/ -n neighbors/ -o -d test.db 
+  using t2.fasta as target representative
+  making Blast database
+  0.12 0:00.13 37452
+    
+#+end_src
