@@ -1,0 +1,149 @@
+taxa that generated the same primers both with fur and seqwin:
+(the analysis for seqwin with all 119 taxa did not finish yet.)
+#+begin_src bash
+  old=~/ch_mapro/mapro/analysis
+  new=~/try_seqwin/mapro/analysis
+
+  for d in "$old"/*; do
+      taxon=$(basename "$d")
+
+      if [ -f "$old/$taxon/primers.fasta" ] && \
+  	   [ -f "$new/$taxon/primers.fasta" ] && \
+  	   cmp -s "$old/$taxon/primers.fasta" "$new/$taxon/primers.fasta"; then
+          echo "$taxon"
+      fi
+  done
+#+end_src
+
+afi
+ahy
+bbr
+bfa
+bfr
+bma
+cvi2
+eco5
+efa1
+efa2
+gsu
+hin
+kae
+lac
+lin
+rru
+
+
+number of markers and total lenght of the markers for each taxa
+#+begin_src bash
+  fur=~/ch_mapro/mapro/analysis
+  seqwin=~/try_seqwin/mapro/analysis
+
+  printf "%-8s %8s %10s %8s %10s\n" "Taxon" "Fur_n" "Fur_bp" "Seq_n" "Seq_bp"
+
+  for taxon in $(ls "$fur"); do
+      [ -f "$fur/$taxon/markers.fasta" ] && [ -f "$seqwin/$taxon/markers.fasta" ] || continue
+
+      read fur_n fur_bp < <(awk '/^>/{n++;next}{bp+=length}END{print n,bp}' "$fur/$taxon/markers.fasta")
+      read seq_n seq_bp < <(awk '/^>/{n++;next}{bp+=length}END{print n,bp}' "$seqwin/$taxon/markers.fasta")
+
+      printf "%-8s %8d %10d %8d %10d\n" \
+             "$taxon" "$fur_n" "$fur_bp" "$seq_n" "$seq_bp"
+  done
+
+#+end_src
+| Taxon | Fur_n |  Fur_bp | Seq_n |  Seq_bp | Same Primers |
+| afi   |   133 |  332244 |  1569 |  968608 | Yes          |
+| ahy   |    23 |   13472 |   375 |  126084 | Yes          |
+| ame   |     0 |       0 |     1 |     202 |              |
+| ban2  |     0 |       0 |     1 |     224 |              |
+| bap   |    26 |    4286 |   481 |  410219 |              |
+| bbi   |    31 |   42687 |    47 |   49636 |              |
+| bbr   |    59 |  125904 |   591 |  330209 | Yes          |
+| bbu   |    14 |    3718 |    46 |   32361 |              |
+| bfa   |   743 |  296129 |  2448 | 2398601 | Yes          |
+| bfr   |   178 |  442391 |   298 |  583112 |              |
+| bma   |    44 |   72715 |    18 |   70715 | Yes          |
+| bpa   |   165 |  445731 |   426 |  596120 |              |
+| bps   |    24 |   76827 |    39 |  104614 |              |
+| bth2  |    83 |   84065 |   363 |  236213 |              |
+| cac   |     0 |       0 |     3 |     770 |              |
+| cbo1  |    51 |   48054 |   333 |  234857 |              |
+| cbo2  |    51 |   48054 |   333 |  234436 |              |
+| cbu   |     0 |       0 |     2 |     478 |              |
+| cdi   |    58 |   63771 |   145 |  164985 |              |
+| cje   |    58 |   19653 |   314 |  139815 |              |
+| cpn   |     0 |       0 |     4 |    1059 |              |
+| cte   |   211 |  144242 |  1628 | 1414444 |              |
+| cvi2  |    30 |   21903 |     4 |   25463 | Yes          |
+| dtu   |   124 |   84591 |   404 | 1659737 |              |
+| ecl   |    78 |   49351 |  1631 |  786944 |              |
+| eco1  |     0 |       0 |   544 |  433316 |              |
+| eco2  |     2 |    4309 |     5 |    5236 |              |
+| eco3  |     0 |       0 |   229 |  329328 |              |
+| eco5  |     3 |    2517 |     7 |    4415 | Yes          |
+| efa1  |    30 |   76929 |    67 |  104005 | Yes          |
+| efa2  |    88 |  151703 |    91 |  202462 | Yes          |
+| fps   |    31 |   73672 |    47 |   80452 |              |
+| gsu   |    60 |  188737 |   271 |  285551 | Yes          |
+| hin   |    21 |   39123 |    83 |   66191 | Yes          |
+| kae   |   140 |  404960 |  1008 |  739253 | Yes          |
+| kvu   |     0 |       0 |     6 |    1537 |              |
+| lac   |     2 |     833 |     4 |    1975 | Yes          |
+| lin   |     3 |    2932 |    14 |    7722 | Yes          |
+| lmo   |    10 |    6995 |     6 |   21801 |              |
+| lpn   |    28 |    9587 |   561 |  233771 |              |
+| lsa   |     2 |     247 |   268 |   98027 |              |
+| mci   |  1973 | 1738813 |  4055 | 3722106 |              |
+| mfl   |   107 |   18736 |   160 |  133468 |              |
+| msm   |   280 |  399941 |  1700 | 1251081 |              |
+| mtu2  |     0 |       0 |     7 |    1702 |              |
+| ngo   |    14 |    9396 |    53 |   26531 |              |
+| nme   |     2 |     473 |    16 |    8687 |              |
+| ppu   |   154 |  266107 |   740 |  686653 |              |
+| psy1  |   673 |  457191 |  3297 | 2962474 |              |
+| psy2  |     1 |    1420 |  1615 |  860043 |              |
+| rru   |    49 |   46954 |     6 |   41490 | Yes          |
+| sag   |    43 |   67836 |    62 |  105677 |              |
+| sau   |     1 |     769 |     3 |     740 |              |
+| sco   |  3738 | 3577617 |  1872 | 7493923 |              |
+| sdy   |   272 |  104005 |   170 |   93508 |              |
+
+
+
+
+
+
+
+
+
+
+useful codes:
+#+begin_src bash
+find . -name markers.fasta | sort | while read -r f; do
+    echo "===== $f ====="
+    awk '
+    /^>/ {
+        if (seen) print len
+        seen = 1
+        n++
+        len = 0
+        next
+    }
+    {
+        len += length($0)
+    }
+    END {
+        if (seen) print len
+        printf("Total markers: %d\n\n", n)
+    }
+    ' "$f"
+done
+#+end_src
+
+#+begin_src bash
+find . -name primers.fasta | sort | while read -r f; do
+    echo "===== $f ====="
+    cat "$f"
+    echo
+done
+#+end_src
