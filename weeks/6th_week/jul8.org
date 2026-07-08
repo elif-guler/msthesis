@@ -31,6 +31,7 @@ kae
 lac
 lin
 rru
+sep
 
 
 number of markers and total lenght of the markers for each taxa
@@ -107,6 +108,15 @@ number of markers and total lenght of the markers for each taxa
 | sau   |     1 |     769 |     3 |     740 |              |
 | sco   |  3738 | 3577617 |  1872 | 7493923 |              |
 | sdy   |   272 |  104005 |   170 |   93508 |              |
+| sen2  |     0 |       0 |   391 |  376654 |              |
+| sep   |    58 |  133868 |   103 |  174860 | Yes          |
+
+
+
+
+
+
+
 
 
 
