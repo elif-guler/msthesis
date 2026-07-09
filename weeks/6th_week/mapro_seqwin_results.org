@@ -1,0 +1,547 @@
+* MAPRO Results with Seqwin
+** Dataset Summary
+
+| Metric | Value |
+|---------+-------|
+| Total taxa analyzed |119 |
+| Taxa producing markers | 71 |
+| Taxa producing primers | 70 (ame does not have primers but have one marker) |
+
+** Pipeline Outcomes
+
+*** Taxa having markers.fasta
+
+I excluded eco4 to have fair results (seqwin stopped while generating markers for eco4)
+
+| Fur   | Seqwin |
+|--------+--------|
+| afi    | afi    |
+| ahy    | ahy    |
+|        | ame    |
+|        | ban2   |
+| bap    | bap    |
+| bbi    | bbi    |
+| bbr    | bbr    |
+| bbu    | bbu    |
+| bfa    | bfa    |
+| bfr    | bfr    |
+| bma    | bma    |
+| bpa    | bpa    |
+| bps    | bps    |
+| bth2   | bth2   |
+|        | cac    |
+| cbo1   | cbo1   |
+| cbo2   | cbo2   |
+|        | cbu    |
+| cdi    | cdi    |
+| cje    | cje    |
+|        | cpn    |
+| cte    | cte    |
+| cvi2   | cvi2   |
+| dtu    | dtu    |
+| ecl    | ecl    |
+|        | eco1   |
+| eco2   | eco2   |
+|        | eco3   |
+| eco5   | eco5   |
+| efa1   | efa1   |
+| efa2   | efa2   |
+| fps    | fps    |
+| gsu    | gsu    |
+| hin    | hin    |
+| kae    | kae    |
+|        | kvu    |
+| lac    | lac    |
+| lin    | lin    |
+| lmo    | lmo    |
+| lpn    | lpn    |
+| lsa    | lsa    |
+| mci    | mci    |
+| mfl    | mfl    |
+| msm    | msm    |
+|        | mtu2   |
+| ngo    | ngo    |
+| nme    | nme    |
+| ppu    | ppu    |
+| psy1   | psy1   |
+| psy2   | psy2   |
+| rru    | rru    |
+| sag    | sag    |
+| sau    | sau    |
+| sco    | sco    |
+| sdy    | sdy    |
+|        | sen2   |
+| sep    | sep    |
+| sfr    | sfr    |
+| sme2   | sme2   |
+| smi    | smi    |
+| son1   | son1   |
+| spy    | spy    |
+| sru    | sru    |
+| ssu    | ssu    |
+| tac    | tac    |
+| tde    | tde    |
+| tma    | tma    |
+| tth    | tth    |
+| vpa    | vpa    |
+| xca    | xca    |
+| yen    | yen    |
+
+*** Taxa having primers.fasta
+
+#+begin_src bash
+find . -name primers.fasta | sed 's|^./||; s|/primers.fasta$||' | sort
+#+end_src
+| Fur   | Seqwin |
+|--------+--------|
+| afi    | afi    |
+| ahy    | ahy    |
+|        | ban2   |
+| bap    | bap    |
+| bbi    | bbi    |
+| bbr    | bbr    |
+| bbu    | bbu    |
+| bfa    | bfa    |
+| bfr    | bfr    |
+| bma    | bma    |
+| bpa    | bpa    |
+| bps    | bps    |
+| bth2   | bth2   |
+|        | cac    |
+| cbo1   | cbo1   |
+| cbo2   | cbo2   |
+|        | cbu    |
+| cdi    | cdi    |
+| cje    | cje    |
+|        | cpn    |
+| cte    | cte    |
+| cvi2   | cvi2   |
+| dtu    | dtu    |
+| ecl    | ecl    |
+|        | eco1   |
+| eco2   | eco2   |
+|        | eco3   |
+| eco4   |        |
+| eco5   | eco5   |
+| efa1   | efa1   |
+| efa2   | efa2   |
+| fps    | fps    |
+| gsu    | gsu    |
+| hin    | hin    |
+| kae    | kae    |
+|        | kvu    |
+| lac    | lac    |
+| lin    | lin    |
+| lmo    | lmo    |
+| lpn    | lpn    |
+| lsa    | lsa    |
+| mci    | mci    |
+| mfl    | mfl    |
+| msm    | msm    |
+|        | mtu2   |
+| ngo    | ngo    |
+| nme    | nme    |
+| ppu    | ppu    |
+| psy1   | psy1   |
+| psy2   | psy2   |
+| rru    | rru    |
+| sag    | sag    |
+|        | sau    |
+| sco    | sco    |
+| sdy    | sdy    |
+|        | sen2   |
+| sep    | sep    |
+| sfr    | sfr    |
+| sme2   | sme2   |
+| smi    | smi    |
+| son1   | son1   |
+| spy    | spy    |
+| sru    | sru    |
+| ssu    | ssu    |
+| tac    | tac    |
+| tde    | tde    |
+| tma    | tma    |
+| tth    | tth    |
+| vpa    | vpa    |
+| xca    | xca    |
+| yen    | yen    |
+
+
+*** Penalty scores fmor primers
+
+#+begin_src bash
+for d in ???/; do
+[ -f "$d/primers.fasta" ] &&
+echo "$(basename "$d") $(grep -m1 'penalty:' "$d/primers.fasta" | sed 's/.*penalty: //')"
+done | sort
+#+end_src
+| afi  | 0.000142 |
+| ahy  | 0.017650 |
+| ban2 | 0.208255 |
+| bap  | 0.008201 |
+| bbi  | 0.020188 |
+| bbr  | 0.014161 |
+| bbu  | 0.038742 |
+| bfa  | 0.021443 |
+| bfr  | 0.002096 |
+| bma  | 0.022736 |
+| bpa  | 0.009503 |
+| bps  | 0.000760 |
+| bth2 | 0.012737 |
+| cac  | 0.217066 |
+| cbo1 | 0.012887 |
+| cbo2 | 0.012887 |
+| cbu  | 0.169288 |
+| cdi  | 0.015691 |
+| cje  | 0.008016 |
+| cpn  | 0.018287 |
+| cte  | 0.000142 |
+| cvi2 | 0.022342 |
+| dtu  | 0.002846 |
+| ecl  | 0.002167 |
+| eco1 | 0.000142 |
+| eco2 | 0.075217 |
+| eco3 | 0.000760 |
+| eco5 | 0.059356 |
+| efa1 | 0.008702 |
+| efa2 | 0.003839 |
+| fps  | 0.013551 |
+| gsu  | 0.000142 |
+| hin  | 0.012210 |
+| kae  | 0.000142 |
+| kvu  | 0.833883 |
+| lac  | 0.061899 |
+| lin  | 0.040067 |
+| lmo  | 0.014206 |
+| lpn  | 0.000760 |
+| lsa  | 0.005957 |
+| mci  | 0.000142 |
+| mfl  | 0.010060 |
+| msm  | 0.011405 |
+| mtu2 | 0.059662 |
+| ngo  | 0.013447 |
+| nme  | 0.021839 |
+| ppu  | 0.005850 |
+| psy1 | 0.000142 |
+| psy2 | 0.003470 |
+| rru  | 0.007653 |
+| sag  | 0.006176 |
+| sau  | 0.136464 |
+| sco  | 0.007400 |
+| sdy  | 0.002167 |
+| sen2 | 0.002167 |
+| sep  | 0.003425 |
+| sfr  | 0.000142 |
+| sme2 | 0.002668 |
+| smi  | 0.000142 |
+| son1 | 0.000142 |
+| spy  | 0.006467 |
+| sru  | 0.000597 |
+| ssu  | 0.020980 |
+| tac  | 0.003529 |
+| tde  | 0.002668 |
+| tma  | 0.010782 |
+| tth  | 0.013659 |
+| vpa  | 0.005748 |
+| xca  | 0.025352 |
+| yen  | 0.000142 |
+
+
+The average penalty score is 0.034, compared to Fur's results (0.18) it is lower.
+
+*** Split percentages
+
+**** Split percentages for all taxa
+
+vch 68.75
+dvu 75.00
+cgl 80.00
+psy1 81.82
+gva 83.33
+bsu 83.49
+psy2 83.93
+lpn 86.27
+sfl 87.10
+cbo1 87.50
+cbo2 87.50
+tma 87.50
+ahy 88.89
+yen 90.00
+kpn 92.89
+nme 94.74
+cje 95.06
+dra 95.08
+ban2 95.24
+bce 96.43
+spy 96.43
+eco1 96.85
+ype 96.88
+pma 97.06
+sau 98.41
+blo 98.84
+bap 99.39
+mtu2 99.53
+xca 99.55
+sen2 99.84
+afi 100.00
+ame 100.00
+bbi 100.00
+bbr 100.00
+bbu 100.00
+bfa 100.00
+bfr 100.00
+bma 100.00
+bpa 100.00
+bpe 100.00
+bps 100.00
+bth2 100.00
+cac 100.00
+cbu 100.00
+cdi 100.00
+cpn 100.00
+cte 100.00
+ctr1 100.00
+cvi1 100.00
+cvi2 100.00
+dtu 100.00
+ecl 100.00
+eco2 100.00
+eco3 100.00
+eco4 100.00
+eco5 100.00
+efa1 100.00
+efa2 100.00
+fps 100.00
+gsu 100.00
+hin 100.00
+kae 100.00
+kvu 100.00
+lac 100.00
+lin 100.00
+lmo 100.00
+lsa 100.00
+mab 100.00
+mci 100.00
+mfl 100.00
+mle 100.00
+msm 100.00
+ngo 100.00
+ppu 100.00
+rru 100.00
+sag 100.00
+sco 100.00
+sdy 100.00
+sep 100.00
+sfr 100.00
+sme2 100.00
+smi 100.00
+son1 100.00
+sru 100.00
+ssu 100.00
+tac 100.00
+tde 100.00
+tth 100.00
+vpa 100.00
+
+
+**** Taxa with 100% split
+
+#+begin_src bash
+  for d in */; do
+  if [ -f "$d/all.nwk" ]; then
+  split=$(fintac "$d/all.nwk" | tail -n +2 | sort -n | awk '{print $5}')
+  [ "$split" = "100.00" ] && echo "$d $split"
+  fi
+  done
+
+  echo
+  echo "Count:"
+  for d in */; do
+  if [ -f "$d/all.nwk" ]; then
+  split=$(fintac "$d/all.nwk" | tail -n +2 | sort -n | awk '{print $5}')
+  [ "$split" = "100.00" ] && echo "$d"
+  fi
+  done | wc -l
+#+end_src
+
+afi/ 100.00
+ame/ 100.00
+bbi/ 100.00
+bbr/ 100.00
+bbu/ 100.00
+bfa/ 100.00
+bfr/ 100.00
+bma/ 100.00
+bpa/ 100.00
+bpe/ 100.00
+bps/ 100.00
+bth2/ 100.00
+cac/ 100.00
+cbu/ 100.00
+cdi/ 100.00
+cpn/ 100.00
+cte/ 100.00
+ctr1/ 100.00
+cvi1/ 100.00
+cvi2/ 100.00
+dtu/ 100.00
+ecl/ 100.00
+eco2/ 100.00
+eco3/ 100.00
+eco4/ 100.00
+eco5/ 100.00
+efa1/ 100.00
+efa2/ 100.00
+fps/ 100.00
+gsu/ 100.00
+hin/ 100.00
+kae/ 100.00
+kvu/ 100.00
+lac/ 100.00
+lin/ 100.00
+lmo/ 100.00
+lsa/ 100.00
+mab/ 100.00
+mci/ 100.00
+mfl/ 100.00
+mle/ 100.00
+msm/ 100.00
+ngo/ 100.00
+ppu/ 100.00
+rru/ 100.00
+sag/ 100.00
+sco/ 100.00
+sdy/ 100.00
+sep/ 100.00
+sfr/ 100.00
+sme2/ 100.00
+smi/ 100.00
+son1/ 100.00
+sru/ 100.00
+ssu/ 100.00
+tac/ 100.00
+tde/ 100.00
+tth/ 100.00
+vpa/ 100.00
+
+
+**** Lowest split percentages
+
+vch 68.75
+dvu 75.00
+cgl 80.00
+
+
+*** Markers
+
+**** Taxon with the most markers
+#+begin_src bash
+  for d in */; do
+    [ -f "$d/markers.fasta" ] || continue
+    count=$(grep -c '^>' "$d/markers.fasta")
+    echo "$count ${d%/}"
+done | sort -nr | head -n 1
+#+end_src
+4598 sfr
+
+
+**** Longest marker
+
+#+begin_src bash
+for d in */; do
+[ -f "$d/markers.fasta" ] || continue
+
+awk -v tax="$d" '
+/^>/{
+    if(len>max) max=len
+    len=0
+    next
+}
+{len+=length($0)}
+END{
+    if(len>max) max=len
+    print tax,max
+}' "$d/markers.fasta"
+
+done | sort -k2 -n | tail -1
+#+end_src
+sco/ 11748
+
+
+*** Primers
+
+**** Primer lengths
+
+#+begin_src bash
+grep -h -v '^>' */primers.fasta | awk '{print length}' | sort | uniq -c
+#+end_src
+All of them are 20 bps
+
+**** Minimum penalty
+
+#+begin_src bash
+grep -h "penalty:" */primers.fasta | awk '{print $3}' | sort -n | head -1
+#+end_src
+0.000142 afi (same as fur)
+
+
+**** Maximum penalty
+
+#+begin_src bash
+grep -h "penalty:" */primers.fasta | awk '{print $3}' | sort -n | tail -1
+#+end_src
+0.833883 kvu
+
+
+**** Average penalty
+
+#+begin_src bash
+grep -h "penalty:" */primers.fasta | awk '{s+=$3} END{print s/NR}'
+#+end_src
+0.0339079
+
+
+**** Taxa with the lowest penalty
+
+#+begin_src bash
+for d in */; do
+[ -f "$d/primers.fasta" ] || continue
+echo "$(grep 'penalty:' "$d/primers.fasta" | awk '{print $3}') $d"
+done | sort -n | head
+#+end_src
+| Fur penalties |       | Seqwin penalties |       |
+|---------------+-------+---------------+-------|
+|      0.000142 | afi   |      0.000142 | afi   |
+|      0.000142 | gsu   |      0.000142 | cte   |
+|      0.000142 | kae   |      0.000142 | eco1  |
+|      0.000597 | sru   |      0.000142 | gsu   |
+|      0.002096 | bfr   |      0.000142 | kae   |
+|      0.002096 | smi   |      0.000142 | mci   |
+|      0.002668 | sme2  |      0.000142 | psy1  |
+|      0.003425 | sep   |      0.000142 | sfr   |
+|      0.003470 | bps   |      0.000142 | smi   |
+|      0.003839 | efa2  |      0.000142 | son1  |
+
+
+**** Taxa with the highest penalty
+
+#+begin_src bash
+for d in */; do
+[ -f "$d/primers.fasta" ] || continue
+echo "$(grep 'penalty:' "$d/primers.fasta" | awk '{print $3}') $d"
+done | sort -n | tail
+#+end_src
+
+| Fur Penalties |       | Seqwin Penalties |       |
+|---------------+-------+---------------+-------|
+|      0.048752 | cbo2  |      0.040067 | lin   |
+|      0.054385 | lmo   |      0.059356 | eco5  |
+|      0.059356 | eco5  |      0.059662 | mtu2  |
+|      0.061899 | lac   |      0.061899 | lac   |
+|      0.096745 | xca   |      0.075217 | eco2  |
+|      0.105318 | lsa   |      0.136464 | sau   |
+|      0.150145 | bbu   |      0.169288 | cbu   |
+|      0.269486 | lpn   |      0.208255 | ban2  |
+|      0.394294 | nme   |      0.217066 | cac   |
+|      8.964893 | bap   |      0.833883 | kvu   |
+
