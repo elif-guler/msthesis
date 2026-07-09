@@ -1,5 +1,4 @@
 taxa that generated the same primers both with fur and seqwin:
-(the analysis for seqwin with all 119 taxa did not finish yet.)
 #+begin_src bash
   old=~/ch_mapro/mapro/analysis
   new=~/try_seqwin/mapro/analysis
@@ -32,6 +31,12 @@ lac
 lin
 rru
 sep
+sme2
+sru
+tma
+tth
+vpa
+
 
 
 number of markers and total lenght of the markers for each taxa
@@ -110,6 +115,20 @@ number of markers and total lenght of the markers for each taxa
 | sdy   |   272 |  104005 |   170 |   93508 |              |
 | sen2  |     0 |       0 |   391 |  376654 |              |
 | sep   |    58 |  133868 |   103 |  174860 | Yes          |
+| sfr   |   688 |  687068 |  4598 | 3477026 |              |
+| sme2  |   134 |  344482 |   485 |  538023 | Yes          |
+| smi   |   231 |  510014 |  1332 | 1220861 |              |
+| son1  |   416 |  209446 |  2324 | 3280683 |              |
+| spy   |    11 |   10116 |    64 |   39643 |              |
+| sru   |   184 |  196224 |   659 |  454423 | Yes          |
+| ssu   |    16 |   24640 |    32 |   21651 |              |
+| tac   |   705 |  354166 |   337 | 1736065 |              |
+| tde   |    22 |   49653 |    23 |   53074 |              |
+| tma   |     7 |   14048 |    39 |   40651 | Yes          |
+| tth   |    58 |   96678 |   183 |  152616 | Yes          |
+| vpa   |    69 |  191693 |   259 |  245426 | Yes          |
+| xca   |     2 |    4072 |   170 |  126415 |              |
+| yen   |   183 |  194780 |  1101 |  636619 |              |
 
 
 
