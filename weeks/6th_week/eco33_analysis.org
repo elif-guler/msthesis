@@ -1,0 +1,77 @@
+* Analyzing 33 E. coli Genomes
+Given are the 33 accessions in Supplementary Table 1, contained in
+acc.txt. These contain 5 Genbank accessions we need to convert to
+genome accessions.
+#+begin_src bash
+  grep -v '^G' acc.txt > genbank.txt
+#+end_src
+We remove the offending five and store them in acc2.txt.
+#+begin_src bash
+  grep '^G' acc.txt > acc2.txt
+#+end_src
+We find the genome accessions of the offending five and append them to
+acc2.txt.
+#+begin_src bash
+  elink -db nuccore \
+        -input genbank.txt \
+        -target assembly|esummary|xtract \
+        -pattern DocumentSummary \
+        -element AssemblyAccession >> acc2.txt
+#+end_src
+We download the 33 E. coli genomes in dehydrated form.
+#+begin_src bash
+  datasets download genome accession \
+  	 --inputfile acc2.txt \
+  	 --dehydrated
+#+end_src
+We unzip and rehydrate the data.
+#+begin_src bash
+  unzip ncbi_dataset.zip
+  datasets rehydrate --directory .
+#+end_src
+We rename the genomes and link them into the directory all.
+#+begin_src bash
+  # mkdir all
+  bash rename.sh
+#+end_src
+We calculate the phylogeny of the 33 E. coli genomes.
+#+begin_src bash
+  phylonium all/* |
+      nj |
+      midRoot |
+      land > eco33.nwk
+#+end_src
+We plot the phylogeny.
+#+begin_src bash
+  plotTree eco33.nwk
+#+end_src
+We now construct the directories containing the target and neighbor
+genomes. We begin with the targets, which consist of the B1 clade,
+node 20.
+#+begin_src bash
+  mkdir targets
+  pickle 20 eco33.nwk |
+      grep -v '^#' |
+      while read a; do
+  	ln -s $(pwd)/all/$a targets/$a.fasta
+      done
+#+end_src
+The complement of B1 are the neighbors.
+#+begin_src bash
+  mkdir neighbors
+  pickle -c 20 eco33.nwk |
+      grep -v '^#' |
+      while read a; do
+          ln -s $(pwd)/all/$a neighbors/$a.fasta
+      done
+#+end_src
+We construct the Fur database.
+#+begin_src bash
+  /usr/bin/time -v -o makeFurDb.res makeFurDb -T 1 -t targets -n neighbors -o -d b1.db
+#+end_src
+
+#+RESULTS:
+We run Fur on the Fur database.
+#+begin_src bash
+  /usr/bin/time -v -o fur.res fur -m -d b1.db > b1.fasta
+#+end_src
