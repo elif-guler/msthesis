@@ -1,0 +1,240 @@
+*** Scop and Cops Results Comparison Between Fur and Seqwin
+
+**** Scop.out
+
+#+begin_src bash
+
+fur="$HOME/ch_mapro/mapro/analysis"
+seq="$HOME/try_seqwin/mapro/analysis"
+
+extract() {
+    local file="$1"
+
+    if [[ ! -f "$file" ]]; then
+        echo "-|-"
+        return
+    fi
+
+    sens=$(grep -i "sensitivity" "$file" | head -1 | grep -oE '[0-9]+(\.[0-9]+)?%?')
+    spec=$(grep -i "specificity" "$file" | head -1 | grep -oE '[0-9]+(\.[0-9]+)?%?')
+
+    [[ -z "$sens" ]] && sens="-"
+    [[ -z "$spec" ]] && spec="-"
+
+    echo "$sens|$spec"
+}
+
+echo '| Taxon | FUR SCOP Sens | FUR SCOP Spec | SeqWin SCOP Sens | SeqWin SCOP Spec |'
+echo '|--------+---------------+---------------+------------------+------------------|'
+
+for d in $(comm -12 \
+    <(find "$fur" -mindepth 1 -maxdepth 1 -type d -printf "%f\n" | sort) \
+    <(find "$seq" -mindepth 1 -maxdepth 1 -type d -printf "%f\n" | sort))
+do
+    IFS='|' read -r fur_sens fur_spec <<< "$(extract "$fur/$d/scop.out")"
+    IFS='|' read -r seq_sens seq_spec <<< "$(extract "$seq/$d/scop.out")"
+
+    if [[ "$fur_sens" == "-" &&
+          "$fur_spec" == "-" &&
+          "$seq_sens" == "-" &&
+          "$seq_spec" == "-" ]]; then
+        continue
+    fi
+
+    printf '| %s | %s | %s | %s | %s |\n' \
+        "$d" \
+        "$fur_sens" "$fur_spec" \
+        "$seq_sens" "$seq_spec"
+done
+#+end_src
+
+| Taxon  | FUR SCOP Sens | FUR SCOP Spec | SeqWin SCOP Sens | SeqWin SCOP Spec |
+|--------+---------------+---------------+------------------+------------------|
+| afi | 1 | 1 | 1 | 1 |
+| ahy | 0.75 | 0.429 | 0.75 | 0.429 |
+| ban2 | - | - | 1 | 0.00656 |
+| bap | 1 | 0.993 | 0.286 | 0.667 |
+| bbi | 1 | 0.1 | 1 | 0.5 |
+| bbr | 0 | 0 | 0 | 0 |
+| bbu | 0.5 | 0.143 | 0.8 | 0.138 |
+| bfa | 1 | 1 | 1 | 1 |
+| bfr | 1 | 0.0233 | 1 | 0.0233 |
+| bma | 1 | 0.00625 | 1 | 0.00625 |
+| bpa | 1 | 0.333 | 1 | 0.2 |
+| bps | 1 | 0.667 | 1 | 1 |
+| bth2 | 1 | 0.333 | 1 | 0.0526 |
+| cac | - | - | 1 | 0.25 |
+| cbo1 | 0.667 | 0.5 | 0.833 | 0.179 |
+| cbo2 | 0.667 | 0.5 | 0.833 | 0.179 |
+| cbu | - | - | 1 | 0.0227 |
+| cdi | 1 | 0.25 | 1 | 0.375 |
+| cje | 1 | 0.0916 | 0.609 | 0.0911 |
+| cpn | - | - | 1 | 1 |
+| cte | 1 | 1 | 1 | 1 |
+| cvi2 | 1 | 0.333 | 1 | 0.333 |
+| dtu | 1 | 1 | 1 | 1 |
+| ecl | 1 | 0.111 | 1 | 0.104 |
+| eco2 | 0.5 | 0.0217 | - | - |
+| eco4 | 1 | 0.027 | - | - |
+| eco5 | 1 | 0.0417 | - | - |
+| efa1 | 1 | 0.2 | 1 | 0.2 |
+| efa2 | 0.5 | 0.25 | 0.5 | 0.25 |
+| fps | 1 | 0.0909 | 1 | 0.0147 |
+| gsu | 1 | 0.5 | 1 | 0.5 |
+| hin | 1 | 0.25 | 1 | 0.25 |
+| kae | 1 | 0.25 | 1 | 0.25 |
+| kvu | - | - | 1 | 0.167 |
+| lac | 1 | 0.0417 | 1 | 0.0417 |
+| lin | 1 | 0.667 | 1 | 0.667 |
+| lmo | 0.214 | 0.75 | 0.214 | 0.75 |
+| lpn | 1 | 0.144 | 0.84 | 0.133 |
+| lsa | 1 | 0.1 | 1 | 0.5 |
+| mci | 1 | 0.4 | 1 | 0.286 |
+| mfl | 1 | 0.25 | 1 | 0.2 |
+| msm | 1 | 0.214 | 1 | 0.15 |
+| mtu2 | - | - | 1 | 0.063 |
+| ngo | 1 | 0.0192 | 1 | 0.0045 |
+| nme | 0.667 | 0.154 | 0.667 | 0.105 |
+| ppu | 1 | 0.0714 | 1 | 0.0435 |
+| psy1 | 1 | 0.467 | 1 | 0.467 |
+| psy2 | 0.778 | 0.583 | 0.714 | 0.625 |
+| rru | 0.5 | 0.5 | 0.5 | 0.5 |
+| sag | 1 | 0.0357 | 1 | 0.2 |
+| sau | - | - | 1 | 0.102 |
+| sco | 0.0667 | 0.105 | 0.0667 | 0.0571 |
+| sdy | 0 | - | 0 | 0 |
+| sen2 | - | - | 1 | 0.78 |
+| sep | 0.5 | 0.25 | 0.5 | 0.25 |
+| sfr | 0.5 | 1 | 1 | 1 |
+| sme2 | 1 | 0.25 | 1 | 0.25 |
+| smi | 1 | 0.111 | 0 | 0 |
+| son1 | 1 | 1 | 1 | 0.4 |
+| spy | 1 | 0.0396 | 1 | 0.0404 |
+| sru | 1 | 0.5 | 1 | 0.5 |
+| ssu | 1 | 0.5 | - | 0 |
+| tac | 1 | 1 | 1 | 1 |
+| tde | 1 | 0.143 | 1 | 1 |
+| tma | 1 | 0.667 | 1 | 0.667 |
+| tth | 1 | 0.125 | 1 | 0.125 |
+| vpa | - | 0 | - | 0 |
+| xca | 0.993 | 0.885 | 0.942 | 0.891 |
+| yen | 1 | 0.6 | 1 | 0.6 |
+
+
+**** Cops.out
+
+#+begin_src bash
+
+fur="$HOME/ch_mapro/mapro/analysis"
+seq="$HOME/try_seqwin/mapro/analysis"
+
+extract() {
+    local file="$1"
+
+    if [[ ! -f "$file" ]]; then
+        echo "-|-"
+        return
+    fi
+
+    sens=$(grep -i "sensitivity" "$file" | head -1 | grep -oE '[0-9]+(\.[0-9]+)?%?')
+    spec=$(grep -i "specificity" "$file" | head -1 | grep -oE '[0-9]+(\.[0-9]+)?%?')
+
+    [[ -z "$sens" ]] && sens="-"
+    [[ -z "$spec" ]] && spec="-"
+
+    echo "$sens|$spec"
+}
+
+echo '| Taxon | FUR COPS Sens | FUR COPS Spec | SeqWin COPS Sens | SeqWin COPS Spec |'
+echo '|--------+---------------+---------------+------------------+------------------|'
+
+for d in $(comm -12 \
+    <(find "$fur" -mindepth 1 -maxdepth 1 -type d -printf "%f\n" | sort) \
+    <(find "$seq" -mindepth 1 -maxdepth 1 -type d -printf "%f\n" | sort))
+do
+    IFS='|' read -r fur_sens fur_spec <<< "$(extract "$fur/$d/cops.out")"
+    IFS='|' read -r seq_sens seq_spec <<< "$(extract "$seq/$d/cops.out")"
+
+    if [[ "$fur_sens" == "-" &&
+          "$fur_spec" == "-" &&
+          "$seq_sens" == "-" &&
+          "$seq_spec" == "-" ]]; then
+        continue
+    fi
+
+    printf '| %s | %s | %s | %s | %s |\n' \
+        "$d" \
+        "$fur_sens" "$fur_spec" \
+        "$seq_sens" "$seq_spec"
+done
+#+end_src
+
+| Taxon  | FUR COPS Sens | FUR COPS Spec | SeqWin COPS Sens | SeqWin COPS Spec |
+|--------+---------------+---------------+------------------+------------------|
+| afi | 1 | 1 | 1 | 1 |
+| ahy | 1 | 0.857 | 1 | 0.857 |
+| ban2 | - | - | 1 | 0.187 |
+| bap | 1 | 1 | 0.375 | 1 |
+| bbi | 1 | 0.2 | 1 | 0.5 |
+| bbr | 0.917 | 1 | 0.917 | 1 |
+| bbu | 0.8 | 0.571 | 0.8 | 0.138 |
+| bfa | 1 | 1 | 1 | 1 |
+| bfr | 1 | 0.209 | 1 | 0.209 |
+| bma | 1 | 0.0312 | 1 | 0.0312 |
+| bpa | 1 | 0.333 | 1 | 0.4 |
+| bps | 1 | 1 | 1 | 1 |
+| bth2 | 1 | 1 | 1 | 0.158 |
+| cac | - | - | 1 | 0.75 |
+| cbo1 | 0.889 | 1 | 1 | 1 |
+| cbo2 | 0.889 | 1 | 1 | 0.857 |
+| cbu | - | - | 1 | 0.205 |
+| cdi | 1 | 1 | 1 | 0.75 |
+| cje | 1 | 1 | 0.944 | 0.988 |
+| cpn | - | - | 1 | 1 |
+| cte | 1 | 1 | 1 | 1 |
+| cvi2 | 1 | 0.667 | 1 | 0.667 |
+| dtu | 1 | 1 | 1 | 1 |
+| ecl | 1 | 1 | 1 | 0.979 |
+| eco2 | 0.889 | 0.174 | - | - |
+| eco4 | 1 | 0.027 | - | - |
+| eco5 | 1 | 0.0417 | - | - |
+| efa1 | 1 | 1 | 1 | 1 |
+| efa2 | 0.667 | 0.5 | 0.667 | 0.5 |
+| fps | 1 | 0.818 | 1 | 0.971 |
+| gsu | 1 | 1 | 1 | 1 |
+| hin | 1 | 1 | 1 | 1 |
+| kae | 1 | 1 | 1 | 1 |
+| kvu | - | - | 1 | 0.833 |
+| lac | 1 | 0.333 | 1 | 0.333 |
+| lin | 1 | 0.667 | 1 | 0.667 |
+| lpn | 1 | 1 | 0.975 | 1 |
+| lsa | 1 | 0.1 | 1 | 0.5 |
+| mci | 1 | 1 | 1 | 0.857 |
+| mfl | 1 | 1 | 1 | 0.6 |
+| msm | 1 | 1 | 1 | 1 |
+| mtu2 | - | - | 1 | 0.0657 |
+| ngo | 1 | 0.538 | 1 | 0.279 |
+| nme | 1 | 0.308 | 1 | 0.211 |
+| ppu | 1 | 1 | 1 | 0.891 |
+| psy1 | 1 | 1 | 1 | 1 |
+| psy2 | 1 | 0.917 | 1 | 0.875 |
+| rru | 0.5 | 0.5 | 0.5 | 0.5 |
+| sag | 1 | 0.179 | 1 | 0.6 |
+| sau | - | - | 1 | 0.755 |
+| sdy | - | - | 0 | 0 |
+| sen2 | - | - | 1 | 0.89 |
+| sep | 0.5 | 0.25 | 0.5 | 0.25 |
+| sfr | - | - | 1 | 1 |
+| sme2 | 1 | 0.25 | 1 | 0.25 |
+| smi | 1 | 0.111 | 0.5 | 0.5 |
+| son1 | 1 | 1 | 1 | 0.4 |
+| spy | 1 | 0.99 | 1 | 0.99 |
+| sru | 1 | 1 | 1 | 1 |
+| ssu | 1 | 0.5 | - | 0 |
+| tac | 1 | 1 | 1 | 1 |
+| tde | 1 | 0.143 | 1 | 1 |
+| tma | 1 | 1 | 1 | 1 |
+| tth | 1 | 0.75 | 1 | 0.75 |
+| vpa | 1 | 0.233 | 1 | 0.233 |
+| xca | 1 | 0.942 | 0.952 | 0.946 |
+| yen | 1 | 1 | 1 | 1 |
