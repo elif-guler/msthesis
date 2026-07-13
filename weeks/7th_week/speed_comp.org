@@ -1,0 +1,679 @@
+*** Speed Comparison Between Fur and Seqwin
+
+I ran both tools with 1 thread option.
+
+I used stan to generate simulated targets and neighbors datasets. There are four results with four
+different size of neighbors and targets.
+- n 10 t 10
+- n 100 t 100
+- n 1000 t 1000
+- n 10000 t 10000    
+
+I also checked their speed by changing the lenght of the sequence
+- l 10000
+- l 100000
+- l 1000000
+- l 10000000
+
+  
+**** stan -n 10 -t 10
+
+#+begin_src bash
+/usr/bin/time -v -o seqwin.res seqwin --tar-dir targets     --neg-dir neighbors     -o seqwin-out  -p 1 
+#+end_src
+#+begin_example
+	Command being timed: "seqwin --tar-dir targets --neg-dir neighbors -o seqwin-out -p 1"
+	User time (seconds): 2.89
+	System time (seconds): 0.11
+	Percent of CPU this job got: 518%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 0:00.58
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 96372
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 735
+	Minor (reclaiming a frame) page faults: 42233
+	Voluntary context switches: 3012
+	Involuntary context switches: 299
+	Swaps: 0
+	File system inputs: 176368
+	File system outputs: 744
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 0
+#+end_example
+#+begin_src bash
+/usr/bin/time -v -o makefurdb.res makeFurDb -t targets/ -n neighbors/ -d test.db -T 1
+#+end_src
+#+begin_example
+	Command being timed: "makeFurDb -t targets/ -n neighbors/ -d test.db -T 1"
+	User time (seconds): 0.15
+	System time (seconds): 0.02
+	Percent of CPU this job got: 80%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 0:00.22
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 53024
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 32
+	Minor (reclaiming a frame) page faults: 8452
+	Voluntary context switches: 343
+	Involuntary context switches: 3
+	Swaps: 0
+	File system inputs: 8392
+	File system outputs: 552
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 0
+#+end_example
+#+begin_src bash
+/usr/bin/time -v -o fur.res fur -t 1 -d test.db | cleanSeq > markers.fasta   
+#+end_src
+#+begin_example
+	Command being timed: "fur -t 1 -d test.db"
+	User time (seconds): 0.10
+	System time (seconds): 0.02
+	Percent of CPU this job got: 100%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 0:00.12
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 68736
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 0
+	Minor (reclaiming a frame) page faults: 6784
+	Voluntary context switches: 163
+	Involuntary context switches: 5
+	Swaps: 0
+	File system inputs: 0
+	File system outputs: 16
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 0
+#+end_example
+
+**** stan -n 100 -t 100
+
+seqwin:
+#+begin_example
+	Command being timed: "seqwin --tar-dir targets --neg-dir neighbors -o seqwin-out -p 1"
+	User time (seconds): 7.03
+	System time (seconds): 0.17
+	Percent of CPU this job got: 788%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 0:00.91
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 100196
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 6
+	Minor (reclaiming a frame) page faults: 47380
+	Voluntary context switches: 15566
+	Involuntary context switches: 2950
+	Swaps: 0
+	File system inputs: 48
+	File system outputs: 5248
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 0
+#+end_example
+
+makefurdb:
+#+begin_example
+	Command being timed: "makeFurDb -t targets/ -n neighbors/ -d test.db -T 1"
+	User time (seconds): 0.27
+	System time (seconds): 0.04
+	Percent of CPU this job got: 103%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 0:00.31
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 52924
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 2
+	Minor (reclaiming a frame) page faults: 11861
+	Voluntary context switches: 1077
+	Involuntary context switches: 8
+	Swaps: 0
+	File system inputs: 0
+	File system outputs: 3112
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 0
+#+end_example
+
+fur:
+#+begin_example
+	Command being timed: "fur -t 1 -d test.db"
+	User time (seconds): 0.11
+	System time (seconds): 0.03
+	Percent of CPU this job got: 102%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 0:00.14
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 70248
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 0
+	Minor (reclaiming a frame) page faults: 8005
+	Voluntary context switches: 341
+	Involuntary context switches: 16
+	Swaps: 0
+	File system inputs: 0
+	File system outputs: 16
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 0
+#+end_example
+
+**** stan -n 1000 -t 1000
+
+seqwin:
+#+begin_example
+	Command being timed: "seqwin --tar-dir targets --neg-dir neighbors -o seqwin-out -p 1"
+	User time (seconds): 31.03
+	System time (seconds): 1.52
+	Percent of CPU this job got: 164%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 0:19.84
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 288484
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 8
+	Minor (reclaiming a frame) page faults: 153977
+	Voluntary context switches: 140956
+	Involuntary context switches: 1676
+	Swaps: 0
+	File system inputs: 880
+	File system outputs: 107392
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 0
+#+end_example
+makefurdb:
+#+begin_example
+	Command being timed: "makeFurDb -t targets/ -n neighbors/ -d test.db -T 1"
+	User time (seconds): 1.50
+	System time (seconds): 0.18
+	Percent of CPU this job got: 106%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 0:01.58
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 126596
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 2
+	Minor (reclaiming a frame) page faults: 43779
+	Voluntary context switches: 8226
+	Involuntary context switches: 12
+	Swaps: 0
+	File system inputs: 0
+	File system outputs: 28872
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 0
+#+end_example
+fur:
+#+begin_example
+	Command being timed: "fur -t 1 -d test.db"
+	User time (seconds): 0.67
+	System time (seconds): 1.15
+	Percent of CPU this job got: 167%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 0:01.09
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 268660
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 0
+	Minor (reclaiming a frame) page faults: 83144
+	Voluntary context switches: 5501
+	Involuntary context switches: 18
+	Swaps: 0
+	File system inputs: 0
+	File system outputs: 16
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 0
+#+end_example
+**** stan -n 10000 -t 10000
+
+seqwin:
+#+begin_example
+	Command being timed: "seqwin --tar-dir targets --neg-dir neighbors -o seqwin-out -p 1"
+	User time (seconds): 2105.21
+	System time (seconds): 102.96
+	Percent of CPU this job got: 136%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 26:53.91
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 18960456
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 2
+	Minor (reclaiming a frame) page faults: 6334326
+	Voluntary context switches: 1678868
+	Involuntary context switches: 17974
+	Swaps: 0
+	File system inputs: 0
+	File system outputs: 6728864
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 0
+#+end_example
+
+makefurdb:
+#+begin_example
+	Command being timed: "makeFurDb -t targets/ -n neighbors/ -d test.db -T 1"
+	User time (seconds): 15.67
+	System time (seconds): 1.42
+	Percent of CPU this job got: 113%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 0:15.02
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 1107960
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 2
+	Minor (reclaiming a frame) page faults: 316772
+	Voluntary context switches: 82780
+	Involuntary context switches: 160
+	Swaps: 0
+	File system inputs: 0
+	File system outputs: 286744
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 0
+#+end_example
+fur:
+#+begin_example
+	Command being timed: "fur -t 1 -d test.db"
+	User time (seconds): 63.45
+	System time (seconds): 3.51
+	Percent of CPU this job got: 104%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 1:03.84
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 4209116
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 1
+	Minor (reclaiming a frame) page faults: 1698637
+	Voluntary context switches: 496947
+	Involuntary context switches: 587
+	Swaps: 0
+	File system inputs: 8
+	File system outputs: 40
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 0
+#+end_example
+
+*** results with different lenghts of sequences
+
+**** stan (l 10000)
+seqwin:
+#+begin_example
+	Command being timed: "seqwin --tar-dir targets --neg-dir neighbors -o seqwin-out -p 1"
+	User time (seconds): 2.81
+	System time (seconds): 0.08
+	Percent of CPU this job got: 619%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 0:00.46
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 96624
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 2
+	Minor (reclaiming a frame) page faults: 42362
+	Voluntary context switches: 1719
+	Involuntary context switches: 247
+	Swaps: 0
+	File system inputs: 0
+	File system outputs: 752
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 0
+#+end_example
+
+makefurdb:
+#+begin_example
+	Command being timed: "makeFurDb -t targets/ -n neighbors/ -d test.db -T 1"
+	User time (seconds): 0.15
+	System time (seconds): 0.02
+	Percent of CPU this job got: 84%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 0:00.21
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 52904
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 2
+	Minor (reclaiming a frame) page faults: 8570
+	Voluntary context switches: 464
+	Involuntary context switches: 12
+	Swaps: 0
+	File system inputs: 0
+	File system outputs: 552
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 0
+#+end_example
+
+fur:
+#+begin_example
+	Command being timed: "fur -t 1 -d test.db"
+	User time (seconds): 0.09
+	System time (seconds): 0.02
+	Percent of CPU this job got: 100%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 0:00.12
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 69240
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 0
+	Minor (reclaiming a frame) page faults: 6862
+	Voluntary context switches: 153
+	Involuntary context switches: 5
+	Swaps: 0
+	File system inputs: 0
+	File system outputs: 16
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 0
+#+end_example
+
+**** stan -l 100000
+seqwin:
+#+begin_example
+	Command being timed: "seqwin --tar-dir targets --neg-dir neighbors -o seqwin-out -p 1"
+	User time (seconds): 3.83
+	System time (seconds): 0.12
+	Percent of CPU this job got: 549%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 0:00.72
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 105012
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 3
+	Minor (reclaiming a frame) page faults: 47765
+	Voluntary context switches: 3367
+	Involuntary context switches: 262
+	Swaps: 0
+	File system inputs: 64
+	File system outputs: 2696
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 0
+#+end_example
+
+makefurdb:
+#+begin_example
+	Command being timed: "makeFurDb -t targets/ -n neighbors/ -d test.db -T 1"
+	User time (seconds): 0.30
+	System time (seconds): 0.04
+	Percent of CPU this job got: 94%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 0:00.36
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 53128
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 2
+	Minor (reclaiming a frame) page faults: 15600
+	Voluntary context switches: 1076
+	Involuntary context switches: 6
+	Swaps: 0
+	File system inputs: 0
+	File system outputs: 2928
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 0
+#+end_example
+
+fur:
+#+begin_example
+	Command being timed: "fur -t 1 -d test.db"
+	User time (seconds): 0.10
+	System time (seconds): 0.02
+	Percent of CPU this job got: 100%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 0:00.13
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 69636
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 0
+	Minor (reclaiming a frame) page faults: 7892
+	Voluntary context switches: 233
+	Involuntary context switches: 11
+	Swaps: 0
+	File system inputs: 0
+	File system outputs: 16
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 0
+#+end_example
+
+**** stan -l 1000000
+seqwin:
+#+begin_example
+	Command being timed: "seqwin --tar-dir targets --neg-dir neighbors -o seqwin-out -p 1"
+	User time (seconds): 5.56
+	System time (seconds): 0.18
+	Percent of CPU this job got: 452%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 0:01.26
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 130652
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 2
+	Minor (reclaiming a frame) page faults: 71858
+	Voluntary context switches: 2414
+	Involuntary context switches: 158
+	Swaps: 0
+	File system inputs: 0
+	File system outputs: 14192
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 0
+#+end_example
+
+makefurdb:
+#+begin_example
+	Command being timed: "makeFurDb -t targets/ -n neighbors/ -d test.db -T 1"
+	User time (seconds): 1.58
+	System time (seconds): 0.24
+	Percent of CPU this job got: 105%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 0:01.72
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 175440
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 2
+	Minor (reclaiming a frame) page faults: 110696
+	Voluntary context switches: 6397
+	Involuntary context switches: 29
+	Swaps: 0
+	File system inputs: 0
+	File system outputs: 26944
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 0
+#+end_example
+
+fur:
+#+begin_example
+	Command being timed: "fur -t 1 -d test.db"
+	User time (seconds): 0.17
+	System time (seconds): 0.03
+	Percent of CPU this job got: 102%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 0:00.20
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 69904
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 0
+	Minor (reclaiming a frame) page faults: 18307
+	Voluntary context switches: 514
+	Involuntary context switches: 18
+	Swaps: 0
+	File system inputs: 0
+	File system outputs: 16
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 0
+#+end_example
+
+**** stan -l 10000000
+seqwin:
+#+begin_example
+	Command being timed: "seqwin --tar-dir targets --neg-dir neighbors -o seqwin-out -p 1"
+	User time (seconds): 11.44
+	System time (seconds): 0.61
+	Percent of CPU this job got: 174%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 0:06.90
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 401196
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 2
+	Minor (reclaiming a frame) page faults: 241082
+	Voluntary context switches: 7940
+	Involuntary context switches: 218
+	Swaps: 0
+	File system inputs: 0
+	File system outputs: 127592
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 0
+#+end_example
+
+makefurdb:
+#+begin_example
+	Command being timed: "makeFurDb -t targets/ -n neighbors/ -d test.db -T 1"
+	User time (seconds): 19.28
+	System time (seconds): 1.56
+	Percent of CPU this job got: 103%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 0:20.07
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 1685836
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 2
+	Minor (reclaiming a frame) page faults: 951498
+	Voluntary context switches: 33818
+	Involuntary context switches: 233
+	Swaps: 0
+	File system inputs: 0
+	File system outputs: 267040
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 0
+#+end_example
+
+fur:
+#+begin_example
+	Command being timed: "fur -t 1 -d test.db"
+	User time (seconds): 0.83
+	System time (seconds): 0.18
+	Percent of CPU this job got: 103%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 0:00.98
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 121452
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 0
+	Minor (reclaiming a frame) page faults: 118928
+	Voluntary context switches: 549
+	Involuntary context switches: 10
+	Swaps: 0
+	File system inputs: 0
+	File system outputs: 16
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 0
+#+end_example
