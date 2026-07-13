@@ -1,0 +1,178 @@
+* FUR vs Seqwin test for C. pneumoniae CWL029 markers
+
+** Fixing the FASTA input problem
+
+The first FUR run failed because the target FASTA files were empty.
+The files only contained FASTA headers and no genome sequence.
+
+I checked the file sizes:
+
+#+begin_src bash
+wc -c targets/*.fna
+#+end_src
+
+#+begin_example
+61  targets/tGCA_000008745.1_ASM874v1_genomic.fna
+60  targets/tGCF_000008745.1_ASM874v1_genomic.fna
+#+end_example
+
+I downloaded the target genomes again:
+
+#+begin_src bash
+cd targets
+
+datasets download genome accession GCA_000008745.1 --include genome
+unzip -o ncbi_dataset.zip
+cp ncbi_dataset/data/GCA_000008745.1/*.fna \
+   tGCA_000008745.1_ASM874v1_genomic.fna
+
+datasets download genome accession GCF_000008745.1 --include genome
+unzip -o ncbi_dataset.zip
+cp ncbi_dataset/data/GCF_000008745.1/*.fna \
+   tGCF_000008745.1_ASM874v1_genomic.fna
+#+end_src
+
+** Fixing the neighbor FASTA problem
+
+After fixing the targets, FUR still crashed during database creation.
+
+The neighbor files were also empty.
+
+I checked them using:
+
+#+begin_src bash
+wc -c neighbors/*.fna | sort -n | head
+#+end_src
+
+Output showed very small files:
+
+#+begin_example
+58  neighbors/nGCF_000011165.1_ASM1116v1_genomic.fna
+58  neighbors/nGCF_000091085.2_ASM9108v2_genomic.fna
+60  neighbors/nGCF_000007205.1_ASM720v1_genomic.fna
+136 neighbors/nGCF_000024145.1_ASM2414v1_genomic.fna
+#+end_example
+
+I re-downloaded the neighbor genomes from NCBI and replaced the FASTA
+files.
+
+After fixing the files, I checked that they contained real sequences:
+
+#+begin_src bash
+wc -c neighbors/*.fna
+#+end_src
+
+
+** Running FUR database construction
+
+I created the FUR database:
+
+#+begin_src bash
+makeFurDb \
+    -t targets/ \
+    -n neighbors/ \
+    -d test.db
+#+end_src
+
+The command completed without crashing.
+
+** Checking where FUR loses the markers
+
+I first checked the output after the presence subtraction step:
+
+#+begin_src bash
+fur -d test.db -U > fur_after_presence_check.fasta
+#+end_src
+
+The output was:
+
+#+begin_example
+Step           Sequences  Length  Ns
+-------------  ---------  ------  --
+Subtraction_1          0       0   0
+#+end_example
+
+I also checked the sliding-window output:
+
+#+begin_src bash
+fur -d test.db -u > fur_after_sliding_window.fasta
+#+end_src
+
+The result was also:
+
+#+begin_example
+Subtraction_1          0       0   0
+#+end_example
+
+This shows that FUR removes all regions during the first subtraction
+step.
+
+** Checking similarity between target and neighbor genomes
+
+I compared the target genome with one neighbor genome using BLAST:
+
+#+begin_src bash
+blastn \
+-query targets/tGCA_000008745.1_ASM874v1_genomic.fna \
+-subject neighbors/nGCF_000007205.1_ASM720v1_genomic.fna \
+-outfmt "6 pident length qcovs" | head
+#+end_src
+
+Example output:
+
+#+begin_example
+99.960	495314	99
+99.955	190662	99
+99.959	156099	99
+99.493	143904	99
+99.962	116959	99
+99.971	69019	99
+99.879	58719	99
+99.875	2409	99
+99.834	2408	99
+84.422	1990	99
+#+end_example
+
+The target and neighbor genomes are highly similar, with long regions
+having 99.9% identity.
+
+** Comparing Seqwin signatures with neighbor genomes
+
+Seqwin signatures were generated previously:
+
+#+begin_src bash
+seqwin \
+    --tar-dir targets \
+    --neg-dir neighbors \
+    -o seqwin-out \
+    --overwrite
+#+end_src
+
+The number of generated signatures was checked:
+
+#+begin_src bash
+grep "^>" seqwin-out/signatures.fasta | wc -l
+#+end_src
+
+I tested one Seqwin signature against a neighbor genome:
+
+#+begin_src bash
+head -2 seqwin-out/signatures.fasta > one_marker.fasta
+
+blastn \
+-query one_marker.fasta \
+-subject neighbors/nGCF_000007205.1_ASM720v1_genomic.fna \
+-outfmt "6 qstart qend pident length"
+#+end_src
+
+Result:
+
+#+begin_example
+1  242  99.587  242
+#+end_example
+
+The Seqwin marker is present in the neighbor genome, but with small
+sequence differences.
+
+Because the target and neighbors are closely related C. pneumoniae
+strains, FUR does not find unique regions.
