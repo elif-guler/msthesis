@@ -146,3 +146,20 @@ fur -d all.db -f 0.1 > f10.fasta
   Intersection          22   24040  124
   Subtraction_2          2     781  448
 #+end_src
+
+I ran mapro by adding fur -f 0.9 flag but it again did not generate primers with only one marker.
+If I try -f 0.1 option, we obtain primer but with a high penalty:
+#+begin_src bash
+>f penalty: 5.151242
+GTGAGGTGTGAGGTGTGA
+>r
+GTCCTTCATCGGCCTGT
+#+end_src
+
+Cops out results of this primer:
+#+begin_src bash
+PrimerSet:	primers.fasta
+Sensitivity:	0.0508
+Specificity:	0.0226
+#+end_src
+not good
