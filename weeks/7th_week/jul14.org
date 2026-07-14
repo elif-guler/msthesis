@@ -76,8 +76,9 @@ Because the homology between neighbors and targets are large, fur eliminated the
 ** Testing tde
 
 Both Fur and Seqwin generated markers and primers for this taxon, Fur has 1 as sensitivity and 0.143 as
-specificity. Seqwin has perfect (1) results for both. So I wanted to check the difference. I checked
-their annotation results:
+specificity. Seqwin has perfect (1) results for both.
+Fur generated 22 markers and Seqwin generated 23. In the ed they have different primers.
+I checked the primers' annotation results:
 #+begin_src bash
 bash ../scripts/anam.sh < ../data/tde.txt
 #+end_src
