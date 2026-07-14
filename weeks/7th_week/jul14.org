@@ -96,3 +96,53 @@ seqwin:
 #Annotation for interval (367345, 367484)
 AE017226.1      Genbank region  1       2843201 .       +       .       ID=AE017226.1:1..2843201;Dbxref=ATCC:35405,taxon:243275;Is_circular=true;Name=ANONYMOUS;gbkey=Src;genome=chromosome;mol_type=genomic DNA;strain=ATCC 35405;type-material=type strain of Treponema denticola
 #+end_src
+
+** Testing eco1
+
+eco1 did not have any markers with fur. It generated markers with seqwin and the primer sensitivity is 1,
+specificity is 0.813
+
+#+begin_src bash
+fur -d all.db -U > fur_after_presence_check.fasta  
+#+end_src
+#+begin_src bash
+  Step           Sequences  Length  Ns
+  -------------  ---------  ------  --
+  Subtraction_1         22   24291   0
+  Intersection           0       0   0
+#+end_src
+
+So it removed the candidates in intersection step. I tried to apply different intersection sensitivity
+percentages:
+#+begin_src bash
+fur -d all.db -f 0.9 > f90.fasta
+#+end_src
+#+begin_src bash
+  Step           Sequences  Length  Ns
+  -------------  ---------  ------  --
+  Subtraction_1         22   24291   0
+  Intersection          35   22978  89
+  Subtraction_2          1     151   6
+#+end_src
+
+#+begin_src bash
+fur -d all.db -f 0.5 > f50.fasta
+#+end_src
+#+begin_src bash
+  Step           Sequences  Length  Ns
+  -------------  ---------  ------  --
+  Subtraction_1         22   24291   0
+  Intersection          36   23472  98
+  Subtraction_2          1     163   8
+#+end_src
+
+#+begin_src bash
+fur -d all.db -f 0.1 > f10.fasta
+#+end_src
+#+begin_src bash
+  Step           Sequences  Length   Ns
+  -------------  ---------  ------   --
+  Subtraction_1         22   24291    0
+  Intersection          22   24040  124
+  Subtraction_2          2     781  448
+#+end_src
