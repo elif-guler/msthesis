@@ -1,0 +1,97 @@
+** Testing sen2
+
+For sen2, Fur does not generate any markers while Seqwin generated. And the primers generated after seqwin
+have sesnsitivity of 1, and specificity of 0.89.
+
+I commented out this park on drivers.fasta to keep the fasta info of neighbors and targets
+#+begin_src bash
+#        for a in $dir/all/*; do
+#            grep '^>' $a > $dir/tmp
+#            mv $dir/tmp $a
+#        done
+#        rm -r $dir/all.db
+#        rm -r $dir/tdata* $dir/ndata*
+#+end_src
+
+Then i tried fur with -U flag:
+#+begin_src bash
+fur -d test.db -U > fur_after_presence_check.fasta
+#+end_src
+
+#+begin_example
+  Step           Sequences  Length  Ns
+  -------------  ---------  ------  --
+  Subtraction_1         53   15873   0
+  Intersection          12    2823  76
+#+end_example
+
+And I tried with -u flag:
+#+begin_src bash
+fur -d test.db -u > fur_after_sliding_window.fasta
+#+end_src
+
+#+begin_example
+  Step           Sequences  Length  Ns
+  -------------  ---------  ------  --
+  Subtraction_1         53   15873   0
+#+end_example
+
+And I tried the default mode:
+#+begin_src bash
+fur -d test.db > fur_default.fasta
+#+end_src
+
+#+begin_example
+  Step           Sequences  Length  Ns
+  -------------  ---------  ------  --
+  Subtraction_1         53   15873   0
+  Intersection          12    2823  76
+  Subtraction_2          0       0   0
+#+end_example
+
+So, we lost some sequences in both steps and in the end we had 0 and cannot generate any markers.
+
+overall average of homology across all neighbors:
+#+begin_src bash
+for n in neighbors/*.fna; do
+    blastn \
+        -query fur_after_presence_check.fasta \
+        -subject "$n" \
+        -outfmt "6 pident length"
+done |
+awk '
+{
+    sum += $1*$2
+    len += $2
+}
+END{
+    printf "Overall average homology: %.2f%%\n", sum/len
+}'
+#+end_src
+Overall average homology: 88.81%
+
+Because the homology between neighbors and targets are large, fur eliminated the sequences.
+
+
+** Testing tde
+
+Both Fur and Seqwin generated markers and primers for this taxon, Fur has 1 as sensitivity and 0.143 as
+specificity. Seqwin has perfect (1) results for both. So I wanted to check the difference. I checked
+their annotation results:
+#+begin_src bash
+bash ../scripts/anam.sh < ../data/tde.txt
+#+end_src
+
+fur:
+#+begin_src bash
+#Annotation for interval (1182361, 1182456)
+AE017226.1      Genbank region  1       2843201 .       +       .       ID=AE017226.1:1..2843201;Dbxref=ATCC:35405,taxon:243275;Is_circular=true;Name=ANONYMOUS;gbkey=Src;genome=chromosome;mol_type=genomic DNA;strain=ATCC 35405;type-material=type strain of Treponema denticola
+AE017226.1      Genbank gene    1181938 1182945 .       -       .       ID=gene-TDE_1144;Name=TDE_1144;gbkey=Gene;gene_biotype=protein_coding;locus_tag=TDE_1144;old_locus_tag=TDE1144
+AE017226.1      Genbank CDS     1181938 1182945 .       -       0       ID=cds-AAS11633.1;Parent=gene-TDE_1144;Dbxref=NCBI_GP:AAS11633.1;Name=AAS11633.1;Note=identified by Glimmer2%3B putative;gbkey=CDS;locus_tag=TDE_1144;product=hypothetical protein;protein_id=AAS11633.1;transl_table=11
+#+end_src
+
+seqwin:
+#+begin_src bash
+#Annotation for interval (367345, 367484)
+AE017226.1      Genbank region  1       2843201 .       +       .       ID=AE017226.1:1..2843201;Dbxref=ATCC:35405,taxon:243275;Is_circular=true;Name=ANONYMOUS;gbkey=Src;genome=chromosome;mol_type=genomic DNA;strain=ATCC 35405;type-material=type strain of Treponema denticola
+#+end_src
