@@ -5,7 +5,7 @@ BEGIN {
     exit
   }
   # Initialize array of possible hits across template
-  tl = 10000
+  tl = seqLen
   for (i = 1; i <= tl; i++)
     arr[i] = 0
 }
