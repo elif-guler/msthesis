@@ -1,5 +1,4 @@
 tool=$1
-
 for a in 200 400 800 1600; do
     echo -n $a ' '
     awk '{print $2}' ${tool}_${a}.txt |

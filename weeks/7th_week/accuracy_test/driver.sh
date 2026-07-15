@@ -24,7 +24,7 @@ for markerLen in $markerLengths; do
             makeFurDb -t targets -n neighbors -d test.db -o 2>&1 > /dev/null
             fur -d test.db > markers.fasta
         else
-            seqwin --tar-dir targets --neg-dir neighbors -o seqwin-out --overwrite --penalty-th 0.2 > /dev/null
+            seqwin --tar-dir targets --neg-dir neighbors -o seqwin-out --overwrite > /dev/null
             cp seqwin-out/signatures.fasta markers.fasta
         fi
 
