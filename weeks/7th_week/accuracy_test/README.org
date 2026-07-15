@@ -1,0 +1,11 @@
+* Measure Accuracy of fur
+The script driver.sh iterates over markers of length 200, 400, 800,
+and 1600 bp. We run simulations on 10kb sequences with the default
+number of iterations, 10 (this should be changed for proper runs).
+#+begin_src bash
+  bash driver.sh 10000
+#+end_src
+Summarize results into mean A +/- SEM for each marker length.
+#+begin_src bash
+  bash summarize.sh
+#+end_src
