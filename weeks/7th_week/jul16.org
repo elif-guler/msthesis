@@ -1,0 +1,86 @@
+I will use the pipeline below to construct the data of three taxon shown in seqwin paper
+
+set -e
+
+# 1. Download genomes
+#+begin_src bash
+datasets download genome accession \
+    --inputfile acc.txt \
+    --dehydrated
+#+end_src
+
+# 2. Extract and rehydrate
+#+begin_src bash
+unzip -o ncbi_dataset.zip
+datasets rehydrate --directory .
+#+end_src
+
+# 3. Collect genomes
+#+begin_src bash
+mkdir -p all
+
+find ncbi_dataset/data -name "*_genomic.fna" | while read f
+do
+    acc=$(basename "$f" | sed 's/_genomic.fna//')
+    ln -sf "$(realpath "$f")" "all/${acc}.fasta"
+done
+#+end_src
+
+# 4. Build phylogeny
+#+begin_src bash
+phylonium all/* \
+    | nj \
+    | midRoot \
+    | land > tree.nwk
+#+end_src
+
+# 5. Plot tree
+#+begin_src bash
+plotTree tree.nwk
+#+end_src
+
+Determine the node number of your target clade.
+
+After inspecting the tree and deciding that your target
+clade is, for example, node 17 (check the paper for that), continue with:
+
+# 6. Split target and neighbor genomes
+#+begin_src bash
+mkdir targets
+mkdir neighbors
+
+pickle 17 tree.nwk \
+    | grep -v '^#' \
+    | while read a
+do
+    ln -s "$(pwd)/all/${a}.fasta" targets/
+done
+
+pickle -c 17 tree.nwk \
+    | grep -v '^#' \
+    | while read a
+do
+    ln -s "$(pwd)/all/${a}.fasta" neighbors/
+done
+#+end_src
+
+# 7. Build the FUR database
+#+begin_src bash
+makeFurDb \
+    -T 1 \
+    -t targets \
+    -n neighbors \
+    -o \
+    -d target.db
+#+end_src
+
+# 8. Generate candidate markers
+#+begin_src bash
+fur -m -d target.db > target.fasta
+#+end_src
+
+# 9. Run the pipeline
+#+begin_src bash
+chmod +x pipeline.sh
+./pipeline.sh
+#+end_src
