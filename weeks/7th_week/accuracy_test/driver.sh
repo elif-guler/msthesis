@@ -2,7 +2,7 @@ date
 seqLen=$1
 tool=$2
 it=10
-markerLengths="200 400 800 1600 3200 7200 10000"
+markerLengths="200 400 800 1600 3200 7500"
 
 ((midpoint=$seqLen/2))
 

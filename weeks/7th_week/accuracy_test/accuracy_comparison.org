@@ -1,29 +1,32 @@
-#+begin_src 
-bash driver.sh 100000 fur
-bash driver.sh 100000 seqwin
+*** Accuracy Comparison of Fur and Seqwin
 
-bash summarize.sh fur
-bash summarize.sh seqwin  
-#+end_src
+I checked the accuracy difference between two both with different lenghts of the markers
+and length of the sequence: 100000:
 
-fur:
 #+begin_src bash
-200  0.942335 0.00680007
-400  0.967931 0.00413904
-800  0.982116 0.00241074
-1600  0.992003 0.000890763
-3200  0.995568 0.000589917
-7200  0.997748 0.000222494
-10000  0.997894 0.000236594
+  bash driver.sh 100000 seqwin
+  bash driver.sh 100000 fur
+  bash summarize.sh seqwin
+  bash summarize.sh fur
 #+end_src
 
-seqwin:
-#+begin_src bash
-200  0.0504358 0.0315244
-400  0.17511 0.0553667
-800  0.339652 0.0424093
-1600  0.464138 0.0625517
-3200  0.517089 0.054751
-7200  0.672893 0.0439762
-10000  0.745823 0.0625353
-#+end_src
+
+accuracy of fur with different marker lenghts:
+| marker_lenght | accuracy |         std |
+|           200 | 0.957186 |  0.00679441 |
+|           400 | 0.966305 |  0.00289561 |
+|           800 | 0.983795 |   0.0021336 |
+|          1600 |  0.99059 | 0.000934393 |
+|          3200 | 0.995114 | 0.000347968 |
+|          7500 | 0.997541 | 0.000270375 |
+
+accuracy of seqwin with different marker lenghts:
+| marker_lenght |  accuracy |       std |
+|           200 | 0.0703242 | 0.0338231 |
+|           400 |  0.197909 | 0.0636835 |
+|           800 |  0.228225 | 0.0555378 |
+|          1600 |  0.587392 | 0.0533188 |
+|          3200 |  0.584663 | 0.0511619 |
+|          7500 |  0.691544 | 0.0485112 |
+
+
