@@ -1,0 +1,559 @@
+[clo] Checking 2 missing accessions with NCBI...
+New version of client (18.33.1) available at https://ftp.ncbi.nlm.nih.gov/pub/datasets/command-line/LATEST/linux-amd64/datasets.
+[clo] Downloading missing genomes...
+New version of client (18.33.1) available at https://ftp.ncbi.nlm.nih.gov/pub/datasets/command-line/LATEST/linux-amd64/datasets.
+Collecting 2 genome records [------------------------------------------------]   0% 0/2
+[1A[2KCollecting 2 genome records [------------------------------------------------]   0% 0/2
+[1A[2KCollecting 2 genome records [------------------------------------------------]   0% 0/2
+[1A[2KCollecting 2 genome records [------------------------------------------------]   0% 0/2
+[1A[2KCollecting 2 genome records [------------------------------------------------]   0% 0/2
+[1A[2KCollecting 2 genome records [------------------------------------------------]   0% 0/2
+[1A[2KCollecting 2 genome records [------------------------------------------------]   0% 0/2
+[1A[2KCollecting 2 genome records [------------------------------------------------]   0% 0/2
+[1A[2KCollecting 2 genome records [------------------------------------------------]   0% 0/2
+[1A[2KCollecting 2 genome records [------------------------------------------------]   0% 0/2
+[1A[2KCollecting 2 genome records [------------------------------------------------]   0% 0/2
+[1A[2KCollecting 2 genome records [------------------------------------------------]   0% 0/2
+[1A[2KCollecting 2 genome records [------------------------------------------------]   0% 0/2
+[1A[2KCollecting 2 genome records [------------------------------------------------]   0% 0/2
+[1A[2KCollecting 2 genome records [------------------------------------------------]   0% 0/2
+[1A[2KCollecting 2 genome records [------------------------------------------------]   0% 0/2
+[1A[2KCollecting 2 genome records [------------------------------------------------]   0% 0/2
+[1A[2KCollecting 2 genome records [------------------------------------------------]   0% 0/2
+[1A[2KCollecting 2 genome records [------------------------------------------------]   0% 0/2
+[1A[2KCollecting 2 genome records [================================================] 100% 2/2
+[1A[2KCollecting 2 genome records [================================================] 100% 2/2
+[1A[2KCollecting 2 genome records [================================================] 100% 2/2
+[1A[2KCollecting 2 genome records [================================================] 100% 2/2
+[1A[2KCollecting 2 genome records [================================================] 100% 2/2
+[1A[2KCollecting 2 genome records [================================================] 100% 2/2
+[1A[2KCollecting 2 genome records [================================================] 100% 2/2
+[1A[2KCollecting 2 genome records [================================================] 100% 2/2
+[1A[2KCollecting 2 genome records [================================================] 100% 2/2
+[1A[2KCollecting 2 genome records [================================================] 100% 2/2
+[1A[2KCollecting 2 genome records [================================================] 100% 2/2
+[1A[2KCollecting 2 genome records [================================================] 100% 2/2
+[1A[2KCollecting 2 genome records [================================================] 100% 2/2
+[1A[2KCollecting 2 genome records [================================================] 100% 2/2
+[1A[2KCollecting 2 genome records [================================================] 100% 2/2
+[1A[2KCollecting 2 genome records [================================================] 100% 2/2
+[1A[2KCollecting 2 genome records [================================================] 100% 2/2
+[1A[2KCollecting 2 genome records [================================================] 100% 2/2
+[1A[2KCollecting 2 genome records [================================================] 100% 2/2
+[1A[2KCollecting 2 genome records [================================================] 100% 2/2
+[1A[2KCollecting 2 genome records [================================================] 100% 2/2
+[1A[2KCollecting 2 genome records [================================================] 100% 2/2
+[1A[2KCollecting 2 genome records [================================================] 100% 2/2
+[1A[2KCollecting 2 genome records [================================================] 100% 2/2
+[1A[2KCollecting 2 genome records [================================================] 100% 2/2
+[1A[2KCollecting 2 genome records [================================================] 100% 2/2
+[1A[2KCollecting 2 genome records [================================================] 100% 2/2
+[1A[2KCollecting 2 genome records [================================================] 100% 2/2
+[1A[2KCollecting 2 genome records [================================================] 100% 2/2
+[1A[2KCollecting 2 genome records [================================================] 100% 2/2
+[1A[2KCollecting 2 genome records [================================================] 100% 2/2
+[1A[2KCollecting 2 genome records [================================================] 100% 2/2
+[1A[2KCollecting 2 genome records [================================================] 100% 2/2
+[1A[2KCollecting 2 genome records [================================================] 100% 2/2
+[1A[2KCollecting 2 genome records [================================================] 100% 2/2
+[1A[2KCollecting 2 genome records [================================================] 100% 2/2
+[1A[2KCollecting 2 genome records [================================================] 100% 2/2
+[1A[2KCollecting 2 genome records [================================================] 100% 2/2
+[1A[2KCollecting 2 genome records [================================================] 100% 2/2
+[1A[2KCollecting 2 genome records [================================================] 100% 2/2
+Downloading: missing_ncbi_dataset.zip    3.18kB 3.58MB/s
+[1A[2K[1A[2KCollecting 2 genome records [================================================] 100% 2/2
+Downloading: missing_ncbi_dataset.zip    3.18kB 3.58MB/s
+[1A[2K[1A[2KCollecting 2 genome records [================================================] 100% 2/2
+Downloading: missing_ncbi_dataset.zip    3.18kB 3.58MB/s
+[1A[2K[1A[2KCollecting 2 genome records [================================================] 100% 2/2
+Downloading: missing_ncbi_dataset.zip    3.18kB 3.58MB/s
+[1A[2K[1A[2KCollecting 2 genome records [================================================] 100% 2/2
+Downloading: missing_ncbi_dataset.zip    3.18kB 3.58MB/s
+[1A[2K[1A[2KCollecting 2 genome records [================================================] 100% 2/2
+Downloading: missing_ncbi_dataset.zip    3.18kB 3.58MB/s
+[1A[2K[1A[2KCollecting 2 genome records [================================================] 100% 2/2
+Downloading: missing_ncbi_dataset.zip    3.18kB 3.58MB/s
+[1A[2K[1A[2KCollecting 2 genome records [================================================] 100% 2/2
+Downloading: missing_ncbi_dataset.zip    3.18kB 3.58MB/s
+[1A[2K[1A[2KCollecting 2 genome records [================================================] 100% 2/2
+Downloading: missing_ncbi_dataset.zip    3.18kB 3.58MB/s
+[1A[2K[1A[2KCollecting 2 genome records [================================================] 100% 2/2
+Downloading: missing_ncbi_dataset.zip    3.59kB valid data package
+Validating package files [================================================] 100% 4/4
+Archive:  missing_ncbi_dataset.zip
+  inflating: missing_ncbi_dataset/README.md  
+  inflating: missing_ncbi_dataset/ncbi_dataset/data/assembly_data_report.jsonl  
+  inflating: missing_ncbi_dataset/ncbi_dataset/data/dataset_catalog.json  
+  inflating: missing_ncbi_dataset/md5sum.txt  
+WARNING [clo]: no fetch.txt in dehydrated package -- none of the
+  requested accessions returned genome data. Check missing_accessions_summary.json
+  and missing_accessions.txt for withdrawn/suppressed/invalid accessions.
+  Continuing without them; downstream steps will skip anything still missing.
+WARNING: all/GCA_900686855.1.fasta missing, skipping
+WARNING: all/GCA_000451285.2.fasta missing, skipping
+WARNING: all/GCA_036639395.1.fasta missing, skipping
+WARNING: all/GCA_031965495.1.fasta missing, skipping
+WARNING: all/GCA_948604545.1.fasta missing, skipping
+WARNING: all/GCA_024723825.1.fasta missing, skipping
+WARNING: all/GCA_948900705.1.fasta missing, skipping
+WARNING: all/GCA_948730595.1.fasta missing, skipping
+WARNING: all/GCA_039841845.1.fasta missing, skipping
+WARNING: all/GCA_027853495.1.fasta missing, skipping
+WARNING: all/GCA_036550295.1.fasta missing, skipping
+WARNING: all/GCA_046956675.1.fasta missing, skipping
+WARNING: all/GCA_934725665.1.fasta missing, skipping
+WARNING: all/GCA_031994785.1.fasta missing, skipping
+WARNING: all/GCA_934746095.1.fasta missing, skipping
+WARNING: all/GCA_029961725.1.fasta missing, skipping
+WARNING: all/GCA_026168775.1.fasta missing, skipping
+WARNING: all/GCA_036303545.1.fasta missing, skipping
+[clo/100] targets=78 neighbors=4
+using GCA_031996165.1.fasta as target representative
+making Blast database
+  Step           Sequences   Length   Ns
+  -------------  ---------   ------   --
+  Subtraction_1        286  2937970  465
+  Intersection          33     5767  866
+  Subtraction_2          0        0    0
+2026-07-20 12:49:55 | WARNING  | File/directory already exists, content is overwritten (overwriting is turned on): /home/elif/ch_mapro/mapro/3taxa/clo/results/100/seqwin-out
+2026-07-20 12:49:55 | INFO     | Running Seqwin v0.4.1
+2026-07-20 12:49:55 | INFO     | Run configurations saved as /home/elif/ch_mapro/mapro/3taxa/clo/results/100/seqwin-out/config.json
+2026-07-20 12:49:55 | INFO     | Found 78 assemblies from /home/elif/ch_mapro/mapro/3taxa/clo/results/100/targets
+2026-07-20 12:49:55 | INFO     | Found 4 assemblies from /home/elif/ch_mapro/mapro/3taxa/clo/results/100/neighbors
+2026-07-20 12:49:55 | INFO     | Loaded 78 target assemblies and 4 non-target assemblies, 82 in total.
+2026-07-20 12:49:55 | INFO     | Assembly indices and paths saved as /home/elif/ch_mapro/mapro/3taxa/clo/results/100/seqwin-out/assemblies.csv
+2026-07-20 12:49:55 | INFO     | Building minimizer graph from 82 assemblies...
+2026-07-20 12:50:00 | INFO     |  - Merging from 4 threads...
+2026-07-20 12:50:00 | INFO     |  - Found 3303944 minimizers
+2026-07-20 12:50:00 | INFO     |  - Found 374856 nodes (unique minimizers)
+2026-07-20 12:50:00 | INFO     |  - Found 457084 weighted edges
+2026-07-20 12:50:00 | INFO     |  - Finished in 0:00:04.996542
+2026-07-20 12:50:00 | INFO     | Calculating penalty threshold...
+2026-07-20 12:50:00 | INFO     |  - Generating MinHash sketches with Mash for 82 assemblies...
+2026-07-20 12:50:06 | INFO     |  - Mash sketch file saved as /home/elif/ch_mapro/mapro/3taxa/clo/results/100/seqwin-out/sketches.msh
+2026-07-20 12:50:06 | INFO     |  - Calculating Jaccard indices of assembly pairs...
+2026-07-20 12:50:06 | INFO     |  - expected k-mer absence in targets: 0.31996
+2026-07-20 12:50:06 | INFO     |  - expected k-mer presence in non-targets: 0.00372
+2026-07-20 12:50:06 | INFO     |  - calculated penalty threshold: 0.01725
+2026-07-20 12:50:06 | INFO     |  - Finished in 0:00:05.793106
+2026-07-20 12:50:06 | INFO     | Extracting low-penalty subgraphs from the k-mer graph...
+2026-07-20 12:50:06 | INFO     |  - Subgraph size limit is set to [3, 100]
+2026-07-20 12:50:06 | INFO     |  - Filtering graph edges and nodes...
+2026-07-20 12:50:06 | INFO     |  - Removed 416464 edges with weight<22.996, 40620 edges left
+2026-07-20 12:50:06 | INFO     |  - Removed 334453 isolated nodes, 40403 nodes left
+2026-07-20 12:50:06 | INFO     |  - Building graph...
+2026-07-20 12:50:06 | INFO     |  - Expanding subgraphs from 679 seed nodes (penalty<=0.01725)...
+2026-07-20 12:50:06 | INFO     |  - Found 27 low-penalty subgraphs
+2026-07-20 12:50:06 | INFO     |  - Removing k-mers not included in any of the subgraphs...
+2026-07-20 12:50:06 | INFO     |  - 7542 k-mers left
+2026-07-20 12:50:06 | INFO     |  - Finished in 0:00:00.317018
+2026-07-20 12:50:06 | INFO     | Finding a representative for each low-penalty subgraph...
+2026-07-20 12:50:06 | INFO     |  - Processing each subgraph...
+2026-07-20 12:50:06 | INFO     |  - Found 21 candidate signatures
+2026-07-20 12:50:06 | INFO     |  - Fetching the representative sequence for each candidate...
+2026-07-20 12:50:06 | INFO     |  - 3 assemblies to be loaded
+2026-07-20 12:50:06 | INFO     |  - Finished in 0:00:00.277736
+2026-07-20 12:50:06 | INFO     | Evaluating candidate signatures with BLAST...
+2026-07-20 12:50:06 | INFO     | Creating a BLAST database of all assemblies...
+2026-07-20 12:50:12 | INFO     |  - BLAST database created: /home/elif/ch_mapro/mapro/3taxa/clo/results/100/seqwin-out/blastdb/all
+2026-07-20 12:50:12 | INFO     |  - Finished in 0:00:05.372713
+2026-07-20 12:50:12 | INFO     | BLAST checking signatures against all assemblies (more sensitive but slower)...
+2026-07-20 12:50:12 | INFO     |  - Running blastn on 21 sequences, with batch size of 1000 (threads=4)...
+2026-07-20 12:50:12 | INFO     |  - 0/21
+2026-07-20 12:50:16 | INFO     |  - Formatting BLAST output...
+2026-07-20 12:50:16 | INFO     |  - Evaluating each signature...
+2026-07-20 12:50:16 | INFO     |  - Finished in 0:00:04.577321
+2026-07-20 12:50:16 | INFO     | Candidate signatures saved as /home/elif/ch_mapro/mapro/3taxa/clo/results/100/seqwin-out/signatures.fasta
+2026-07-20 12:50:16 | INFO     | Metrics of candidate signatures saved as /home/elif/ch_mapro/mapro/3taxa/clo/results/100/seqwin-out/signatures.csv
+2026-07-20 12:50:17 | INFO     | Run instance (includes all run data) saved as /home/elif/ch_mapro/mapro/3taxa/clo/results/100/seqwin-out/results.seqwin
+WARNING: all/GCA_902362795.1.fasta missing, skipping
+WARNING: all/GCA_902363855.1.fasta missing, skipping
+[clo/1000] targets=833 neighbors=165
+using GCA_031272305.1.fasta as target representative
+making Blast database
+  Step           Sequences   Length  Ns
+  -------------  ---------   ------  --
+  Subtraction_1        409  1809309   0
+  Intersection           0        0   0
+2026-07-20 12:51:31 | WARNING  | File/directory already exists, content is overwritten (overwriting is turned on): /home/elif/ch_mapro/mapro/3taxa/clo/results/1000/seqwin-out
+2026-07-20 12:51:31 | INFO     | Running Seqwin v0.4.1
+2026-07-20 12:51:31 | INFO     | Run configurations saved as /home/elif/ch_mapro/mapro/3taxa/clo/results/1000/seqwin-out/config.json
+2026-07-20 12:51:31 | INFO     | Found 833 assemblies from /home/elif/ch_mapro/mapro/3taxa/clo/results/1000/targets
+2026-07-20 12:51:31 | INFO     | Found 165 assemblies from /home/elif/ch_mapro/mapro/3taxa/clo/results/1000/neighbors
+2026-07-20 12:51:31 | INFO     | Loaded 833 target assemblies and 165 non-target assemblies, 998 in total.
+2026-07-20 12:51:31 | INFO     | Assembly indices and paths saved as /home/elif/ch_mapro/mapro/3taxa/clo/results/1000/seqwin-out/assemblies.csv
+2026-07-20 12:51:31 | INFO     | Building minimizer graph from 998 assemblies...
+2026-07-20 12:52:27 | INFO     |  - Merging from 4 threads...
+2026-07-20 12:52:29 | INFO     |  - Found 38701438 minimizers
+2026-07-20 12:52:29 | INFO     |  - Found 1845670 nodes (unique minimizers)
+2026-07-20 12:52:29 | INFO     |  - Found 2366755 weighted edges
+2026-07-20 12:52:29 | INFO     |  - Finished in 0:00:57.369105
+2026-07-20 12:52:29 | INFO     | Calculating penalty threshold...
+2026-07-20 12:52:29 | INFO     |  - Generating MinHash sketches with Mash for 998 assemblies...
+2026-07-20 12:53:35 | INFO     |  - Mash sketch file saved as /home/elif/ch_mapro/mapro/3taxa/clo/results/1000/seqwin-out/sketches.msh
+2026-07-20 12:53:35 | INFO     |  - Calculating Jaccard indices of assembly pairs...
+2026-07-20 12:53:40 | INFO     |  - expected k-mer absence in targets: 0.27667
+2026-07-20 12:53:40 | INFO     |  - expected k-mer presence in non-targets: 0.00509
+2026-07-20 12:53:40 | INFO     |  - calculated penalty threshold: 0.01876
+2026-07-20 12:53:40 | INFO     |  - Finished in 0:01:11.140483
+2026-07-20 12:53:40 | INFO     | Extracting low-penalty subgraphs from the k-mer graph...
+2026-07-20 12:53:40 | INFO     |  - Subgraph size limit is set to [3, 100]
+2026-07-20 12:53:40 | INFO     |  - Filtering graph edges and nodes...
+2026-07-20 12:53:40 | INFO     |  - Removed 2325983 edges with weight<245.213, 40772 edges left
+2026-07-20 12:53:40 | INFO     |  - Removed 1805046 isolated nodes, 40624 nodes left
+2026-07-20 12:53:40 | INFO     |  - Building graph...
+2026-07-20 12:53:40 | INFO     |  - Expanding subgraphs from 2197 seed nodes (penalty<=0.01876)...
+2026-07-20 12:53:40 | INFO     |  - Found 278 low-penalty subgraphs
+2026-07-20 12:53:40 | INFO     |  - Removing k-mers not included in any of the subgraphs...
+2026-07-20 12:53:40 | INFO     |  - 915276 k-mers left
+2026-07-20 12:53:40 | INFO     |  - Finished in 0:00:00.348705
+2026-07-20 12:53:40 | INFO     | Finding a representative for each low-penalty subgraph...
+2026-07-20 12:53:40 | INFO     |  - Processing each subgraph...
+2026-07-20 12:53:42 | INFO     |  - Found 217 candidate signatures
+2026-07-20 12:53:42 | INFO     |  - Fetching the representative sequence for each candidate...
+2026-07-20 12:53:42 | INFO     |  - 1 assemblies to be loaded
+2026-07-20 12:53:43 | INFO     |  - Finished in 0:00:02.445551
+2026-07-20 12:53:43 | INFO     | Evaluating candidate signatures with BLAST...
+2026-07-20 12:53:43 | INFO     | Creating a BLAST database of all assemblies...
+2026-07-20 12:54:42 | INFO     |  - BLAST database created: /home/elif/ch_mapro/mapro/3taxa/clo/results/1000/seqwin-out/blastdb/all
+2026-07-20 12:54:42 | INFO     |  - Finished in 0:00:59.716131
+2026-07-20 12:54:42 | INFO     | BLAST checking signatures against all assemblies (more sensitive but slower)...
+2026-07-20 12:54:42 | INFO     |  - Running blastn on 217 sequences, with batch size of 1000 (threads=4)...
+2026-07-20 12:54:42 | INFO     |  - 0/217
+2026-07-20 13:01:30 | INFO     |  - Formatting BLAST output...
+2026-07-20 13:01:32 | INFO     |  - Evaluating each signature...
+2026-07-20 13:01:32 | INFO     |  - Finished in 0:06:49.816665
+2026-07-20 13:01:32 | INFO     | Candidate signatures saved as /home/elif/ch_mapro/mapro/3taxa/clo/results/1000/seqwin-out/signatures.fasta
+2026-07-20 13:01:32 | INFO     | Metrics of candidate signatures saved as /home/elif/ch_mapro/mapro/3taxa/clo/results/1000/seqwin-out/signatures.csv
+2026-07-20 13:01:33 | INFO     | Run instance (includes all run data) saved as /home/elif/ch_mapro/mapro/3taxa/clo/results/1000/seqwin-out/results.seqwin
+[clo] Done.
+[mtb] Checking 1 missing accessions with NCBI...
+New version of client (18.33.1) available at https://ftp.ncbi.nlm.nih.gov/pub/datasets/command-line/LATEST/linux-amd64/datasets.
+[mtb] Downloading missing genomes...
+New version of client (18.33.1) available at https://ftp.ncbi.nlm.nih.gov/pub/datasets/command-line/LATEST/linux-amd64/datasets.
+Collecting 1 genome record [------------------------------------------------]   0% 0/1
+[1A[2KCollecting 1 genome record [------------------------------------------------]   0% 0/1
+[1A[2KCollecting 1 genome record [------------------------------------------------]   0% 0/1
+[1A[2KCollecting 1 genome record [------------------------------------------------]   0% 0/1
+[1A[2KCollecting 1 genome record [------------------------------------------------]   0% 0/1
+[1A[2KCollecting 1 genome record [------------------------------------------------]   0% 0/1
+[1A[2KCollecting 1 genome record [------------------------------------------------]   0% 0/1
+[1A[2KCollecting 1 genome record [------------------------------------------------]   0% 0/1
+[1A[2KCollecting 1 genome record [------------------------------------------------]   0% 0/1
+[1A[2KCollecting 1 genome record [------------------------------------------------]   0% 0/1
+[1A[2KCollecting 1 genome record [------------------------------------------------]   0% 0/1
+[1A[2KCollecting 1 genome record [------------------------------------------------]   0% 0/1
+[1A[2KCollecting 1 genome record [------------------------------------------------]   0% 0/1
+[1A[2KCollecting 1 genome record [------------------------------------------------]   0% 0/1
+[1A[2KCollecting 1 genome record [------------------------------------------------]   0% 0/1
+[1A[2KCollecting 1 genome record [------------------------------------------------]   0% 0/1
+[1A[2KCollecting 1 genome record [------------------------------------------------]   0% 0/1
+[1A[2KCollecting 1 genome record [------------------------------------------------]   0% 0/1
+[1A[2KCollecting 1 genome record [------------------------------------------------]   0% 0/1
+[1A[2KCollecting 1 genome record [------------------------------------------------]   0% 0/1
+[1A[2KCollecting 1 genome record [------------------------------------------------]   0% 0/1
+[1A[2KCollecting 1 genome record [------------------------------------------------]   0% 0/1
+[1A[2KCollecting 1 genome record [------------------------------------------------]   0% 0/1
+[1A[2KCollecting 1 genome record [------------------------------------------------]   0% 0/1
+[1A[2KCollecting 1 genome record [------------------------------------------------]   0% 0/1
+[1A[2KCollecting 1 genome record [------------------------------------------------]   0% 0/1
+[1A[2KCollecting 1 genome record [------------------------------------------------]   0% 0/1
+[1A[2KCollecting 1 genome record [------------------------------------------------]   0% 0/1
+[1A[2KCollecting 1 genome record [------------------------------------------------]   0% 0/1
+[1A[2KCollecting 1 genome record [------------------------------------------------]   0% 0/1
+[1A[2KCollecting 1 genome record [------------------------------------------------]   0% 0/1
+[1A[2KCollecting 1 genome record [------------------------------------------------]   0% 0/1
+[1A[2KCollecting 1 genome record [------------------------------------------------]   0% 0/1
+[1A[2KCollecting 1 genome record [================================================] 100% 1/1
+[1A[2KCollecting 1 genome record [================================================] 100% 1/1
+[1A[2KCollecting 1 genome record [================================================] 100% 1/1
+[1A[2KCollecting 1 genome record [================================================] 100% 1/1
+[1A[2KCollecting 1 genome record [================================================] 100% 1/1
+[1A[2KCollecting 1 genome record [================================================] 100% 1/1
+[1A[2KCollecting 1 genome record [================================================] 100% 1/1
+[1A[2KCollecting 1 genome record [================================================] 100% 1/1
+[1A[2KCollecting 1 genome record [================================================] 100% 1/1
+[1A[2KCollecting 1 genome record [================================================] 100% 1/1
+[1A[2KCollecting 1 genome record [================================================] 100% 1/1
+[1A[2KCollecting 1 genome record [================================================] 100% 1/1
+[1A[2KCollecting 1 genome record [================================================] 100% 1/1
+[1A[2KCollecting 1 genome record [================================================] 100% 1/1
+[1A[2KCollecting 1 genome record [================================================] 100% 1/1
+[1A[2KCollecting 1 genome record [================================================] 100% 1/1
+[1A[2KCollecting 1 genome record [================================================] 100% 1/1
+[1A[2KCollecting 1 genome record [================================================] 100% 1/1
+[1A[2KCollecting 1 genome record [================================================] 100% 1/1
+[1A[2KCollecting 1 genome record [================================================] 100% 1/1
+[1A[2KCollecting 1 genome record [================================================] 100% 1/1
+[1A[2KCollecting 1 genome record [================================================] 100% 1/1
+[1A[2KCollecting 1 genome record [================================================] 100% 1/1
+[1A[2KCollecting 1 genome record [================================================] 100% 1/1
+[1A[2KCollecting 1 genome record [================================================] 100% 1/1
+[1A[2KCollecting 1 genome record [================================================] 100% 1/1
+[1A[2KCollecting 1 genome record [================================================] 100% 1/1
+[1A[2KCollecting 1 genome record [================================================] 100% 1/1
+[1A[2KCollecting 1 genome record [================================================] 100% 1/1
+[1A[2KCollecting 1 genome record [================================================] 100% 1/1
+[1A[2KCollecting 1 genome record [================================================] 100% 1/1
+[1A[2KCollecting 1 genome record [================================================] 100% 1/1
+[1A[2KCollecting 1 genome record [================================================] 100% 1/1
+[1A[2KCollecting 1 genome record [================================================] 100% 1/1
+[1A[2KCollecting 1 genome record [================================================] 100% 1/1
+[1A[2KCollecting 1 genome record [================================================] 100% 1/1
+[1A[2KCollecting 1 genome record [================================================] 100% 1/1
+Downloading: missing_ncbi_dataset.zip    2.97kB 3.45MB/s
+[1A[2K[1A[2KCollecting 1 genome record [================================================] 100% 1/1
+Downloading: missing_ncbi_dataset.zip    2.97kB 3.45MB/s
+[1A[2K[1A[2KCollecting 1 genome record [================================================] 100% 1/1
+Downloading: missing_ncbi_dataset.zip    3.31kB valid data package
+Validating package files [================================================] 100% 4/4
+Archive:  missing_ncbi_dataset.zip
+  inflating: missing_ncbi_dataset/README.md  
+  inflating: missing_ncbi_dataset/ncbi_dataset/data/assembly_data_report.jsonl  
+  inflating: missing_ncbi_dataset/ncbi_dataset/data/dataset_catalog.json  
+  inflating: missing_ncbi_dataset/md5sum.txt  
+WARNING [mtb]: no fetch.txt in dehydrated package -- none of the
+  requested accessions returned genome data. Check missing_accessions_summary.json
+  and missing_accessions.txt for withdrawn/suppressed/invalid accessions.
+  Continuing without them; downstream steps will skip anything still missing.
+[mtb/100] targets=80 neighbors=20
+using GCA_003775745.1.fasta as target representative
+making Blast database
+  Step           Sequences   Length     Ns
+  -------------  ---------   ------     --
+  Subtraction_1       4601  3551223      0
+  Intersection        4943  3019272  10105
+  Subtraction_2        655   332356  69824
+2026-07-20 13:02:41 | WARNING  | File/directory already exists, content is overwritten (overwriting is turned on): /home/elif/ch_mapro/mapro/3taxa/mtb/results/100/seqwin-out
+2026-07-20 13:02:41 | INFO     | Running Seqwin v0.4.1
+2026-07-20 13:02:41 | INFO     | Run configurations saved as /home/elif/ch_mapro/mapro/3taxa/mtb/results/100/seqwin-out/config.json
+2026-07-20 13:02:41 | INFO     | Found 80 assemblies from /home/elif/ch_mapro/mapro/3taxa/mtb/results/100/targets
+2026-07-20 13:02:41 | INFO     | Found 20 assemblies from /home/elif/ch_mapro/mapro/3taxa/mtb/results/100/neighbors
+2026-07-20 13:02:41 | INFO     | Loaded 80 target assemblies and 20 non-target assemblies, 100 in total.
+2026-07-20 13:02:41 | INFO     | Assembly indices and paths saved as /home/elif/ch_mapro/mapro/3taxa/mtb/results/100/seqwin-out/assemblies.csv
+2026-07-20 13:02:41 | INFO     | Building minimizer graph from 100 assemblies...
+2026-07-20 13:02:48 | INFO     |  - Merging from 4 threads...
+2026-07-20 13:02:48 | INFO     |  - Found 4506620 minimizers
+2026-07-20 13:02:48 | INFO     |  - Found 398493 nodes (unique minimizers)
+2026-07-20 13:02:48 | INFO     |  - Found 491859 weighted edges
+2026-07-20 13:02:48 | INFO     |  - Finished in 0:00:07.464856
+2026-07-20 13:02:48 | INFO     | Calculating penalty threshold...
+2026-07-20 13:02:48 | INFO     |  - Generating MinHash sketches with Mash for 100 assemblies...
+2026-07-20 13:02:56 | INFO     |  - Mash sketch file saved as /home/elif/ch_mapro/mapro/3taxa/mtb/results/100/seqwin-out/sketches.msh
+2026-07-20 13:02:56 | INFO     |  - Calculating Jaccard indices of assembly pairs...
+2026-07-20 13:02:56 | INFO     |  - expected k-mer absence in targets: 0.01768
+2026-07-20 13:02:56 | INFO     |  - expected k-mer presence in non-targets: 0.02347
+2026-07-20 13:02:56 | INFO     |  - calculated penalty threshold: 0.01019
+2026-07-20 13:02:56 | INFO     |  - Finished in 0:00:07.850627
+2026-07-20 13:02:56 | INFO     | Extracting low-penalty subgraphs from the k-mer graph...
+2026-07-20 13:02:56 | INFO     |  - Subgraph size limit is set to [3, 100]
+2026-07-20 13:02:56 | INFO     |  - Filtering graph edges and nodes...
+2026-07-20 13:02:56 | INFO     |  - Removed 448067 edges with weight<23.756, 43792 edges left
+2026-07-20 13:02:56 | INFO     |  - Removed 355035 isolated nodes, 43458 nodes left
+2026-07-20 13:02:56 | INFO     |  - Building graph...
+2026-07-20 13:02:57 | INFO     |  - Expanding subgraphs from 23604 seed nodes (penalty<=0.01019)...
+2026-07-20 13:02:57 | INFO     |  - Found 1733 low-penalty subgraphs
+2026-07-20 13:02:57 | INFO     |  - Removing k-mers not included in any of the subgraphs...
+2026-07-20 13:02:57 | INFO     |  - 2840064 k-mers left
+2026-07-20 13:02:57 | INFO     |  - Finished in 0:00:00.473288
+2026-07-20 13:02:57 | INFO     | Finding a representative for each low-penalty subgraph...
+2026-07-20 13:02:57 | INFO     |  - Processing each subgraph...
+2026-07-20 13:03:12 | INFO     |  - Found 1674 candidate signatures
+2026-07-20 13:03:12 | INFO     |  - Fetching the representative sequence for each candidate...
+2026-07-20 13:03:12 | INFO     |  - 4 assemblies to be loaded
+2026-07-20 13:03:12 | INFO     |  - Finished in 0:00:15.526544
+2026-07-20 13:03:12 | INFO     | Evaluating candidate signatures with BLAST...
+2026-07-20 13:03:12 | INFO     | Creating a BLAST database of all assemblies...
+2026-07-20 13:03:19 | INFO     |  - BLAST database created: /home/elif/ch_mapro/mapro/3taxa/mtb/results/100/seqwin-out/blastdb/all
+2026-07-20 13:03:19 | INFO     |  - Finished in 0:00:06.458856
+2026-07-20 13:03:19 | INFO     | BLAST checking signatures against all assemblies (more sensitive but slower)...
+2026-07-20 13:03:19 | INFO     |  - Running blastn on 1674 sequences, with batch size of 1000 (threads=4)...
+2026-07-20 13:03:19 | INFO     |  - 0/1674
+2026-07-20 13:16:17 | INFO     |  - 1000/1674
+2026-07-20 13:25:53 | INFO     |  - Formatting BLAST output...
+2026-07-20 13:26:00 | INFO     |  - Evaluating each signature...
+2026-07-20 13:26:02 | INFO     |  - Finished in 0:22:42.839568
+2026-07-20 13:26:02 | INFO     | Candidate signatures saved as /home/elif/ch_mapro/mapro/3taxa/mtb/results/100/seqwin-out/signatures.fasta
+2026-07-20 13:26:02 | INFO     | Metrics of candidate signatures saved as /home/elif/ch_mapro/mapro/3taxa/mtb/results/100/seqwin-out/signatures.csv
+2026-07-20 13:26:04 | INFO     | Run instance (includes all run data) saved as /home/elif/ch_mapro/mapro/3taxa/mtb/results/100/seqwin-out/results.seqwin
+WARNING: all/GCA_047324125.1.fasta missing, skipping
+[mtb/1000] targets=922 neighbors=77
+using GCA_040539135.1.fasta as target representative
+making Blast database
+  Step           Sequences  Length  Ns
+  -------------  ---------  ------  --
+  Subtraction_1        113   49010   0
+  Intersection          11    1662  62
+  Subtraction_2          0       0   0
+2026-07-20 13:27:18 | WARNING  | File/directory already exists, content is overwritten (overwriting is turned on): /home/elif/ch_mapro/mapro/3taxa/mtb/results/1000/seqwin-out
+2026-07-20 13:27:18 | INFO     | Running Seqwin v0.4.1
+2026-07-20 13:27:18 | INFO     | Run configurations saved as /home/elif/ch_mapro/mapro/3taxa/mtb/results/1000/seqwin-out/config.json
+2026-07-20 13:27:18 | INFO     | Found 922 assemblies from /home/elif/ch_mapro/mapro/3taxa/mtb/results/1000/targets
+2026-07-20 13:27:18 | INFO     | Found 77 assemblies from /home/elif/ch_mapro/mapro/3taxa/mtb/results/1000/neighbors
+2026-07-20 13:27:18 | INFO     | Loaded 922 target assemblies and 77 non-target assemblies, 999 in total.
+2026-07-20 13:27:18 | INFO     | Assembly indices and paths saved as /home/elif/ch_mapro/mapro/3taxa/mtb/results/1000/seqwin-out/assemblies.csv
+2026-07-20 13:27:18 | INFO     | Building minimizer graph from 999 assemblies...
+2026-07-20 13:28:21 | INFO     |  - Merging from 4 threads...
+2026-07-20 13:28:22 | INFO     |  - Found 44079742 minimizers
+2026-07-20 13:28:22 | INFO     |  - Found 709446 nodes (unique minimizers)
+2026-07-20 13:28:22 | INFO     |  - Found 965403 weighted edges
+2026-07-20 13:28:22 | INFO     |  - Finished in 0:01:03.613424
+2026-07-20 13:28:22 | INFO     | Calculating penalty threshold...
+2026-07-20 13:28:22 | INFO     |  - Generating MinHash sketches with Mash for 999 assemblies...
+2026-07-20 13:29:37 | INFO     |  - Mash sketch file saved as /home/elif/ch_mapro/mapro/3taxa/mtb/results/1000/seqwin-out/sketches.msh
+2026-07-20 13:29:37 | INFO     |  - Calculating Jaccard indices of assembly pairs...
+2026-07-20 13:29:43 | INFO     |  - expected k-mer absence in targets: 0.01653
+2026-07-20 13:29:43 | INFO     |  - expected k-mer presence in non-targets: 0.06630
+2026-07-20 13:29:43 | INFO     |  - calculated penalty threshold: 0.01655
+2026-07-20 13:29:43 | INFO     |  - Finished in 0:01:20.890801
+2026-07-20 13:29:43 | INFO     | Extracting low-penalty subgraphs from the k-mer graph...
+2026-07-20 13:29:43 | INFO     |  - Subgraph size limit is set to [3, 100]
+2026-07-20 13:29:43 | INFO     |  - Filtering graph edges and nodes...
+2026-07-20 13:29:43 | INFO     |  - Removed 921530 edges with weight<272.021, 43873 edges left
+2026-07-20 13:29:43 | INFO     |  - Removed 665928 isolated nodes, 43518 nodes left
+2026-07-20 13:29:43 | INFO     |  - Building graph...
+2026-07-20 13:29:43 | INFO     |  - Expanding subgraphs from 2588 seed nodes (penalty<=0.01655)...
+2026-07-20 13:29:43 | INFO     |  - Found 195 low-penalty subgraphs
+2026-07-20 13:29:43 | INFO     |  - Removing k-mers not included in any of the subgraphs...
+2026-07-20 13:29:43 | INFO     |  - 1085834 k-mers left
+2026-07-20 13:29:43 | INFO     |  - Finished in 0:00:00.366008
+2026-07-20 13:29:43 | INFO     | Finding a representative for each low-penalty subgraph...
+2026-07-20 13:29:43 | INFO     |  - Processing each subgraph...
+2026-07-20 13:29:45 | INFO     |  - Found 150 candidate signatures
+2026-07-20 13:29:45 | INFO     |  - Fetching the representative sequence for each candidate...
+2026-07-20 13:29:45 | INFO     |  - 4 assemblies to be loaded
+2026-07-20 13:29:45 | INFO     |  - Finished in 0:00:02.123429
+2026-07-20 13:29:45 | INFO     | Evaluating candidate signatures with BLAST...
+2026-07-20 13:29:45 | INFO     | Creating a BLAST database of all assemblies...
+2026-07-20 13:30:46 | INFO     |  - BLAST database created: /home/elif/ch_mapro/mapro/3taxa/mtb/results/1000/seqwin-out/blastdb/all
+2026-07-20 13:30:46 | INFO     |  - Finished in 0:01:00.653731
+2026-07-20 13:30:46 | INFO     | BLAST checking signatures against all assemblies (more sensitive but slower)...
+2026-07-20 13:30:46 | INFO     |  - Running blastn on 150 sequences, with batch size of 1000 (threads=4)...
+2026-07-20 13:30:46 | INFO     |  - 0/150
+2026-07-20 13:39:31 | INFO     |  - Formatting BLAST output...
+2026-07-20 13:39:34 | INFO     |  - Evaluating each signature...
+2026-07-20 13:39:34 | INFO     |  - Finished in 0:08:48.207150
+2026-07-20 13:39:34 | INFO     | Candidate signatures saved as /home/elif/ch_mapro/mapro/3taxa/mtb/results/1000/seqwin-out/signatures.fasta
+2026-07-20 13:39:34 | INFO     | Metrics of candidate signatures saved as /home/elif/ch_mapro/mapro/3taxa/mtb/results/1000/seqwin-out/signatures.csv
+2026-07-20 13:39:35 | INFO     | Run instance (includes all run data) saved as /home/elif/ch_mapro/mapro/3taxa/mtb/results/1000/seqwin-out/results.seqwin
+[mtb] Done.
+[sen] All required genomes already present, no download needed.
+[sen/100] targets=80 neighbors=20
+using GCA_000487695.1.fasta as target representative
+making Blast database
+  Step           Sequences  Length   Ns
+  -------------  ---------  ------   --
+  Subtraction_1        247  147846    0
+  Intersection           9    1432  236
+  Subtraction_2          0       0    0
+2026-07-20 13:39:53 | WARNING  | File/directory already exists, content is overwritten (overwriting is turned on): /home/elif/ch_mapro/mapro/3taxa/sen/results/100/seqwin-out
+2026-07-20 13:39:53 | INFO     | Running Seqwin v0.4.1
+2026-07-20 13:39:53 | INFO     | Run configurations saved as /home/elif/ch_mapro/mapro/3taxa/sen/results/100/seqwin-out/config.json
+2026-07-20 13:39:53 | INFO     | Found 80 assemblies from /home/elif/ch_mapro/mapro/3taxa/sen/results/100/targets
+2026-07-20 13:39:53 | INFO     | Found 20 assemblies from /home/elif/ch_mapro/mapro/3taxa/sen/results/100/neighbors
+2026-07-20 13:39:53 | INFO     | Loaded 80 target assemblies and 20 non-target assemblies, 100 in total.
+2026-07-20 13:39:53 | INFO     | Assembly indices and paths saved as /home/elif/ch_mapro/mapro/3taxa/sen/results/100/seqwin-out/assemblies.csv
+2026-07-20 13:39:53 | INFO     | Building minimizer graph from 100 assemblies...
+2026-07-20 13:39:59 | INFO     |  - Merging from 4 threads...
+2026-07-20 13:40:00 | INFO     |  - Found 4797534 minimizers
+2026-07-20 13:40:00 | INFO     |  - Found 402593 nodes (unique minimizers)
+2026-07-20 13:40:00 | INFO     |  - Found 596515 weighted edges
+2026-07-20 13:40:00 | INFO     |  - Finished in 0:00:07.116785
+2026-07-20 13:40:00 | INFO     | Calculating penalty threshold...
+2026-07-20 13:40:00 | INFO     |  - Generating MinHash sketches with Mash for 100 assemblies...
+2026-07-20 13:40:08 | INFO     |  - Mash sketch file saved as /home/elif/ch_mapro/mapro/3taxa/sen/results/100/seqwin-out/sketches.msh
+2026-07-20 13:40:08 | INFO     |  - Calculating Jaccard indices of assembly pairs...
+2026-07-20 13:40:08 | INFO     |  - expected k-mer absence in targets: 0.25409
+2026-07-20 13:40:08 | INFO     |  - expected k-mer presence in non-targets: 0.38519
+2026-07-20 13:40:08 | INFO     |  - calculated penalty threshold: 0.15642
+2026-07-20 13:40:08 | INFO     |  - Finished in 0:00:08.400046
+2026-07-20 13:40:08 | INFO     | Extracting low-penalty subgraphs from the k-mer graph...
+2026-07-20 13:40:08 | INFO     |  - Subgraph size limit is set to [3, 100]
+2026-07-20 13:40:08 | INFO     |  - Filtering graph edges and nodes...
+2026-07-20 13:40:08 | INFO     |  - Removed 536413 edges with weight<20.246, 60102 edges left
+2026-07-20 13:40:08 | INFO     |  - Removed 345927 isolated nodes, 56666 nodes left
+2026-07-20 13:40:08 | INFO     |  - Building graph...
+2026-07-20 13:40:09 | INFO     |  - Expanding subgraphs from 5477 seed nodes (penalty<=0.15642)...
+2026-07-20 13:40:09 | INFO     |  - Found 508 low-penalty subgraphs
+2026-07-20 13:40:09 | INFO     |  - Removing k-mers not included in any of the subgraphs...
+2026-07-20 13:40:09 | INFO     |  - 177079 k-mers left
+2026-07-20 13:40:09 | INFO     |  - Finished in 0:00:00.468359
+2026-07-20 13:40:09 | INFO     | Finding a representative for each low-penalty subgraph...
+2026-07-20 13:40:09 | INFO     |  - Processing each subgraph...
+2026-07-20 13:40:11 | INFO     |  - Found 382 candidate signatures
+2026-07-20 13:40:11 | INFO     |  - Fetching the representative sequence for each candidate...
+2026-07-20 13:40:11 | INFO     |  - 15 assemblies to be loaded
+2026-07-20 13:40:11 | INFO     |  - Finished in 0:00:02.915795
+2026-07-20 13:40:11 | INFO     | Evaluating candidate signatures with BLAST...
+2026-07-20 13:40:11 | INFO     | Creating a BLAST database of all assemblies...
+2026-07-20 13:40:18 | INFO     |  - BLAST database created: /home/elif/ch_mapro/mapro/3taxa/sen/results/100/seqwin-out/blastdb/all
+2026-07-20 13:40:18 | INFO     |  - Finished in 0:00:06.879438
+2026-07-20 13:40:18 | INFO     | BLAST checking signatures against all assemblies (more sensitive but slower)...
+2026-07-20 13:40:18 | INFO     |  - Running blastn on 382 sequences, with batch size of 1000 (threads=4)...
+2026-07-20 13:40:18 | INFO     |  - 0/382
+2026-07-20 13:40:51 | INFO     |  - Formatting BLAST output...
+2026-07-20 13:40:52 | INFO     |  - Evaluating each signature...
+2026-07-20 13:40:52 | INFO     |  - Finished in 0:00:33.626981
+2026-07-20 13:40:52 | INFO     | Candidate signatures saved as /home/elif/ch_mapro/mapro/3taxa/sen/results/100/seqwin-out/signatures.fasta
+2026-07-20 13:40:52 | INFO     | Metrics of candidate signatures saved as /home/elif/ch_mapro/mapro/3taxa/sen/results/100/seqwin-out/signatures.csv
+2026-07-20 13:40:53 | INFO     | Run instance (includes all run data) saved as /home/elif/ch_mapro/mapro/3taxa/sen/results/100/seqwin-out/results.seqwin
+[sen/1000] targets=979 neighbors=21
+using GCA_036527635.1.fasta as target representative
+making Blast database
+  Step           Sequences  Length  Ns
+  -------------  ---------  ------  --
+  Subtraction_1        303  133457   0
+  Intersection           0       0   0
+2026-07-20 13:41:46 | WARNING  | File/directory already exists, content is overwritten (overwriting is turned on): /home/elif/ch_mapro/mapro/3taxa/sen/results/1000/seqwin-out
+2026-07-20 13:41:46 | INFO     | Running Seqwin v0.4.1
+2026-07-20 13:41:46 | INFO     | Run configurations saved as /home/elif/ch_mapro/mapro/3taxa/sen/results/1000/seqwin-out/config.json
+2026-07-20 13:41:46 | INFO     | Found 979 assemblies from /home/elif/ch_mapro/mapro/3taxa/sen/results/1000/targets
+2026-07-20 13:41:46 | INFO     | Found 21 assemblies from /home/elif/ch_mapro/mapro/3taxa/sen/results/1000/neighbors
+2026-07-20 13:41:46 | INFO     | Loaded 979 target assemblies and 21 non-target assemblies, 1000 in total.
+2026-07-20 13:41:46 | INFO     | Assembly indices and paths saved as /home/elif/ch_mapro/mapro/3taxa/sen/results/1000/seqwin-out/assemblies.csv
+2026-07-20 13:41:46 | INFO     | Building minimizer graph from 1000 assemblies...
+2026-07-20 13:42:52 | INFO     |  - Merging from 4 threads...
+2026-07-20 13:42:53 | INFO     |  - Found 47958395 minimizers
+2026-07-20 13:42:53 | INFO     |  - Found 660253 nodes (unique minimizers)
+2026-07-20 13:42:53 | INFO     |  - Found 1054802 weighted edges
+2026-07-20 13:42:53 | INFO     |  - Finished in 0:01:06.985098
+2026-07-20 13:42:53 | INFO     | Calculating penalty threshold...
+2026-07-20 13:42:53 | INFO     |  - Generating MinHash sketches with Mash for 1000 assemblies...
+2026-07-20 13:44:15 | INFO     |  - Mash sketch file saved as /home/elif/ch_mapro/mapro/3taxa/sen/results/1000/seqwin-out/sketches.msh
+2026-07-20 13:44:15 | INFO     |  - Calculating Jaccard indices of assembly pairs...
+2026-07-20 13:44:20 | INFO     |  - expected k-mer absence in targets: 0.25041
+2026-07-20 13:44:20 | INFO     |  - expected k-mer presence in non-targets: 0.36678
+2026-07-20 13:44:20 | INFO     |  - calculated penalty threshold: 0.15153
+2026-07-20 13:44:20 | INFO     |  - Finished in 0:01:27.176089
+2026-07-20 13:44:20 | INFO     | Extracting low-penalty subgraphs from the k-mer graph...
+2026-07-20 13:44:20 | INFO     |  - Subgraph size limit is set to [3, 100]
+2026-07-20 13:44:20 | INFO     |  - Filtering graph edges and nodes...
+2026-07-20 13:44:20 | INFO     |  - Removed 998261 edges with weight<249.195, 56541 edges left
+2026-07-20 13:44:20 | INFO     |  - Removed 606212 isolated nodes, 54041 nodes left
+2026-07-20 13:44:20 | INFO     |  - Building graph...
+2026-07-20 13:44:20 | INFO     |  - Expanding subgraphs from 5310 seed nodes (penalty<=0.15153)...
+2026-07-20 13:44:20 | INFO     |  - Found 428 low-penalty subgraphs
+2026-07-20 13:44:20 | INFO     |  - Removing k-mers not included in any of the subgraphs...
+2026-07-20 13:44:20 | INFO     |  - 1756876 k-mers left
+2026-07-20 13:44:20 | INFO     |  - Finished in 0:00:00.458748
+2026-07-20 13:44:20 | INFO     | Finding a representative for each low-penalty subgraph...
+2026-07-20 13:44:20 | INFO     |  - Processing each subgraph...
+2026-07-20 13:44:25 | INFO     |  - Found 319 candidate signatures
+2026-07-20 13:44:25 | INFO     |  - Fetching the representative sequence for each candidate...
+2026-07-20 13:44:25 | INFO     |  - 15 assemblies to be loaded
+2026-07-20 13:44:25 | INFO     |  - Finished in 0:00:04.325105
+2026-07-20 13:44:25 | INFO     | Evaluating candidate signatures with BLAST...
+2026-07-20 13:44:25 | INFO     | Creating a BLAST database of all assemblies...
+2026-07-20 13:45:30 | INFO     |  - BLAST database created: /home/elif/ch_mapro/mapro/3taxa/sen/results/1000/seqwin-out/blastdb/all
+2026-07-20 13:45:30 | INFO     |  - Finished in 0:01:05.236329
+2026-07-20 13:45:30 | INFO     | BLAST checking signatures against all assemblies (more sensitive but slower)...
+2026-07-20 13:45:30 | INFO     |  - Running blastn on 319 sequences, with batch size of 1000 (threads=4)...
+2026-07-20 13:45:30 | INFO     |  - 0/319
+2026-07-20 13:50:20 | INFO     |  - Formatting BLAST output...
+2026-07-20 13:50:22 | INFO     |  - Evaluating each signature...
+2026-07-20 13:50:22 | INFO     |  - Finished in 0:04:52.043568
+2026-07-20 13:50:22 | INFO     | Candidate signatures saved as /home/elif/ch_mapro/mapro/3taxa/sen/results/1000/seqwin-out/signatures.fasta
+2026-07-20 13:50:22 | INFO     | Metrics of candidate signatures saved as /home/elif/ch_mapro/mapro/3taxa/sen/results/1000/seqwin-out/signatures.csv
+2026-07-20 13:50:23 | INFO     | Run instance (includes all run data) saved as /home/elif/ch_mapro/mapro/3taxa/sen/results/1000/seqwin-out/results.seqwin
+[sen] Done.
