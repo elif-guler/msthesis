@@ -1,0 +1,60 @@
+*** Generating the graph shown in Seqwin paper
+in the graph, fraction of nontarget hits were 1 for almost all the
+markers. we applied a lower evalue to the blast to align the results
+with how fur generates the results. in that case, most of the markers
+had fraction of nontarget hits lower than 0.25. for the one that had 0.8,
+i checked manually:
+
+#+begin_src bash
+awk -F',' 'NR==1{for(i=1;i<=NF;i++) if($i=="fraction_nontarget_hit") col=i; print; next} $col>0.75' cons_div_results.csv
+getSeq "RJLJ01001116.1_1556" markers.fasta > outlier.fasta
+
+for f in neighbors/*.fasta; do
+    echo "===== $f ====="
+    blastn \
+      -task blastn \
+      -evalue 1e-5 \
+      -query outlier.fasta \
+      -subject "$f" \
+      -outfmt "6"
+done
+#+end_src
+
+#+begin_src 
+===== neighbors/GCA_000330785.1.fasta =====
+RJLJ01001116.1_1556	ANPD01000088.1	90.909	33	3	0	89	121	3882	3850	5.22e-06	47.3
+===== neighbors/GCA_000504785.1.fasta =====
+RJLJ01001116.1_1556	AYNR01000188.1	90.909	33	3	0	89	121	7976	8008	5.23e-06	47.3
+===== neighbors/GCA_000505015.1.fasta =====
+RJLJ01001116.1_1556	AYOB01000172.1	90.909	33	3	0	89	121	21961	21993	5.25e-06	47.3
+===== neighbors/GCA_001610435.1.fasta =====
+RJLJ01001116.1_1556	LNBB01000063.1	90.909	33	3	0	89	121	4075	4043	5.94e-06	47.3
+===== neighbors/GCA_001667905.1.fasta =====
+RJLJ01001116.1_1556	LZJS01000177.1	90.909	33	3	0	89	121	2472	2440	6.32e-06	47.3
+===== neighbors/GCA_001865635.4.fasta =====
+RJLJ01001116.1_1556	CP009360.4	90.909	33	3	0	89	121	1837958	1837990	5.74e-06	47.3
+===== neighbors/GCA_001954075.1.fasta =====
+RJLJ01001116.1_1556	MBEO01000019.1	90.909	33	3	0	89	121	6585	6553	6.05e-06	47.3
+===== neighbors/GCA_002089495.1.fasta =====
+RJLJ01001116.1_1556	BDNO01000013.1	90.909	33	3	0	89	121	52247	52215	5.53e-06	47.3
+===== neighbors/GCA_002090035.1.fasta =====
+RJLJ01001116.1_1556	BDOP01000266.1	90.909	33	3	0	89	121	2372	2340	5.94e-06	47.3
+===== neighbors/GCA_002148195.1.fasta =====
+===== neighbors/GCA_002292595.1.fasta =====
+RJLJ01001116.1_1556	NSFH01000041.1	90.909	33	3	0	89	121	67210	67178	5.63e-06	47.3
+===== neighbors/GCA_003815815.1.fasta =====
+RJLJ01001116.1_1556	CP033911.1	90.909	33	3	0	89	121	2885827	2885795	5.27e-06	47.3
+===== neighbors/GCA_016587615.1.fasta =====
+===== neighbors/GCA_020055365.1.fasta =====
+RJLJ01001116.1_1556	WEHC01000005.1	90.909	33	3	0	89	121	119437	119469	5.55e-06	47.3
+===== neighbors/GCA_020217885.1.fasta =====
+RJLJ01001116.1_1556	JAEKNC010000041.1	90.909	33	3	0	89	121	2775	2743	5.73e-06	47.3
+===== neighbors/GCA_020227555.1.fasta =====
+RJLJ01001116.1_1556	CP060405.1	90.909	33	3	0	89	121	3133192	3133160	5.50e-06	47.3
+===== neighbors/GCA_021495365.1.fasta =====
+===== neighbors/GCA_024341245.1.fasta =====
+===== neighbors/GCA_038446185.1.fasta =====
+RJLJ01001116.1_1556	CP085280.1	90.909	33	3	0	89	121	1853640	1853672	5.96e-06	47.3
+===== neighbors/GCA_964110065.1.fasta =====
+RJLJ01001116.1_1556	CAXKZR010000038.1	81.633	49	7	1	73	121	25243	25289	6.76e-06	46.4
+#+end_src
