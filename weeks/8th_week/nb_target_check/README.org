@@ -1,7 +1,8 @@
 #+TITLE: nb_target_check
 
-Checks whether the target/neighbor genome labels used for Unikseq and Neptune
-actually match what the genomes look like phylogenetically.
+Checks whether the target/neighbor genome labels used in Seqwin's
+supplementary dataset actually match what the genomes look like
+phylogenetically.
 
 * Datasets
 
