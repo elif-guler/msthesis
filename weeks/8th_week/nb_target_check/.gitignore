@@ -1,0 +1,16 @@
+# Raw/downloaded genome data - large, and re-derivable by rerunning the pipeline
+*/pool_*/genomes/
+*/pool_*/genomes.zip
+*/pool_*/fastas/
+*/pool_*/all/
+*/pool_*/Rejected/
+*/pool_*/missing_genomes/
+*/pool_*/missing.zip
+*/pool_*/*.phy
+*/pool_*/*.phyl
+*/pool_*/phylonium.log
+
+# old pre-subfolder layout, if any dataset still has loose files
+genomes/
+genomes.zip
+fastas/

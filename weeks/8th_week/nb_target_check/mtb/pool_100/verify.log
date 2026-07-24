@@ -1,0 +1,35 @@
+First-separation targets:   80
+First-separation neighbors: 20
+Genomes going into the tree: 100
+fintac-selected clade/leaf identifier: 21
+
+=== First vs second separation ===
+First targets:  80
+Second targets: 80
+
+Labeled TARGET in the table, but phylogeny groups them with NEIGHBORS:
+  none
+
+Labeled NEIGHBOR in the table, but phylogeny groups them with TARGETS:
+GCA_000330785.1
+GCA_000504785.1
+GCA_000505015.1
+GCA_001610435.1
+GCA_001667905.1
+GCA_001865635.4
+GCA_001954075.1
+GCA_002089495.1
+GCA_002090035.1
+GCA_002148195.1
+GCA_002292595.1
+GCA_003815815.1
+GCA_016587615.1
+GCA_020055365.1
+GCA_020217885.1
+GCA_020227555.1
+GCA_021495365.1
+GCA_024341245.1
+GCA_038446185.1
+GCA_964110065.1
+
+Full results in: mtb/{first,second}_{targets,neighbors}.txt
