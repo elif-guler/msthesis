@@ -9,6 +9,21 @@
 */pool_*/*.phy
 */pool_*/*.phyl
 */pool_*/phylonium.log
+# Generated SeqWin output
+**/seqwin-out/
+
+# BLAST databases
+**/blastdb/
+**/target.db/
+
+# Generated result files
+*.seqwin
+*.msh
+phylonium.log
+
+# Optional generated matrices
+distances.phy
+all.phyl
 
 # old pre-subfolder layout, if any dataset still has loose files
 genomes/

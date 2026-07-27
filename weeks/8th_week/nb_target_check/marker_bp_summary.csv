@@ -1,0 +1,13 @@
+dataset,pool,tool,n_markers,total_bp
+clo,100,fur,605,119424
+clo,100,seqwin,111,42212
+clo,1000,fur,4,690
+clo,1000,seqwin,364,138749
+mtb,100,fur,655,332356
+mtb,100,seqwin,1674,3363919
+mtb,1000,fur,0,0
+mtb,1000,seqwin,150,87954
+sen,100,fur,79,27942
+sen,100,seqwin,733,328906
+sen,1000,fur,8,1375
+sen,1000,seqwin,640,291475

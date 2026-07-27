@@ -1,0 +1,209 @@
+#+TITLE: nb_target_check - project log
+#+DATE: 2026-07-27
+
+* Why this check exists
+
+Fur (and most likely Seqwin) only works correctly if the target/neighbor
+split is actually correct - if a genome is mislabeled as a neighbor when
+it's really closely related to the targets (or vice versa), it can pollute
+the results (either hiding real target-unique sequences, or introducing
+false ones).
+
+The =acc.txt= tables encode a "first separation" - however Unikseq/Neptune
+originally decided what counts as target vs neighbor (likely taxonomy- or
+metadata-based, not sequence-based). The idea of this whole project is to
+get a second, independent opinion using actual genetic distance
+(=phylonium=) and see where the two disagree. Disagreements
+(=target_to_neighbor.txt=/=neighbor_to_target.txt=) are exactly the
+genomes worth double-checking manually before trusting Unikseq/Neptune's
+results.
+
+* Goal
+
+Check whether the target/neighbor genome labels used for Unikseq and
+Neptune (given in each dataset's =acc.txt=) actually hold up
+phylogenetically, using =phylonium= distances + tree-based clade-finding,
+then feed the corrected target/neighbor sets into =fur= and =seqwin=.
+
+Datasets: =clo= (C. difficile), =mtb= (M. tuberculosis), =sen= (S. enterica).
+Each has two sample pools: =100= and =1000= genomes - these exist because
+using every available genome as a neighbor would be far too slow/large to
+run through phylonium and the downstream tools, so a manageable subsample
+is used instead. Two pool sizes are checked to see whether the answer (does
+the separation hold up) changes depending on how many neighbors are
+considered.
+
+* Directory layout
+
+#+begin_example
+nb_target_check/
+  runpipeline.sh
+  check_separation.sh
+  run_all.sh
+  run_tools.sh          (formerly run_fur_seqwin.sh)
+  .gitignore
+  README.org
+  clo/  mtb/  sen/
+    acc.txt              <- input table (accession, Is target, Is sampled 100/1000)
+    pool_100/
+      targets.txt  neighbors.txt          <- accessions actually downloaded
+      fastas/  genomes/  all/             <- large, gitignored
+      distances.phy  all.phyl             <- phylonium output, gitignored
+      all.nwk                             <- tree
+      first_targets.txt  first_neighbors.txt   <- separation from the table
+      second_targets.txt second_neighbors.txt  <- separation from the tree
+      target_to_neighbor.txt                   <- labeled target, tree disagrees
+      neighbor_to_target.txt                   <- labeled neighbor, tree disagrees
+      targets/  neighbors/                <- symlinked fastas, second separation, for fur/seqwin
+      target.db  markers.fasta            <- fur output
+      seqwin-out/                         <- seqwin output
+    pool_1000/            <- same structure, 1000-genome pool
+#+end_example
+
+* Scripts
+
+** runpipeline.sh <table.tsv> <outdir> [100|1000]
+Reads the table (fixed columns: 1=accession 2=Is target 3=sampled100
+4=sampled1000), builds target/neighbor accession lists filtered to the
+chosen pool, downloads genomes via NCBI =datasets= (dehydrated + rehydrate,
+more resilient to network errors than a single zip stream), flattens each
+genome to one FASTA named by accession, then runs =phylonium= on everything,
+dropping any genome that produces =nan= distances (too little homology to
+compare) and retrying.
+
+/Why fixed columns instead of matching the header text:/ the table has a
+comment line before the real header row, which broke a name-based lookup
+(see bugs below) - reading by position sidesteps the question of "which
+row is the header" entirely.
+
+/Why dehydrate+rehydrate instead of a plain download:/ a single zip
+download of thousands of genomes is one long network stream - if it drops
+partway through (which it did, on the largest set), the whole thing
+fails and restarts from zero. Rehydration downloads files individually, so
+a dropped connection only costs you that one file, and rehydrate can be
+rerun to pick up just what's missing.
+
+/Why drop nan-distance genomes instead of erroring out:/ phylonium can't
+compute a meaningful distance between genomes with almost no shared
+sequence - that's not a bug, it just means that genome doesn't belong in
+this comparison. Removing it and continuing is more useful than the whole
+run failing because of one outlier genome (which, in the mtb set, turned
+out to consistently be the same accession across all its pairs - a sign
+it's specifically that genome, not the dataset).
+
+** check_separation.sh <table.tsv> <outdir> [100|1000]
+Takes the FASTAs from =runpipeline.sh=, copies them into an =all/= dir with
+=t=/=n= filename prefixes, builds a tree (=nj= | =midRoot= | =land=), finds
+the best-supported target clade with =fintac= + =pickle= (the "second
+separation"), diffs it against the table's labels ("first separation"),
+and writes =target_to_neighbor.txt=/=neighbor_to_target.txt= for any
+disagreement. Also builds =targets/=/=neighbors/= dirs of symlinked FASTAs
+from the second separation, matching the layout the reference pipeline
+(=~/ch_mapro/mapro/3taxa=) uses for =fur=/=seqwin=.
+
+/Why t/n-prefix the filenames:/ =fintac= and =pickle= need some way to know
+which tips in the tree started out labeled target vs neighbor, so they can
+score candidate clades by how well they match that original labeling. The
+prefix is how that information rides along inside the tree file itself.
+
+/Why symlinks instead of copies for targets/neighbors:/ the same genome
+FASTA already exists once in =fastas/= and again (prefixed) in =all/= -
+copying a third time would triple the disk use for no benefit, since
+=fur=/=seqwin= just need to read the sequence, not own a private copy of
+it.
+
+** run_all.sh [100|1000] [dataset ...]
+Runs =runpipeline.sh= then =check_separation.sh= for each dataset, writing
+into =<dataset>/pool_100/= or =<dataset>/pool_1000/=. Keeps going if one
+dataset fails.
+
+/Why separate pool_100/pool_1000 subdirectories:/ without this, rerunning
+with =1000= after already having =100= results would silently overwrite
+them (same filenames, same dataset dir) - splitting by pool means both
+sample sizes' results can be compared side by side afterward.
+
+/Why keep going instead of stopping on the first failure:/ the three
+datasets are independent - one dataset having a bad genome or a network
+hiccup shouldn't block you from seeing results for the other two the same
+day.
+
+** run_tools.sh [pool ...]
+Runs =makeFurDb= -> =fur= -> =seqwin= on the =targets/=/=neighbors/= dirs,
+for every dataset x pool combination. Skips any combination missing
+=targets/=/=neighbors/= (i.e. =check_separation.sh= hasn't been run for it
+yet). Keeps going if one combination fails.
+
+* Bugs found and fixed along the way
+
+- *Scripts need =chmod +x=* - "Permission denied" when calling
+  =./script.sh= directly. Running with =bash script.sh= works regardless of
+  permissions because bash reads the file as a script either way, but
+  =run_all.sh='s internal =./runpipeline.sh= calls invoke it as an
+  executable, which needs the execute bit set on the file itself.
+
+- *Big =datasets download= zips failed mid-stream* on large sets (mtb, 7679
+  genomes) with an HTTP2 =INTERNAL_ERROR=. This is a transient
+  network/server hiccup, more likely to hit on a long single download than
+  on many short ones. Fixed by switching to =--dehydrated= + =datasets
+  rehydrate=, which fetches files individually and can be rerun to pick up
+  only what's missing, rather than restarting one giant stream from zero.
+
+- *=phylonium= dies on genomes with <20% homology* to the rest of the set
+  (=nan= distances) - one bad/unrelated genome poisons the whole distance
+  matrix, and with =set -e= that killed the entire script. The fix loops:
+  find whichever genome has the most =nan= distances, move it out, retry -
+  this treats "can't be compared" as a data-quality signal about that one
+  genome rather than a fatal script error.
+
+- *=acc.txt= actually has two non-data rows* (a comment line, then the real
+  header), not one. The original approach searched row 1 for the column
+  name and never found it, because row 1 was the comment, not the header -
+  so the neighbor filter silently matched nothing (an unset column index in
+  awk defaults to referring to the whole line, which never equals
+  "TRUE"/"FALSE"). Fixed by reading columns by fixed position instead of by
+  name - this doesn't care which row is the header, or whether there's a
+  comment row at all.
+
+- *Target list wasn't filtered by the sample-pool column* - it pulled in
+  all ~3328 rows labeled target regardless of pool, while neighbors were
+  correctly filtered down to the ~20-80 meant for that pool. The two lists
+  are supposed to describe the same subsampled set (e.g. "the 100-genome
+  pool"), so both need the identical filter condition, not just one of
+  them.
+
+- *=check_separation.sh= got overwritten with pasted terminal output* by
+  accident (a copy/paste landed in the wrong window) - not a logic bug,
+  just a reminder that pasting into a script file silently replaces its
+  contents with no diff shown, so it's worth a quick =head= after any paste
+  into an existing file.
+
+- *Rerunning with =1000= would have overwritten the =100= results*, since
+  both wrote straight into the dataset directory using the same filenames.
+  Splitting into =pool_100=/=pool_1000= subdirectories fixes this by giving
+  each sample size its own namespace, so nothing needs to be manually
+  backed up before switching pools.
+
+- *=runpipeline.sh= downloads are multi-GB per dataset/pool*
+  (=genomes/=, =fastas/=, =all/=, =genomes.zip=, =*.phy=, =phylonium.log=).
+  These are all regenerable by rerunning the pipeline, and GitHub both
+  discourages and hard-blocks large files - so they're excluded via
+  =.gitignore=, keeping the repo to just scripts, input tables, and the
+  small (KB-sized) result files that actually took analysis effort to
+  produce.
+
+#+begin_src bash
+dataset,pool,tool,n_markers,total_bp
+clo,100,fur,605,119424
+clo,100,seqwin,111,42212
+clo,1000,fur,4,690
+clo,1000,seqwin,364,138749
+mtb,100,fur,655,332356
+mtb,100,seqwin,1674,3363919
+mtb,1000,fur,0,0
+mtb,1000,seqwin,150,87954
+sen,100,fur,79,27942
+sen,100,seqwin,733,328906
+sen,1000,fur,8,1375
+sen,1000,seqwin,640,291475
+#+end_src  
+

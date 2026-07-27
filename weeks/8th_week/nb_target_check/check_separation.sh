@@ -101,3 +101,20 @@ comm -23 "$OUTDIR/first_neighbors.txt" "$OUTDIR/second_targets.txt" | tee "$OUTD
 
 echo
 echo "Full results in: $OUTDIR/{first,second}_{targets,neighbors}.txt"
+
+# --- 7. Build targets/ and neighbors/ dirs with actual FASTAs, from the
+#        second (phylogeny-based) separation - same layout as the
+#        reference pipeline. Symlinks, not copies, since fastas/ and all/
+#        already duplicate these genomes and copying again would too.
+mkdir -p "$OUTDIR/targets" "$OUTDIR/neighbors"
+rm -f "$OUTDIR/targets"/* "$OUTDIR/neighbors"/* 2>/dev/null || true
+
+while read -r acc; do
+    [[ -f "$FASTAS/$acc.fasta" ]] && ln -sf "$(realpath "$FASTAS/$acc.fasta")" "$OUTDIR/targets/${acc}.fasta"
+done < "$OUTDIR/second_targets.txt"
+
+while read -r acc; do
+    [[ -f "$FASTAS/$acc.fasta" ]] && ln -sf "$(realpath "$FASTAS/$acc.fasta")" "$OUTDIR/neighbors/${acc}.fasta"
+done < "$OUTDIR/second_neighbors.txt"
+
+echo "targets/ ($(ls "$OUTDIR/targets" | wc -l) files) and neighbors/ ($(ls "$OUTDIR/neighbors" | wc -l) files) built from the second separation"
