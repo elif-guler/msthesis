@@ -297,11 +297,6 @@ sen,1000,fur,8,1375
 sen,1000,seqwin,640,291475
 #+end_src
 
-Seqwin finds more markers than fur in every case shown here. Fur's marker
-counts drop sharply at the 1000-genome pool for all three datasets (mtb
-even reaches 0), while seqwin's counts don't collapse the same way - worth
-understanding why fur is so much more sensitive to neighbor pool size than
-seqwin is.
 
 ** Are fur's markers a subset of seqwin's? (=fur_subset_summary.csv=)
 
