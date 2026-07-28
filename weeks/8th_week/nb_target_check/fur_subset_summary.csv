@@ -1,0 +1,7 @@
+dataset,pool,n_fur_markers,n_found_in_seqwin,fraction_found
+clo,100,605,2,0.003
+clo,1000,4,0,0.000
+mtb,100,655,430,0.656
+mtb,1000,0,0,0.000
+sen,100,79,11,0.139
+sen,1000,8,0,0.000

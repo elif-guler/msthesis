@@ -3,3 +3,9 @@ clo/pool_100
   seqwin -> clo/pool_100/cons_div_seqwin.csv
 clo/pool_1000
   fur -> clo/pool_1000/cons_div_fur.csv
+  seqwin -> clo/pool_1000/cons_div_seqwin.csv
+mtb/pool_100
+  fur -> mtb/pool_100/cons_div_fur.csv
+  seqwin -> mtb/pool_100/cons_div_seqwin.csv
+mtb/pool_1000
+  fur -> mtb/pool_1000/cons_div_fur.csv

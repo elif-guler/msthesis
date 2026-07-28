@@ -2,7 +2,8 @@
 
 Checks whether the target/neighbor genome labels used in Seqwin's
 supplementary dataset actually match what the genomes look like
-phylogenetically.
+phylogenetically, then runs =fur=/=seqwin= on the resulting target/neighbor
+sets and compares their marker output.
 
 * Datasets
 
@@ -16,46 +17,144 @@ Each dataset folder has an =acc.txt= table with columns:
 GenBank accession    Is target    Is sampled (100 genomes)    Is sampled (1000 genomes)
 #+end_example
 
+Each dataset is checked at two sample pool sizes, =100= and =1000=.
+
+* Pipeline order
+
+Run these in order. Everything downstream depends on the step(s) before it.
+
+1. =runpipeline.sh= - download genomes, build a phylonium distance matrix
+2. =check_separation.sh= - build the tree, get =targets/=/=neighbors/=
+3. =run_fur_seqwin.sh= - run =fur= and =seqwin= on =targets/=/=neighbors/=
+4. =run_cons.sh= - conservation/divergence stats per marker (needs step 3)
+5. =calculate_marker_bp.sh= - total marker basepairs per pool (needs step 3)
+6. =markers_blast.sh= - check fur markers against seqwin markers (needs step 3)
+7. =plot_grid.R=, =plot_marker.R= - generate the plots (need steps 4/5)
+
+=runall.sh= runs steps 1+2 for all three datasets at once.
+
 * Scripts
 
 ** runpipeline.sh <table.tsv> <outdir> [100|1000]
-
-Downloads the genomes for the given table and sample pool (100 or 1000),
-turns each one into a single FASTA file, and runs =phylonium= to get a
-distance matrix. Genomes phylonium can't compare (too little homology to
-the rest of the set) get dropped automatically.
+Reads =acc.txt=, builds target/neighbor accession lists for the chosen pool,
+downloads the genomes via NCBI =datasets= (dehydrated + rehydrate, so a
+dropped connection only costs one file, not the whole batch), turns each
+genome into one FASTA per accession, then runs =phylonium= on all of them
+together. Any genome phylonium can't compare (too little homology to the
+rest of the set - a =nan= distance) gets dropped automatically and the
+comparison retried.
 
 ** check_separation.sh <table.tsv> <outdir> [100|1000]
+Takes the FASTAs from =runpipeline.sh=, builds a tree (=nj= | =midRoot= |
+=land=), and finds the best-supported target clade with =fintac= +
+=pickle= - this is the "second separation", based on actual sequence
+distance rather than the table's original (taxonomy-based) labels.
+Compares the two and reports any genome where they disagree:
+- labeled /target/ in the table, but the tree groups it with the neighbors
+- labeled /neighbor/ in the table, but the tree groups it with the targets
+Also builds real =targets/=/=neighbors/= folders (symlinked FASTAs) from
+this second separation, ready to feed into =fur=/=seqwin=.
 
-Uses the FASTA files from =runpipeline.sh= to build a tree (=nj= +
-=midRoot= + =land=), finds the best-supported target clade (=fintac= +
-=pickle=), and compares it against the labels in the table. Prints out
-any genome where the label disagrees with the tree:
+** runall.sh [100|1000] [dataset ...]
+Runs =runpipeline.sh= then =check_separation.sh= for each dataset (default:
+all three), writing into =<dataset>/pool_100/= or =<dataset>/pool_1000/=.
+Keeps going if one dataset fails, so one bad genome or network hiccup
+doesn't block the other two.
 
-- labeled /target/ but the tree puts it with the neighbors
-- labeled /neighbor/ but the tree puts it with the targets
+** run_fur_seqwin.sh
+Runs =makeFurDb= -> =fur=, and =seqwin=, on the =targets/=/=neighbors/=
+folders =check_separation.sh= built, for every dataset/pool combination.
+Skips any combination missing =targets/=/=neighbors/=. Writes
+=markers.fasta= (fur) and =seqwin-out/signatures.fasta= (seqwin) per pool.
 
-** run_all.sh [100|1000] [dataset ...]
+** analyze_cons.py <signatures.fasta> <targets_dir> <neighbors_dir> <output.csv> [genome_ext]
+For one marker set (either fur's or seqwin's), BLASTs every marker against
+every target and every neighbor genome (=-evalue 1e-5=, to avoid counting
+weak/spurious hits), and reports per marker: conservation (how identical it
+is across targets), divergence (how different from neighbors), and the
+fraction of neighbors it still hits at all.
 
-Runs both scripts above for all three datasets (or the ones you list).
-Results go in =<dataset>/pool_100/= or =<dataset>/pool_1000/=.
+** run_cons.sh
+Runs =analyze_cons.py= twice per pool (once for fur's =markers.fasta=, once
+for seqwin's =signatures.fasta=), for all 6 dataset/pool combinations.
+Writes =cons_div_fur.csv= / =cons_div_seqwin.csv= per pool.
+
+** calculate_marker_bp.sh
+Sums total basepairs and counts markers in =markers.fasta= and
+=signatures.fasta= for every dataset/pool. Writes one combined
+=marker_bp_summary.csv=.
+
+** blast_markers.py
+Very simple, no-arguments script (edit the three paths at the top, or =cd=
+into a pool folder before running it - see =markers_blast.sh=). BLASTs
+=markers.fasta= (fur) against =seqwin-out/signatures.fasta= (seqwin) and
+checks whether each fur marker has a close match (default: >=95% identity,
+>=90% coverage) somewhere in seqwin's markers - i.e. whether fur's markers
+are a subset of seqwin's. Writes =fur_in_seqwin.csv=.
+
+** markers_blast.sh
+Runs =blast_markers.py= for all 6 dataset/pool combinations (by =cd=-ing
+into each pool folder first, since the script takes no arguments). Writes
+a combined =fur_subset_summary.csv= with the fraction of fur markers found
+in seqwin's markers, per pool.
+
+** plot_grid.R
+Reads all 12 =cons_div_fur.csv=/=cons_div_seqwin.csv= files and plots
+fraction-of-neighbors-hit (x) vs divergence (y) in a 2x6 grid: rows =
+seqwin/fur, columns = the 3 taxa under pool_100 (left) then pool_1000
+(right). Writes =cons_div_grid.png=.
+
+** plot_marker.R
+Reads =marker_bp_summary.csv= and plots total marker basepairs as bars,
+grouped by tool (fur/seqwin), faceted by pool and taxon with independent
+y-scales per panel (so small marker sets aren't invisible next to large
+ones). Writes =marker_bp_histogram.png=.
 
 * Usage
 
-#+begin_src bash
-chmod +x *.sh
-bash run_all.sh 100     # check against the 100-genome sample
-bash run_all.sh 1000    # check against the 1000-genome sample
+# 1-2: build the target/neighbor separation for every dataset
+bash runall.sh 100
+bash runall.sh 1000
+
+# 3: run fur and seqwin
+bash run_fur_seqwin.sh
+
+# 4-6: marker analyses
+bash run_cons.sh
+bash calculate_marker_bp.sh
+bash markers_blast.sh
+#+end_src
+
+Then in RStudio (or =Rscript= from the terminal), from this same directory:
+
+#+begin_src R
+source("plot_grid.R")
+source("plot_marker.R")
 #+end_src
 
 * Output (per dataset, per pool)
 
+** From check_separation.sh
 - =first_targets.txt= / =first_neighbors.txt= :: labels from the table
 - =second_targets.txt= / =second_neighbors.txt= :: labels from the tree
 - =target_to_neighbor.txt= :: labeled target, tree disagrees
 - =neighbor_to_target.txt= :: labeled neighbor, tree disagrees
 - =all.nwk= :: the tree itself
+- =targets/= / =neighbors/= :: symlinked FASTAs, ready for fur/seqwin
 
-Downloaded genomes (=genomes/=, =fastas/=, =all/=) are not kept in this repo
-(see =.gitignore=) since they're large and can be regenerated by rerunning
-=runpipeline.sh=.
+** From run_fur_seqwin.sh
+- =target.db/= :: fur's database (built by =makeFurDb=)
+- =markers.fasta= :: fur's markers
+- =seqwin-out/signatures.fasta= :: seqwin's markers
+
+** From the marker analyses
+- =cons_div_fur.csv= / =cons_div_seqwin.csv= :: per-marker conservation/divergence
+- =fur_in_seqwin.csv= :: per-fur-marker, whether it's found in seqwin's markers
+- =marker_bp_summary.csv= (top level, not per pool) :: total marker basepairs, all pools
+
+* What's not kept in this repo
+
+Downloaded genomes and BLAST/sketch databases (=genomes/=, =fastas/=,
+=all/=, =target.db/=, =seqwin-out/blastdb/=, =seqwin-out/sketches.msh=,
+=*.phy=, =*.phyl=) are excluded via =.gitignore= - they're large and can
+all be regenerated by rerunning the scripts in order above.
