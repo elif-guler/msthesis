@@ -310,18 +310,26 @@ checked, per fur marker, whether it has a hit at >=95% identity and >=90%
 coverage somewhere in seqwin's marker set:
 
 #+begin_src text
-dataset,pool,n_fur_markers,n_found_in_seqwin,fraction_found
-clo,100,605,2,0.003
-clo,1000,4,0,0.000
-mtb,100,655,430,0.656
-mtb,1000,0,0,0.000
-sen,100,79,11,0.139
-sen,1000,8,0,0.000
-#+end_src
+  dataset,pool,n_fur_markers,n_found_in_seqwin,fraction_found
+  clo,100,605,2,0.003
+  clo,1000,4,0,0.000
+  mtb,100,655,430,0.656
+  mtb,1000,0,0,0.000
+  sen,100,79,11,0.139
+  sen,1000,8,0,0.000
 
-Not a clean superset relationship. =mtb pool_100= is the closest to "fur
-markers, subset of seqwin's" (66% found), but =clo= and =sen= are both far
-from it (0.3% and 14% found respectively), and every =pool_1000= case comes
-back essentially 0% (though =clo=/=sen= pool_1000 only have 4/8 fur markers
-total, so those percentages are based on very few markers and easy to swing
-either way).
+
+  clo/pool_100
+  2 found in seqwin markers
+clo/pool_1000
+  0 found in seqwin markers
+mtb/pool_100
+  430 found in seqwin markers
+mtb/pool_1000
+  0 found in seqwin markers
+sen/pool_100
+  11 found in seqwin markers
+sen/pool_1000
+  0 found in seqwin markers
+
+#+end_src
