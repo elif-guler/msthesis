@@ -1,5 +1,4 @@
-#+TITLE: nb_target_check - project log
-#+DATE: 2026-07-27
+#+TITLE: nb_target_check
 
 * Why this check exists
 
@@ -18,20 +17,26 @@ get a second, independent opinion using actual genetic distance
 genomes worth double-checking manually before trusting Unikseq/Neptune's
 results.
 
+Once the target/neighbor separation is settled, the next question is
+whether =fur= and =seqwin= (two different marker-finding tools) actually
+agree on what makes a good target-specific marker - that's what the later
+scripts in this log are for.
+
 * Goal
 
 Check whether the target/neighbor genome labels used for Unikseq and
 Neptune (given in each dataset's =acc.txt=) actually hold up
 phylogenetically, using =phylonium= distances + tree-based clade-finding,
-then feed the corrected target/neighbor sets into =fur= and =seqwin=.
+then feed the corrected target/neighbor sets into =fur= and =seqwin= and
+compare their marker output.
 
 Datasets: =clo= (C. difficile), =mtb= (M. tuberculosis), =sen= (S. enterica).
 Each has two sample pools: =100= and =1000= genomes - these exist because
 using every available genome as a neighbor would be far too slow/large to
 run through phylonium and the downstream tools, so a manageable subsample
 is used instead. Two pool sizes are checked to see whether the answer (does
-the separation hold up) changes depending on how many neighbors are
-considered.
+the separation hold up, do fur/seqwin agree) changes depending on how many
+neighbors are considered.
 
 * Directory layout
 
@@ -39,10 +44,19 @@ considered.
 nb_target_check/
   runpipeline.sh
   check_separation.sh
-  run_all.sh
-  run_tools.sh          (formerly run_fur_seqwin.sh)
+  runall.sh
+  run_fur_seqwin.sh
+  analyze_cons.py
+  run_cons.sh
+  calculate_marker_bp.sh
+  blast_markers.py
+  markers_blast.sh
+  plot_grid.R
+  plot_marker.R
   .gitignore
   README.org
+  marker_bp_summary.csv     <- combined, all datasets/pools
+  fur_subset_summary.csv    <- combined, all datasets/pools
   clo/  mtb/  sen/
     acc.txt              <- input table (accession, Is target, Is sampled 100/1000)
     pool_100/
@@ -55,8 +69,10 @@ nb_target_check/
       target_to_neighbor.txt                   <- labeled target, tree disagrees
       neighbor_to_target.txt                   <- labeled neighbor, tree disagrees
       targets/  neighbors/                <- symlinked fastas, second separation, for fur/seqwin
-      target.db  markers.fasta            <- fur output
-      seqwin-out/                         <- seqwin output
+      target.db/  markers.fasta           <- fur output (target.db gitignored)
+      seqwin-out/                         <- seqwin output (blastdb/, sketches.msh gitignored)
+      cons_div_fur.csv  cons_div_seqwin.csv  <- per-marker conservation/divergence
+      fur_in_seqwin.csv                      <- per-fur-marker, found in seqwin's markers?
     pool_1000/            <- same structure, 1000-genome pool
 #+end_example
 
@@ -112,7 +128,7 @@ copying a third time would triple the disk use for no benefit, since
 =fur=/=seqwin= just need to read the sequence, not own a private copy of
 it.
 
-** run_all.sh [100|1000] [dataset ...]
+** runall.sh [100|1000] [dataset ...]
 Runs =runpipeline.sh= then =check_separation.sh= for each dataset, writing
 into =<dataset>/pool_100/= or =<dataset>/pool_1000/=. Keeps going if one
 dataset fails.
@@ -127,18 +143,72 @@ datasets are independent - one dataset having a bad genome or a network
 hiccup shouldn't block you from seeing results for the other two the same
 day.
 
-** run_tools.sh [pool ...]
+** run_fur_seqwin.sh
 Runs =makeFurDb= -> =fur= -> =seqwin= on the =targets/=/=neighbors/= dirs,
 for every dataset x pool combination. Skips any combination missing
 =targets/=/=neighbors/= (i.e. =check_separation.sh= hasn't been run for it
-yet). Keeps going if one combination fails.
+yet). Keeps going if one combination fails. Writes =markers.fasta= (fur)
+and =seqwin-out/signatures.fasta= (seqwin) per pool.
+
+** analyze_cons.py <signatures.fasta> <targets_dir> <neighbors_dir> <output.csv> [genome_ext]
+For one marker set (fur's or seqwin's), BLASTs every marker against every
+target and every neighbor genome, and reports per marker: conservation (how
+identical it is across targets), divergence (how different from
+neighbors), and the fraction of neighbors it still hits at all.
+
+/Why =-evalue 1e-5= was added:/ without an e-value cutoff, almost every
+marker hit almost every neighbor genome somewhere (fraction_nontarget_hit
+close to 1 for nearly everything), because BLAST was counting very weak,
+essentially spurious alignments as "hits". Restricting to e-value <= 1e-5
+only counts hits unlikely to occur by chance, which is what
+"fraction_nontarget_hit" is actually supposed to measure.
+
+** run_cons.sh
+Runs =analyze_cons.py= twice per pool (fur's =markers.fasta=, seqwin's
+=signatures.fasta=), for all 6 dataset/pool combinations. Writes
+=cons_div_fur.csv= / =cons_div_seqwin.csv= per pool.
+
+** calculate_marker_bp.sh
+Sums total basepairs and counts markers in =markers.fasta= and
+=signatures.fasta= for every dataset/pool. Writes one combined
+=marker_bp_summary.csv=.
+
+** blast_markers.py
+Deliberately kept very simple - no command-line arguments, just three
+paths to edit at the top (=markers.fasta=, =seqwin-out/signatures.fasta=,
+output csv). BLASTs fur's markers as query against seqwin's markers as
+subject, and for each fur marker keeps the longest hit. A marker counts as
+"found" in seqwin's set if that hit is >=95% identity and >=90% of the
+marker's length (both thresholds editable at the top of the script) - this
+is the check for whether fur's markers are a subset of seqwin's.
+
+** markers_blast.sh
+Runs =blast_markers.py= for all 6 dataset/pool combinations, by =cd=-ing
+into each pool folder first (since the script itself takes no arguments).
+Writes a combined =fur_subset_summary.csv=.
+
+** plot_grid.R
+Reads all 12 =cons_div_fur.csv=/=cons_div_seqwin.csv= files and plots
+fraction-of-neighbors-hit (x) vs divergence (y) in a 2x6 grid: rows =
+seqwin/fur, columns = the 3 taxa under pool_100 (left) then pool_1000
+(right). Writes =cons_div_grid.png=.
+
+** plot_marker.R
+Reads =marker_bp_summary.csv= and plots total marker basepairs as bars,
+grouped by tool (fur/seqwin), faceted by pool and taxon with independent
+y-scales per panel. Writes =marker_bp_histogram.png=.
+
+/Why independent y-scales per panel:/ marker counts/basepairs vary by
+orders of magnitude between pools (e.g. clo pool_1000 fur has 4 markers,
+mtb pool_100 seqwin has 1674) - on one shared y-axis the small bars are
+invisible next to the large ones.
 
 * Bugs found and fixed along the way
 
 - *Scripts need =chmod +x=* - "Permission denied" when calling
   =./script.sh= directly. Running with =bash script.sh= works regardless of
   permissions because bash reads the file as a script either way, but
-  =run_all.sh='s internal =./runpipeline.sh= calls invoke it as an
+  =runall.sh='s internal =./runpipeline.sh= calls invoke it as an
   executable, which needs the execute bit set on the file itself.
 
 - *Big =datasets download= zips failed mid-stream* on large sets (mtb, 7679
@@ -187,11 +257,31 @@ yet). Keeps going if one combination fails.
   (=genomes/=, =fastas/=, =all/=, =genomes.zip=, =*.phy=, =phylonium.log=).
   These are all regenerable by rerunning the pipeline, and GitHub both
   discourages and hard-blocks large files - so they're excluded via
-  =.gitignore=, keeping the repo to just scripts, input tables, and the
-  small (KB-sized) result files that actually took analysis effort to
-  produce.
+  =.gitignore=. The same turned out to be true of =target.db/= (fur's
+  database, which duplicates the target genomes again) and
+  =seqwin-out/blastdb/=/=seqwin-out/sketches.msh= - all added to
+  =.gitignore= once they showed up in a =git add -n .= dry run.
 
-#+begin_src bash
+- *=grep -c= "double zero" bug*, twice, in different scripts. =grep -c
+  '^>' file= prints =0= when there are no matches, but still exits with
+  status 1 (because it found nothing) - so any =grep -c ... || echo 0=
+  fallback runs *in addition to* the real =0= that was already printed,
+  producing two lines instead of one. This first showed up as duplicated
+  "0" output in =run_fur_seqwin.sh='s marker-count logging, then again in
+  =calculate_marker_bp.sh= where it corrupted a CSV row into two malformed
+  ones (showing up as unexplained =NA= values downstream in R). Fixed both
+  by capturing =grep='s output directly and defaulting to 0 only if the
+  output was actually empty, instead of relying on its exit status.
+
+- *=fraction_nontarget_hit= was close to 1 for almost every marker* in
+  =analyze_cons.py= - BLAST was counting very weak, low-significance
+  alignments as hits. Fixed by adding =-evalue 1e-5= to the =blastn= call.
+
+* Results so far
+
+** Marker basepairs and counts (=marker_bp_summary.csv=)
+
+#+begin_src text
 dataset,pool,tool,n_markers,total_bp
 clo,100,fur,605,119424
 clo,100,seqwin,111,42212
@@ -205,5 +295,33 @@ sen,100,fur,79,27942
 sen,100,seqwin,733,328906
 sen,1000,fur,8,1375
 sen,1000,seqwin,640,291475
-#+end_src  
+#+end_src
 
+Seqwin finds more markers than fur in every case shown here. Fur's marker
+counts drop sharply at the 1000-genome pool for all three datasets (mtb
+even reaches 0), while seqwin's counts don't collapse the same way - worth
+understanding why fur is so much more sensitive to neighbor pool size than
+seqwin is.
+
+** Are fur's markers a subset of seqwin's? (=fur_subset_summary.csv=)
+
+BLASTed fur's markers (query) against seqwin's markers (subject) and
+checked, per fur marker, whether it has a hit at >=95% identity and >=90%
+coverage somewhere in seqwin's marker set:
+
+#+begin_src text
+dataset,pool,n_fur_markers,n_found_in_seqwin,fraction_found
+clo,100,605,2,0.003
+clo,1000,4,0,0.000
+mtb,100,655,430,0.656
+mtb,1000,0,0,0.000
+sen,100,79,11,0.139
+sen,1000,8,0,0.000
+#+end_src
+
+Not a clean superset relationship. =mtb pool_100= is the closest to "fur
+markers, subset of seqwin's" (66% found), but =clo= and =sen= are both far
+from it (0.3% and 14% found respectively), and every =pool_1000= case comes
+back essentially 0% (though =clo=/=sen= pool_1000 only have 4/8 fur markers
+total, so those percentages are based on very few markers and easy to swing
+either way).
