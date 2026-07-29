@@ -1,0 +1,13 @@
+For the following week, performs these steps:
+
+1- From the markers generated with Fur and Seqwin, construct a venn diagram
+showing the markers found with both tools and markers specific to each.
+
+2- Starting from anam.sh, construct a script to check the annotations of
+the markers, specifically check the ones that are only found with Fur. Since
+these markers can be mobile genetic elements according to Seqwin's creators,
+it is worth checking.
+
+3- There is also E. coli dataset given both in Fur and Seqwin papers.
+Replicate the results in Seqwin paper again, check the supplementary info
+pdf to see how they construct the plots. 
