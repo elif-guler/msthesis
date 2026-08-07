@@ -1,21 +1,20 @@
-# Marker Compare Analysis
+#+TITLE: Marker Compare Analysis
 
 Evaluate marker overlap between fur and seqwin across three species
-(`clo`, `mtb`, `sen`) at two pool sizes (100 and 1000).
+(=clo=, =mtb=, =sen=) at two pool sizes (100 and 1000).
 
 Shows the number of nucleotides excluding N's.
 
-## Pipeline Workflow
+* Pipeline Workflow
 
-1. **`venn_prep.sh`**:
-   Runs BLAST comparisons using `blast_markers.py` and `blast_markers_reverse.py` to identify overlapping
-   and unique markers. Generates `venn_summary.csv`.
-   
-2. **`venn_bp_prep.sh`**:
-   Calculates total base-pair coverage for shared and unique marker sets using `sum_bp.py`. Generates
-   `venn_bp_summary.csv`.
+1. =venn_prep.sh=
+   Runs BLAST comparisons using =blast_markers.py= and =blast_markers_reverse.py= to identify overlapping
+   and unique markers. Generates =venn_summary.csv=.
 
-3. **`plot_venn.R`**:
-   Generates Venn diagrams (`venn_bp_*.png`) visualizing base-pair overlaps across datasets (`clo`,
-   `mtb`, `sen`) and pool sizes (`100`, `1000`).
+2. =venn_bp_prep.sh=
+   Calculates total base-pair coverage for shared and unique marker sets using =sum_bp.py=. Generates
+   =venn_bp_summary.csv=.
 
+3. =plot_venn.R=
+   Generates Venn diagrams (=venn_bp_*.png=) visualizing base-pair overlaps across datasets (=clo=,
+   =mtb=, =sen=) and pool sizes (=100=, =1000=).
