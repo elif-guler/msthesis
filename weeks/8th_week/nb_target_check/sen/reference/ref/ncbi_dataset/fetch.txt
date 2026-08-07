@@ -1,0 +1,2 @@
+https://api.ncbi.nlm.nih.gov/datasets/fetch_h/R2V0UmVtb3RlRGF0YWZpbGU/eNqTyufKzUtOytROKymw0tdPT83Lz00t1k_MydF3d3bUNzAw1Tc1tNC3NDMF8eOBfCAXyNMzjHcM9oVwygzxycWDzcxM1kvLS9RLrzJgtGAEAIF-H-s	0	data/GCA_005518965.1/GCA_005518965.1_ASM551896v1_genomic.fna
+https://api.ncbi.nlm.nih.gov/datasets/fetch_h/R2V0UmVtb3RlRGF0YWZpbGU/eNqTyufKzUtOytROKymw0tdPT83Lz00t1k_MydF3d3bUNzAw1Tc1tNC3NDMF8eOBfCAXyNMzjHcM9oVwygzxycWDzcxM1ktPS9NLrzJgtGAEAIFoH-k	0	data/GCA_005518965.1/genomic.gff

@@ -1,0 +1,9 @@
+# Ignore large dataset archives and fasta/gff files
+*.zip
+*.fasta
+*.fna
+*.gff
+
+# Ignore intermediate pipeline output
+*_counts.txt
+*.tsv
