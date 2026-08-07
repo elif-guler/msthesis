@@ -1,0 +1,27 @@
+# Mobile Genetic Element (MGE) Permutation Analysis
+
+Pipeline for testing whether FUR-unique markers are non-randomly enriched near Mobile Genetic Elements
+(MGEs) using reference genome annotations and permutation tests.
+
+## Workflow
+
+1. **`run_gin_mge_all.sh`**:
+   Main entry point. Downloads required reference genomes and executes permutation tests across all
+   datasets (`clo`, `mtb`, `sen`) and pool sizes (`100`, `1000`).
+
+2. **`download_reference.sh`**:
+   Fetches reference genomes (`.fasta`) and GFF annotations (`.gff`) from NCBI for each target organism.
+
+3. **`gin_mge_test.sh`**:
+   Per-dataset pipeline executor:
+   - Maps markers to the reference genome using BLAST (`make_intervals.py`).
+   - Counts observed MGE overlaps from feature descriptions (`annotate_mge.py`).
+   - Shuffles genomic intervals $N=10,000$ times (`shuffle`) and streams results through `annotate_mge.py`.
+   - Computes an empirical $p$-value comparing observed vs. permuted distributions.
+
+- **`make_intervals.py`**: Converts marker FASTA sequences into genomic coordinate intervals
+  (`chr start end`).
+- **`annotate_mge.py`**: Parses GFF `product=` attributes for MGE-related keywords (e.g., *transposase*,
+  *integrase*, *phage*) and calculates interval overlaps.
+- **`gin_mge_summary.csv`**: Final output table containing observed counts, permutation counts, and
+  calculated empirical $p$-values.

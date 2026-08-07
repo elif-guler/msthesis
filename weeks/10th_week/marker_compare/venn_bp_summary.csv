@@ -1,0 +1,7 @@
+dataset,pool,bp_fur_only,bp_seqwin_only,bp_intersection
+clo,100,99469,42212,133
+clo,1000,566,138749,0
+mtb,100,85748,3359321,90691
+mtb,1000,0,87954,0
+sen,100,20494,328638,2499
+sen,1000,1253,291475,0

@@ -1,0 +1,7 @@
+dataset,pool,n_fur,n_seqwin,n_fur_only,n_seqwin_only,n_intersection
+clo,100,605,111,603,111,1
+clo,1000,4,364,4,364,0
+mtb,100,655,1674,225,1665,219
+mtb,1000,0,150,0,150,0
+sen,100,79,733,68,732,6
+sen,1000,8,640,8,640,0
