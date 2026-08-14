@@ -92,3 +92,8 @@ are not statistically enriched for MGEs ($p > 0.05$). The observed overlap rates
 MGE annotations are fully consistent with a random genomic distribution. Consequently, automatically discarding
 neighbor-absent markers on the assumption of MGE involvement unnecessarily restricts the candidate marker pool
 without empirical justification.
+
+SeqWin annotated signatures by predicting MGEs using the Mobilome Annotation Pipeline (MAP v4.0.0) and labeling
+signatures that physically overlapped these predicted regions. However, SeqWin evaluated raw overlap counts
+without establishing an empirical null baseline. Because bacterial genomes contain substantial background MGE
+content, raw overlap counts alone cannot demonstrate non-random enrichment.
