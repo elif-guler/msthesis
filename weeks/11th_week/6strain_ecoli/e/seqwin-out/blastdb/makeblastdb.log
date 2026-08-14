@@ -1,0 +1,13 @@
+['makeblastdb', '-title', 'all', '-dbtype', 'nucl', '-out', PosixPath('/home/elif/msthesis/weeks/11th_week/6strain_ecoli/e/seqwin-out/blastdb/all')]
+
+
+Building a new DB, current time: 08/14/2026 16:20:50
+New DB name:   /home/elif/msthesis/weeks/11th_week/6strain_ecoli/e/seqwin-out/blastdb/all
+New DB title:  all
+Sequence type: Nucleotide
+Keep MBits: T
+Maximum file size: 3000000000B
+Adding sequences from FASTA; added 935 sequences in 0.877046 seconds.
+
+
+

@@ -1,0 +1,13 @@
+dataset,tool,n_markers,total_bp
+a,fur,0,0
+a,seqwin,98,54319
+b1,fur,0,0
+b1,seqwin,98,49747
+b2,fur,25,41894
+b2,seqwin,633,346579
+d,fur,18,21470
+d,seqwin,475,303376
+e,fur,18,15865
+e,seqwin,201,136023
+f,fur,18,21470
+f,seqwin,475,303376

@@ -1,0 +1,44 @@
+#+TITLE: 6-Strain E. coli Marker & Sequence Analysis Pipeline
+
+* Overview
+This directory contains the automated pipeline and evaluation scripts comparing diagnostic marker identification tools (*Fur* and *SeqWin*) across 6 distinct /E. coli/ clades (*A*, *B1*, *B2*, *D*, *E*, and *F*).
+
+* Directory Structure
+- *a, b1, b2, d, e, f/* :: Subdirectories containing clade-specific target/neighbor symlinks, local phylogeny (~eco33.nwk~), and output databases.
+- *pipeline.sh* :: Main pipeline automation script for dataset preparation, symlinking, and running *Fur* across all clades.
+- *run_fur_seqwin.sh* :: Execution wrapper for running SeqWin alongside Fur.
+- *run_cons.sh* & *analyze_cons.py* :: Scripts to calculate conservation, divergence, and off-target hit statistics.
+- *blast_markers.py* & *markers.blast.sh* :: Evaluates whether Fur markers are a subset of SeqWin signatures via local BLAST.
+- *calculate_marker_bp.sh* :: Summarizes marker counts and total sequence lengths (base pairs).
+- *plot_*.R* :: R visualization scripts for generating summary grids and histograms.
+
+* Execution Workflow
+
+** 1. Run Main Pipeline
+Construct target/neighbor sets and execute initial Fur database creation across all 6 clades:
+#+begin_src bash
+  bash pipeline.sh
+#+end_src
+
+** 2. Marker Analysis & BLAST Subset Verification
+Run sequence conservation analysis and evaluate Fur marker presence within SeqWin signatures:
+#+begin_src bash
+  bash run_cons.sh
+  bash markers.blast.sh
+  bash calculate_marker_bp.sh
+#+end_src
+
+** 3. Visualization
+Generate summary plots and comparative grids:
+#+begin_src bash
+  Rscript plot_grid.R                      # Fraction of neighbors hit vs Divergence
+  Rscript plot_condiv.R                    # Conservation vs Divergence grid
+  Rscript plot_marker.R                    # Marker base pair comparison histogram
+  Rscript plot_fur_in_seqwin.R             # Fur markers coverage vs identity in SeqWin
+#+end_src
+
+* Generated Outputs
+- ~marker_bp_summary.csv~ / ~marker_bp_histogram.png~
+- ~fur_subset_summary.csv~ / ~fur_in_seqwin_grid.png~
+- ~cons_div_grid.png~
+- ~conservation_vs_divergence_grid.png~
