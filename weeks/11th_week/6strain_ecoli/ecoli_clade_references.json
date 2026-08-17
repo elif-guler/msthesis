@@ -1,0 +1,32 @@
+{
+  "a": {
+    "node": "15",
+    "primary_accession": "GCF_000023665.1",
+    "total_targets_in_clade": 6
+  },
+  "b1": {
+    "node": "20",
+    "primary_accession": "GCF_000007405.1",
+    "total_targets_in_clade": 14
+  },
+  "b2": {
+    "node": "3",
+    "primary_accession": "GCF_000026545.1",
+    "total_targets_in_clade": 5
+  },
+  "d": {
+    "node": "7",
+    "primary_accession": "GCF_000019645.1",
+    "total_targets_in_clade": 2
+  },
+  "e": {
+    "node": "11",
+    "primary_accession": "GCF_000012005.1",
+    "total_targets_in_clade": 4
+  },
+  "f": {
+    "node": "7",
+    "primary_accession": "GCF_000019645.1",
+    "total_targets_in_clade": 2
+  }
+}
