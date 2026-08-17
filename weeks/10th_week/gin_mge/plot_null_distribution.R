@@ -1,10 +1,10 @@
 library(ggplot2)
 
-# Load shuffle counts for mtb pool_100
-shuffles <- read.table("mtb/pool_100/shuffle_counts.txt", header = FALSE)
+# Load shuffle counts for pool
+shuffles <- read.table("clo/pool_100/shuffle_counts.txt", header = FALSE)
 colnames(shuffles) <- c("count")
 
-observed_val <- 9  # Observed MGE overlaps in mtb pool_100
+observed_val <- 1  # Observed MGE overlaps in pool
 n_perm <- nrow(shuffles)
 ge_count <- sum(shuffles$count >= observed_val)
 p_val <- (ge_count + 1) / (n_perm + 1)
@@ -23,4 +23,4 @@ ggplot(shuffles, aes(x = count)) +
   ) +
   theme_minimal(base_size = 14)
 
-ggsave("mtb_pool100_null_dist.png", width = 8, height = 5)
+ggsave("clo_pool100_null_dist.png", width = 8, height = 5)
