@@ -1,0 +1,8 @@
+# Large databases
+dbs/
+work/
+
+# Temporary files
+*.tmp
+*.temp
+*.swp

@@ -1,0 +1,2 @@
+iss_61	mobile_element_type=IS1_with_TIR	no_cds
+iss_551	mobile_element_type=IS3_with_TIR	no_cds

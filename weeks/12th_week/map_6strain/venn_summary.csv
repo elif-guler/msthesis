@@ -1,0 +1,7 @@
+dataset,n_fur,n_seqwin,n_fur_only,n_seqwin_only,n_intersection
+a,0,98,0,98,0
+b1,0,98,0,98,0
+b2,25,633,16,633,4
+d,18,475,12,475,3
+e,18,201,8,201,5
+f,18,475,12,475,3

@@ -1,0 +1,139 @@
+#+TITLE: FUR/SeqWin MGE Analysis on E. coli strains
+
+* Overview
+
+Analysis across six strains of E. coli:
+
+#+begin_example
+a  b1  b2  d  e  f
+#+end_example
+
+The analysis tests whether strain-specific FUR and SeqWin markers overlap
+predicted mobile genetic elements (MGEs).
+
+* Workflow
+
+The analysis consists of three main steps:
+
+** 1. Compare FUR and SeqWin markers
+
+BLASTn is used to identify shared markers.
+
+A marker is considered shared if it has:
+
+* > =95% sequence identity
+* > =90% query coverage
+
+Markers not detected in the other tool are extracted as tool-specific
+markers.
+
+** 2. Test MGE overlap
+
+Tool-specific markers are mapped to the reference genome.
+
+MGE annotations are taken from MAP's ~mobilome.gff.gz~ files.
+
+Observed marker/MGE overlaps are compared with 10,000 randomized
+permutations.
+
+The empirical p-value is calculated as:
+
+#+begin_example
+p = (number of permutations >= observed + 1) /
+(number of permutations + 1)
+#+end_example
+
+** 3. Visualize results
+
+The permutation results are plotted as a 2 x 6 grid
+
+* Main Scripts
+
+| Script | Purpose |
+|--------+---------|
+| ~run_pipeline.sh~ | Run MAP mobilome annotation |
+| ~venn_prep.sh~ | Compare FUR and SeqWin markers |
+| ~blast_markers.py~ | Compare FUR markers against SeqWin |
+| ~blast_markers_reverse.py~ | Compare SeqWin markers against FUR |
+| ~extract_unique.py~ | Extract method-specific markers |
+| ~make_intervals.py~ | Map markers to reference coordinates |
+| ~annotate_mge.py~ | Count marker/MGE overlaps |
+| ~map_mge_test.sh~ | Run the MGE permutation tests |
+| ~plot_mge_grid.R~ | Plot permutation results |
+
+* Main Input Data
+
+Each strain contains:
+
+#+begin_example <strain>/markers.fasta <strain>/seqwin-out/signatures.fasta <strain>/reference/
+#+end_example
+
+MAP mobilome annotations are expected under:
+
+#+begin_example
+results/<strain>/gff/<strain>_mobilome.gff.gz
+#+end_example
+
+* Main Outputs
+
+** Marker comparison
+
+~venn_summary.csv~
+
+Contains the number of FUR, SeqWin, FUR-only, SeqWin-only, and shared
+markers for each strain.
+
+** MGE permutation results
+
+~map_mge_summary.csv~
+
+Contains:
+
+#+begin_example
+strain
+marker_type
+observed
+permutations
+ge_observed
+pvalue
+#+end_example
+
+** Null distributions
+
+~map_mge_null_grid.png~
+
+Shows the MGE overlap null distributions for FUR and SeqWin across all
+six strains.
+
+Individual permutation results are stored in:
+
+#+begin_example <strain>/mge_test_fur/shuffle_counts.txt <strain>/mge_test_seqwin/shuffle_counts.txt
+#+end_example
+
+* Running the Analysis
+
+Run the MAP annotation pipeline:
+
+#+begin_src bash
+bash run_pipeline.sh
+#+end_src
+
+Compare FUR and SeqWin markers:
+
+#+begin_src bash
+bash venn_prep.sh
+#+end_src
+
+Run the MGE permutation tests:
+
+#+begin_src bash
+bash map_mge_test.sh
+#+end_src
+
+Generate the final figure:
+
+#+begin_src bash
+Rscript plot_mge_grid.R 
+--summary map_mge_summary.csv 
+--out map_mge_null_grid.png
+#+end_src

@@ -1,0 +1,116 @@
+{
+  "tool": {
+    "name": "MGnify BGC mapper",
+    "version": "mgnify_pipelines_toolkit_v1.4.18",
+    "description": "BGC subregions integrated from GECCO/antiSMASH/SanntiS into a base GFF.",
+    "configuration": {}
+  },
+  "records": [
+    {
+      "name": "contig_1",
+      "subregions": [
+        {
+          "start": 94929,
+          "end": 114624,
+          "label": "Saccharide",
+          "details": {
+            "ID": "contig_1|bgc:94930-114624",
+            "bgc_tools": [
+              "gecco"
+            ],
+            "sources": [
+              "GECCO v0.10.1"
+            ],
+            "gecco_bgc_type": [
+              "Saccharide"
+            ]
+          }
+        },
+        {
+          "start": 1726448,
+          "end": 1746684,
+          "label": "Saccharide",
+          "details": {
+            "ID": "contig_1|bgc:1726449-1746684",
+            "bgc_tools": [
+              "gecco"
+            ],
+            "sources": [
+              "GECCO v0.10.1"
+            ],
+            "gecco_bgc_type": [
+              "Saccharide"
+            ]
+          }
+        },
+        {
+          "start": 2810662,
+          "end": 2836954,
+          "label": "azole-containing-RiP",
+          "details": {
+            "ID": "contig_1|bgc:2810663-2836954",
+            "bgc_tools": [
+              "antismash"
+            ],
+            "sources": [
+              "antiSMASH:8.0.1"
+            ],
+            "antismash_region_id": [
+              "contig_1_region1"
+            ],
+            "antismash_product": [
+              "azole-containing-RiPP"
+            ]
+          }
+        },
+        {
+          "start": 3172599,
+          "end": 3227740,
+          "label": "MergedBGC",
+          "details": {
+            "ID": "contig_1|bgc:3172600-3227740",
+            "bgc_tools": [
+              "antismash",
+              "gecco"
+            ],
+            "member_bgcs": "2",
+            "sources": [
+              "GECCO v0.10.1",
+              "antiSMASH:8.0.1"
+            ],
+            "antismash_region_id": [
+              "contig_1_region2"
+            ],
+            "antismash_product": [
+              "NRP-metallophore,NRPS"
+            ],
+            "gecco_bgc_type": [
+              "NRP"
+            ]
+          }
+        },
+        {
+          "start": 3365881,
+          "end": 3386781,
+          "label": "terpene-precursor",
+          "details": {
+            "ID": "contig_1|bgc:3365882-3386781",
+            "bgc_tools": [
+              "antismash"
+            ],
+            "sources": [
+              "antiSMASH:8.0.1"
+            ],
+            "antismash_region_id": [
+              "contig_1_region3"
+            ],
+            "antismash_product": [
+              "terpene-precursor"
+            ]
+          }
+        }
+      ]
+    }
+  ],
+  "timestamp": "2026-08-19T11:31:12.482006+00:00"
+}

@@ -1,0 +1,116 @@
+{
+  "tool": {
+    "name": "MGnify BGC mapper",
+    "version": "mgnify_pipelines_toolkit_v1.4.18",
+    "description": "BGC subregions integrated from GECCO/antiSMASH/SanntiS into a base GFF.",
+    "configuration": {}
+  },
+  "records": [
+    {
+      "name": "contig_1",
+      "subregions": [
+        {
+          "start": 389105,
+          "end": 410005,
+          "label": "terpene-precursor",
+          "details": {
+            "ID": "contig_1|bgc:389106-410005",
+            "bgc_tools": [
+              "antismash"
+            ],
+            "sources": [
+              "antiSMASH:8.0.1"
+            ],
+            "antismash_region_id": [
+              "contig_1_region1"
+            ],
+            "antismash_product": [
+              "terpene-precursor"
+            ]
+          }
+        },
+        {
+          "start": 525223,
+          "end": 580178,
+          "label": "MergedBGC",
+          "details": {
+            "ID": "contig_1|bgc:525224-580178",
+            "bgc_tools": [
+              "antismash",
+              "gecco"
+            ],
+            "member_bgcs": "2",
+            "sources": [
+              "GECCO v0.10.1",
+              "antiSMASH:8.0.1"
+            ],
+            "antismash_region_id": [
+              "contig_1_region2"
+            ],
+            "antismash_product": [
+              "NRP-metallophore,NRPS"
+            ],
+            "gecco_bgc_type": [
+              "NRP"
+            ]
+          }
+        },
+        {
+          "start": 935546,
+          "end": 961839,
+          "label": "azole-containing-RiP",
+          "details": {
+            "ID": "contig_1|bgc:935547-961839",
+            "bgc_tools": [
+              "antismash"
+            ],
+            "sources": [
+              "antiSMASH:8.0.1"
+            ],
+            "antismash_region_id": [
+              "contig_1_region3"
+            ],
+            "antismash_product": [
+              "azole-containing-RiPP"
+            ]
+          }
+        },
+        {
+          "start": 2174998,
+          "end": 2193627,
+          "label": "Unknown",
+          "details": {
+            "ID": "contig_1|bgc:2174999-2193627",
+            "bgc_tools": [
+              "gecco"
+            ],
+            "sources": [
+              "GECCO v0.10.1"
+            ],
+            "gecco_bgc_type": [
+              "Unknown"
+            ]
+          }
+        },
+        {
+          "start": 4036589,
+          "end": 4056674,
+          "label": "Saccharide",
+          "details": {
+            "ID": "contig_1|bgc:4036590-4056674",
+            "bgc_tools": [
+              "gecco"
+            ],
+            "sources": [
+              "GECCO v0.10.1"
+            ],
+            "gecco_bgc_type": [
+              "Saccharide"
+            ]
+          }
+        }
+      ]
+    }
+  ],
+  "timestamp": "2026-08-19T11:31:11.665121+00:00"
+}

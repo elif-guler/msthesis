@@ -1,0 +1,2 @@
+task_id	hash	native_id	name	status	exit	submit	duration	realtime	%cpu	peak_rss	peak_vmem	rchar	wchar
+3	c5/43dc4b	24229	DOWNLOAD_DATABASES:RGI_DOWNLOADDB	FAILED	255	2026-08-18 12:27:35.976	74ms	64ms	-	-	-	-	-

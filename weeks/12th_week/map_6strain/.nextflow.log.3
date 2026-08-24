@@ -1,0 +1,19 @@
+Aug-21 11:18:40.817 [main] DEBUG nextflow.cli.Launcher - $> nextflow run EBI-Metagenomics/mobilome-annotation-pipeline -r 3aa408d26d987c0f721c07d4f0fed52a871de117 --input samplesheet.csv -c my_paths.config --skip_sanntis -profile docker -resume
+Aug-21 11:18:40.981 [main] DEBUG nextflow.cli.CmdRun - N E X T F L O W  ~  version 24.10.5
+Aug-21 11:18:41.028 [main] DEBUG nextflow.plugin.PluginsFacade - Setting up plugin manager > mode=prod; embedded=false; plugins-dir=/home/elif/.nextflow/plugins; core-plugins: nf-amazon@2.9.2,nf-azure@1.10.2,nf-cloudcache@0.4.2,nf-codecommit@0.2.2,nf-console@1.1.4,nf-google@1.15.4,nf-tower@1.9.3,nf-wave@1.7.4
+Aug-21 11:18:41.057 [main] INFO  o.pf4j.DefaultPluginStatusProvider - Enabled plugins: []
+Aug-21 11:18:41.058 [main] INFO  o.pf4j.DefaultPluginStatusProvider - Disabled plugins: []
+Aug-21 11:18:41.062 [main] INFO  org.pf4j.DefaultPluginManager - PF4J version 3.12.0 in 'deployment' mode
+Aug-21 11:18:41.078 [main] INFO  org.pf4j.AbstractPluginManager - No plugins
+Aug-21 11:18:41.095 [main] DEBUG nextflow.scm.ProviderConfig - Using SCM config path: /home/elif/.nextflow/scm
+Aug-21 11:18:42.169 [main] DEBUG nextflow.scm.AssetManager - Git config: /home/elif/.nextflow/assets/EBI-Metagenomics/mobilome-annotation-pipeline/.git/config; branch: null; remote: origin; url: https://github.com/EBI-Metagenomics/mobilome-annotation-pipeline.git
+Aug-21 11:18:42.213 [main] DEBUG nextflow.scm.RepositoryFactory - Found Git repository result: [RepositoryFactory]
+Aug-21 11:18:42.225 [main] DEBUG nextflow.scm.AssetManager - Git config: /home/elif/.nextflow/assets/EBI-Metagenomics/mobilome-annotation-pipeline/.git/config; branch: null; remote: origin; url: https://github.com/EBI-Metagenomics/mobilome-annotation-pipeline.git
+Aug-21 11:18:42.503 [main] DEBUG nextflow.cli.Launcher - Operation aborted
+nextflow.exception.AbortOperationException: Project `EBI-Metagenomics/mobilome-annotation-pipeline` contains uncommitted changes -- Cannot switch to revision: 3aa408d26d987c0f721c07d4f0fed52a871de117
+	at nextflow.scm.AssetManager.checkout(AssetManager.groovy:952)
+	at nextflow.cli.CmdRun.getScriptFile0(CmdRun.groovy:606)
+	at nextflow.cli.CmdRun.getScriptFile(CmdRun.groovy:532)
+	at nextflow.cli.CmdRun.run(CmdRun.groovy:325)
+	at nextflow.cli.Launcher.run(Launcher.groovy:503)
+	at nextflow.cli.Launcher.main(Launcher.groovy:658)

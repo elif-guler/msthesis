@@ -1,0 +1,7 @@
+sample,assembly,proteins_gff,proteins_faa,virify_gff,interproscan_tsv
+a,/home/elif/msthesis/weeks/12th_week/map_6strain/a/reference/GCF_000023665.1.fasta,,,,
+b1,/home/elif/msthesis/weeks/12th_week/map_6strain/b1/reference/GCF_000007405.1.fasta,,,,
+b2,/home/elif/msthesis/weeks/12th_week/map_6strain/b2/reference/GCF_000026545.1.fasta,,,,
+d,/home/elif/msthesis/weeks/12th_week/map_6strain/d/reference/GCF_000019645.1.fasta,,,,
+e,/home/elif/msthesis/weeks/12th_week/map_6strain/e/reference/GCF_000012005.1.fasta,,,,
+f,/home/elif/msthesis/weeks/12th_week/map_6strain/f/reference/GCF_000019645.1.fasta,,,,

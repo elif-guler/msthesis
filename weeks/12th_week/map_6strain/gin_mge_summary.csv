@@ -1,0 +1,5 @@
+dataset,pool,observed,permutations,ge_observed,pvalue
+b2,fur_markers,0,10000,10000,1
+d,fur_markers,2,10000,2029,0.20298
+e,fur_markers,0,10000,10000,1
+f,fur_markers,2,10000,1990,0.19908

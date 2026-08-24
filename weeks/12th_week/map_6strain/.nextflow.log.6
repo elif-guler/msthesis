@@ -1,0 +1,101 @@
+Aug-20 17:18:55.836 [main] DEBUG nextflow.cli.Launcher - $> nextflow run EBI-Metagenomics/mobilome-annotation-pipeline -r 3aa408d26d987c0f721c07d4f0fed52a871de117 --input samplesheet.csv -c my_paths.config -c low_mem.config --skip_sanntis -profile docker -resume
+Aug-20 17:18:55.887 [main] DEBUG nextflow.cli.CmdRun - N E X T F L O W  ~  version 24.10.5
+Aug-20 17:18:55.896 [main] DEBUG nextflow.plugin.PluginsFacade - Setting up plugin manager > mode=prod; embedded=false; plugins-dir=/home/elif/.nextflow/plugins; core-plugins: nf-amazon@2.9.2,nf-azure@1.10.2,nf-cloudcache@0.4.2,nf-codecommit@0.2.2,nf-console@1.1.4,nf-google@1.15.4,nf-tower@1.9.3,nf-wave@1.7.4
+Aug-20 17:18:55.907 [main] INFO  o.pf4j.DefaultPluginStatusProvider - Enabled plugins: []
+Aug-20 17:18:55.908 [main] INFO  o.pf4j.DefaultPluginStatusProvider - Disabled plugins: []
+Aug-20 17:18:55.910 [main] INFO  org.pf4j.DefaultPluginManager - PF4J version 3.12.0 in 'deployment' mode
+Aug-20 17:18:55.918 [main] INFO  org.pf4j.AbstractPluginManager - No plugins
+Aug-20 17:18:55.925 [main] DEBUG nextflow.scm.ProviderConfig - Using SCM config path: /home/elif/.nextflow/scm
+Aug-20 17:18:56.278 [main] DEBUG nextflow.scm.AssetManager - Git config: /home/elif/.nextflow/assets/EBI-Metagenomics/mobilome-annotation-pipeline/.git/config; branch: null; remote: origin; url: https://github.com/EBI-Metagenomics/mobilome-annotation-pipeline.git
+Aug-20 17:18:56.294 [main] DEBUG nextflow.scm.RepositoryFactory - Found Git repository result: [RepositoryFactory]
+Aug-20 17:18:56.299 [main] DEBUG nextflow.scm.AssetManager - Git config: /home/elif/.nextflow/assets/EBI-Metagenomics/mobilome-annotation-pipeline/.git/config; branch: null; remote: origin; url: https://github.com/EBI-Metagenomics/mobilome-annotation-pipeline.git
+Aug-20 17:18:56.933 [main] DEBUG nextflow.scm.AssetManager - WARN: Cannot find any Git revision matching: null; ls-remote: [Ref[refs/pull/104/head=3aa408d26d987c0f721c07d4f0fed52a871de117(-1)], Ref[refs/pull/71/head=6b625c951c67c3c5b480414ba7f6c4ee0c15c04a(-1)], Ref[refs/pull/85/head=248a06cdfbab049912e1c04083ce022ec0906130(-1)], Ref[refs/pull/69/head=186ff400348513634b5ff3b36971e94fe80f270d(-1)], Ref[refs/pull/40/head=109ba0fdbb6065a4dc74041c89301a2828156115(-1)], Ref[refs/pull/24/head=95db2448cbe9cb934d7e24939b35824f68dd5760(-1)], Ref[refs/pull/10/head=9cc751fa41c5716a8d357cb0b5006fe63af95e3a(-1)], Ref[refs/pull/55/head=c7901de2b5411492c811d3b2bd28c318ae596f97(-1)], Ref[refs/pull/23/head=1c6ebd1daa2143455cf3b0d7f0f1eda5c503a140(-1)], Ref[refs/tags/v2.0.1=606b3737beef64cf784387ff61a68161d8bbf44d(-1)], Ref[refs/tags/v2.0.2=3cfab2b53f5ca8065085aa5428bc6466cc164923(-1)], Ref[refs/pull/103/head=bf344a3467d429027efaeb52eefb21e7615446bf(-1)], Ref[refs/pull/70/head=663c409c220237dbc7bb3b7b39fd7ee7e6ee23b3(-1)], Ref[refs/pull/3/head=ac485a8e624f48cd0d9487e0fd83fcaa8562018c(-1)], Ref[refs/tags/v2.0.0-rc.1=0b6f38306b191f35241fbc2bba4e57fb57e2f41a(-1)], Ref[refs/pull/38/head=3b3dba4774813211100120bd846ba516456d7c38(-1)], Ref[refs/pull/54/head=fa8b786c432781fb84dddc63aa476d7495db97bc(-1)], Ref[refs/pull/99/head=09660e3d9d9eeaeda31e807a80be83b782931bcd(-1)], Ref[refs/tags/v2.0.0=055b86222d63f97c90338f4277a104b654d3c6e2(-1)], Ref[refs/pull/98/head=492a50c50e844d8aada8a6f6475253a894b78306(-1)], Ref[refs/pull/84/head=7e477e2930a0229fef50a8c1a067f4956415ac24(-1)], Ref[refs/pull/11/head=158441390719b81346f7a54df115f366e40baca9(-1)], Ref[refs/pull/39/head=4f300e0d7db2a4e6ca8fa5f653e633b019e1bac5(-1)], Ref[refs/pull/87/head=fb5975ec34d4b02ccaae4b3e1e70c72a4509bda1(-1)], Ref[refs/pull/4/head=82b62c28dfc9f8ce87450f29617279453d98eade(-1)], Ref[refs/pull/52/head=adb48d22a6daeb2eb72b4d3ae459c11f81264598(-1)], Ref[refs/pull/1/head=5a877f33f099bc24c95bec0d79f3b87b9d5bae21(-1)], Ref[refs/pull/102/head=08cb4bbf4bebde3a3fc7df279001efcd21fa6e52(-1)], Ref[refs/pull/25/head=17356d1dc7a2154b0e2d187ad43ec671be5890b5(-1)], Ref[refs/pull/49/head=91e5e566277f2df459dce1e997bb9a47c5dc7d8f(-1)], Ref[refs/pull/88/head=791857fa346d2aa2f7f623af074448a610a2f588(-1)], Ref[refs/pull/60/head=4db7cc3d5dbc2e70d8e21cce6c0a505492b5ba57(-1)], Ref[refs/pull/18/head=055b86222d63f97c90338f4277a104b654d3c6e2(-1)], Ref[refs/pull/82/head=c1c19942836397c733dc401ffe802293e4f57ee6(-1)], Ref[refs/tags/v5.0.0=da3177576d103e7098837d73769473bffa6cdd88(-1)], Ref[refs/pull/101/head=35a5b291ee8d3a77b6fe3462b083fed7519ceb0a(-1)], Ref[refs/pull/66/head=0f4c921a4c149a13397a1378288bcb9d29d74408(-1)], Ref[refs/pull/65/head=8e8434d22041527bdde0661549d638aff050faf6(-1)], Ref[refs/pull/27/head=ede3fbeef7f5f7bef26f03011b4a881b17d92368(-1)], Ref[refs/pull/43/head=e261efb282764485275bea9fa735dded4a4cfae1(-1)], Ref[refs/pull/12/head=e32f57e3404339a0a43324acb9a75b2bae581217(-1)], Ref[refs/pull/2/head=82b62c28dfc9f8ce87450f29617279453d98eade(-1)], Ref[refs/pull/59/head=278847c1ea9b8a66cbf05f67ca07b2d725f9384c(-1)], Ref[refs/pull/5/head=d9577c4cfd5c3688429fe99294627130f310451a(-1)], Ref[refs/pull/53/head=fde12bcfccefa65cc3999532924e047b9493967f(-1)], Ref[refs/pull/56/head=ae0801fb5e5b8773e30dcde356ccc063654b9646(-1)], Ref[refs/pull/8/head=b04a449a1d5e294caa838101600873267ad87f1c(-1)], Ref[refs/pull/31/head=6f58eed791fbb0c0b975005c397097a28eacd5da(-1)], Ref[refs/heads/paper_scripts=3aa408d26d987c0f721c07d4f0fed52a871de117(-1)], Ref[refs/pull/34/head=f8d4d50ae43b220e91e59855c2c1042d48e71e02(-1)], Ref[refs/pull/50/head=194ab21fe0a98307b042c22642a14bd0a0858cbe(-1)], Ref[refs/tags/v3.0.1=3fd95ff861cedb9ffded80e298850246b0bacde1(-1)], Ref[refs/tags/v3.0.0=d952a00c79e1bde96b31b496efce881d269ece3d(-1)], Ref[refs/pull/72/head=f5bba0ba078e3173d4c9d5052b7775fa0e768d50(-1)], Ref[refs/pull/97/head=bc89b60f5673472fc4058446bec627f1b66ab6c8(-1)], Ref[refs/tags/v4.2.2=ad137406b859be93bb8fd3fc460fce41d1b31316(-1)], Ref[refs/pull/78/head=277df4fdff2f9cb4e140e3869e44e4e0e2b2416a(-1)], Ref[refs/pull/91/head=2934cd7f789ba45d5d657c8c006d3b36a8921ae0(-1)], Ref[refs/tags/v4.2.1=2f638d10275c3146e32ed0ac4629ae4bc26479d8(-1)], Ref[refs/pull/75/head=f1edde857ee4e96c62d6544cd6ae3802093acc31(-1)], Ref[refs/tags/v4.2.3=b865f30e65bcd8684d7cdb3b8c6cdf8a3fe43612(-1)], Ref[refs/tags/v4.2.0=8b0c2ffa76d79938e40c0eef0b1aacd3ba41a58a(-1)], Ref[refs/pull/32/head=4150d115fb940bf0ff27d7ec148b5a8e14a5ba68(-1)], Ref[refs/pull/77/head=0e20e50deef87ebae51354ad22b3f1f5818c6be0(-1)], Ref[refs/tags/v1.0.0=52fde47f785995483c8c620b66693a1cd97e6012(-1)], Ref[refs/pull/29/head=04f6514c9a7b64125f6262e09ef0fcc218631916(-1)], Ref[refs/pull/16/head=5d4c73f0487b4d0ca80eac2a951c11a89b06368a(-1)], Ref[refs/pull/93/head=b762381fe8c5c0bffc4faca4f716e4691eab164d(-1)], Ref[refs/pull/76/head=74f6d580987607507f51e36386be1e15d3d2e3a1(-1)], Ref[refs/pull/15/head=fff3968082dd9e40314019540c34fa38c951053e(-1)], Ref[refs/pull/9/head=376b23e0f1040f3b504c43aa48f6d1a6c95f8b18(-1)], Ref[refs/pull/62/head=664199068edfa178785974aa8b0697d5e6a54bf4(-1)], Ref[refs/pull/14/head=dfcd48903a6ca06adea32e63d6bde87934b75045(-1)], Ref[refs/pull/92/head=fddf2d5d8026ee033e3a605bd2c8a422f877ea14(-1)], Ref[refs/pull/28/head=024e4f269f2501974c7903e1be0a9998083d6408(-1)], Ref[refs/pull/81/head=ea7fa658bc7c84d788aca4513876b7efc120ff0a(-1)], Ref[refs/pull/44/head=4f9af000dd51efbfde3eb901de6666c1e23cdba4(-1)], Ref[refs/pull/47/head=49085f1b37e0673ab464491f0a3f20bf8d5a2de5(-1)], Ref[refs/pull/7/head=68e681489c38bc5367a709b7a564e9b9c6a2bd18(-1)], Ref[refs/heads/main=da3177576d103e7098837d73769473bffa6cdd88(-1)], Ref[refs/pull/30/head=6f7f0bf5e276259854f07efcb3e0cfbd55acea14(-1)], Ref[refs/pull/33/head=51d83a3909fe387920a68f970743b5f434168ae3(-1)], Ref[refs/pull/17/head=808eedfec4f6feeb338db314a4c166ee6606c79c(-1)], Ref[refs/tags/v4.1.0=49686cdc3293604557abe756ac9ad0cec81c0c39(-1)], Ref[refs/pull/74/head=49686cdc3293604557abe756ac9ad0cec81c0c39(-1)], SymbolicRef[HEAD -> refs/heads/dev=3aa408d26d987c0f721c07d4f0fed52a871de117(-1)], Ref[refs/pull/90/head=64e64bfbb4aa3d8cce6a3f946622438bae962177(-1)], Ref[refs/pull/13/head=12e08a10e800ad1104b2d79df354788a80837e92(-1)], Ref[refs/pull/26/head=17356d1dc7a2154b0e2d187ad43ec671be5890b5(-1)], Ref[refs/pull/51/head=5399fa48ab0bd072f7b02c68d43e61386d054071(-1)], Ref[refs/pull/19/head=5d11325450ce44290b863548ff0bec13141d64a3(-1)], Ref[refs/pull/100/head=a2e923cdb59d89e3538d919b593288907220fd5f(-1)], Ref[refs/pull/73/head=058409ec8a6712bc1c9718a011efaf13e4b8c3db(-1)], Ref[refs/pull/57/head=00baf9ace96d6866fb260126bf3f4c61cf7a8e0e(-1)], Ref[refs/pull/6/head=f4047348192dbbb718e346680fe670fb3987fc8b(-1)], Ref[refs/pull/64/head=80335641c43a59127981192103e11732c4f74d96(-1)], Ref[refs/pull/48/head=12ab5beb64b7556e37d9350958f4187892ed2e55(-1)], Ref[refs/pull/45/head=cf222b1b68094900c6ada5eafef9fa254edd271a(-1)], Ref[refs/pull/61/head=e80adc71431c0922d7bab914959de05274badc11(-1)], Ref[refs/pull/42/head=0b03f109841dc616d397903029d83db18bf22df7(-1)], Ref[refs/heads/dev=3aa408d26d987c0f721c07d4f0fed52a871de117(-1)], Ref[refs/pull/86/head=565b56b67cb2f2a332f801bd5120a8f8cf73c080(-1)], Ref[refs/pull/80/head=a9a945ad4c412d25b13f4e5b3086f689bfae73dc(-1)], Ref[refs/pull/89/head=1af8ba743bb49d66b09d451e4a739d0525812d21(-1)], Ref[refs/pull/67/head=37ed15e6e86f87df77875a5978944370b3d01220(-1)], Ref[refs/tags/v4.0.0=37c796dd706048de4f8ed496e3e314bbac48663c(-1)]]
+Aug-20 17:18:56.939 [main] DEBUG nextflow.config.ConfigBuilder - Found config base: /home/elif/.nextflow/assets/EBI-Metagenomics/mobilome-annotation-pipeline/nextflow.config
+Aug-20 17:18:56.940 [main] DEBUG nextflow.config.ConfigBuilder - User config file: /home/elif/msthesis/weeks/12th_week/map_6strain/my_paths.config
+Aug-20 17:18:56.940 [main] DEBUG nextflow.config.ConfigBuilder - User config file: /home/elif/msthesis/weeks/12th_week/map_6strain/low_mem.config
+Aug-20 17:18:56.940 [main] DEBUG nextflow.config.ConfigBuilder - Parsing config file: /home/elif/.nextflow/assets/EBI-Metagenomics/mobilome-annotation-pipeline/nextflow.config
+Aug-20 17:18:56.940 [main] DEBUG nextflow.config.ConfigBuilder - Parsing config file: /home/elif/msthesis/weeks/12th_week/map_6strain/my_paths.config
+Aug-20 17:18:56.940 [main] DEBUG nextflow.config.ConfigBuilder - Parsing config file: /home/elif/msthesis/weeks/12th_week/map_6strain/low_mem.config
+Aug-20 17:18:56.943 [main] DEBUG n.secret.LocalSecretsProvider - Secrets store: /home/elif/.nextflow/secrets/store.json
+Aug-20 17:18:56.945 [main] DEBUG nextflow.secret.SecretsLoader - Discovered secrets providers: [nextflow.secret.LocalSecretsProvider@75d366c2] - activable => nextflow.secret.LocalSecretsProvider@75d366c2
+Aug-20 17:18:56.949 [main] DEBUG nextflow.config.ConfigBuilder - Applying config profile: `docker`
+Aug-20 17:18:57.190 [main] DEBUG nextflow.config.ConfigBuilder - Applying config profile: `docker`
+Aug-20 17:18:57.203 [main] DEBUG nextflow.config.ConfigBuilder - Applying config profile: `docker`
+Aug-20 17:18:57.216 [main] DEBUG nextflow.config.ConfigBuilder - Available config profiles: [apple, debug, shifter, test, charliecloud, apptainer, singularity, arm, local, docker, podman]
+Aug-20 17:18:57.238 [main] DEBUG nextflow.cli.CmdRun - Enabling nextflow strict mode
+Aug-20 17:18:57.238 [main] DEBUG nextflow.cli.CmdRun - Enabling module binaries
+Aug-20 17:18:57.239 [main] DEBUG nextflow.cli.CmdRun - Applied DSL=2 by global default
+Aug-20 17:18:57.240 [main] DEBUG nextflow.cli.CmdRun - Launching `https://github.com/EBI-Metagenomics/mobilome-annotation-pipeline` [trusting_curie] DSL2 - revision: 3aa408d26d987c0f721c07d4f0fed52a871de117
+Aug-20 17:18:57.241 [main] DEBUG nextflow.plugin.PluginsFacade - Plugins declared=[nf-schema@2.3.0]
+Aug-20 17:18:57.241 [main] DEBUG nextflow.plugin.PluginsFacade - Plugins default=[]
+Aug-20 17:18:57.241 [main] DEBUG nextflow.plugin.PluginsFacade - Plugins resolved requirement=[nf-schema@2.3.0]
+Aug-20 17:18:57.242 [main] DEBUG nextflow.plugin.PluginUpdater - Installing plugin nf-schema version: 2.3.0
+Aug-20 17:18:57.247 [main] INFO  org.pf4j.AbstractPluginManager - Plugin 'nf-schema@2.3.0' resolved
+Aug-20 17:18:57.247 [main] INFO  org.pf4j.AbstractPluginManager - Start plugin 'nf-schema@2.3.0'
+Aug-20 17:18:57.251 [main] DEBUG nextflow.plugin.BasePlugin - Plugin started nf-schema@2.3.0
+Aug-20 17:18:57.281 [main] DEBUG nextflow.Session - Session UUID: dd47ff24-8669-4bbf-829a-466a8c6a091a
+Aug-20 17:18:57.281 [main] DEBUG nextflow.Session - Run name: trusting_curie
+Aug-20 17:18:57.281 [main] DEBUG nextflow.Session - Executor pool size: 20
+Aug-20 17:18:57.287 [main] DEBUG nextflow.file.FilePorter - File porter settings maxRetries=3; maxTransfers=50; pollTimeout=null
+Aug-20 17:18:57.289 [main] DEBUG nextflow.util.ThreadPoolBuilder - Creating thread pool 'FileTransfer' minSize=10; maxSize=60; workQueue=LinkedBlockingQueue[-1]; allowCoreThreadTimeout=false
+Aug-20 17:18:57.304 [main] DEBUG nextflow.cli.CmdRun - 
+  Version: 24.10.5 build 5935
+  Created: 04-03-2025 17:55 UTC (18:55 CEST)
+  System: Linux 7.0.0-29-generic
+  Runtime: Groovy 4.0.23 on OpenJDK 64-Bit Server VM 17.0.19+10-1-26.04.2-Ubuntu
+  Encoding: UTF-8 (UTF-8)
+  Process: 273186@bioinfo1268 [127.0.1.1]
+  CPUs: 20 - Mem: 30.2 GB (18.9 GB) - Swap: 56 GB (56 GB)
+Aug-20 17:18:57.323 [main] DEBUG nextflow.Session - Work-dir: /home/elif/msthesis/weeks/12th_week/map_6strain/work [ext2/ext3]
+Aug-20 17:18:57.341 [main] DEBUG nextflow.executor.ExecutorFactory - Extension executors providers=[]
+Aug-20 17:18:57.346 [main] DEBUG nextflow.Session - Observer factory: DefaultObserverFactory
+Aug-20 17:18:57.357 [main] DEBUG nextflow.Session - Observer factory: ValidationObserverFactory
+Aug-20 17:18:57.385 [main] DEBUG nextflow.cache.CacheFactory - Using Nextflow cache factory: nextflow.cache.DefaultCacheFactory
+Aug-20 17:18:57.390 [main] DEBUG nextflow.util.CustomThreadPool - Creating default thread pool > poolSize: 21; maxThreads: 1000
+Aug-20 17:18:57.441 [main] DEBUG nextflow.Session - Session start
+Aug-20 17:18:57.443 [main] DEBUG nextflow.trace.TraceFileObserver - Workflow started -- trace file: /home/elif/msthesis/weeks/12th_week/map_6strain/results/pipeline_info/execution_trace_2026-08-20_17-18-56.txt
+Aug-20 17:18:57.514 [main] DEBUG nextflow.script.ScriptRunner - > Launching execution
+Aug-20 17:18:57.703 [main] DEBUG nextflow.script.IncludeDef - Loading included plugin extensions with names: [validateParameters:validateParameters, paramsHelp:paramsHelp, samplesheetToList:samplesheetToList]; plugin Id: nf-schema
+Aug-20 17:18:58.373 [main] DEBUG nextflow.script.IncludeDef - Loading included plugin extensions with names: [samplesheetToList:samplesheetToList]; plugin Id: nf-schema
+Aug-20 17:18:59.394 [main] DEBUG n.validation.ValidationExtension - Starting parameters validation
+Aug-20 17:18:59.447 [main] DEBUG nextflow.validation.SchemaEvaluator - Started validating /home/elif/msthesis/weeks/12th_week/map_6strain/samplesheet.csv
+Aug-20 17:18:59.469 [main] DEBUG nextflow.validation.SchemaEvaluator - Validation of file 'samplesheet.csv' passed!
+Aug-20 17:18:59.470 [main] DEBUG n.validation.ValidationExtension - Finishing parameters validation
+Aug-20 17:18:59.533 [main] DEBUG nextflow.script.ProcessConfig - Config settings `withLabel:process_single` matches labels `process_single` for process with name EBIMETAGENOMICS:MOBILOMEANNOTATION:RENAME
+Aug-20 17:18:59.534 [main] DEBUG nextflow.script.ProcessConfig - Config settings `withName:RENAME` matches process EBIMETAGENOMICS:MOBILOMEANNOTATION:RENAME
+Aug-20 17:18:59.540 [main] DEBUG nextflow.executor.ExecutorFactory - << taskConfig executor: null
+Aug-20 17:18:59.540 [main] DEBUG nextflow.executor.ExecutorFactory - >> processorType: 'local'
+Aug-20 17:18:59.542 [main] DEBUG nextflow.executor.Executor - [warm up] executor > local
+Aug-20 17:18:59.545 [main] DEBUG n.processor.LocalPollingMonitor - Creating local task monitor for executor 'local' > cpus=20; memory=30.2 GB; capacity=20; pollInterval=100ms; dumpInterval=5m
+Aug-20 17:18:59.546 [main] DEBUG n.processor.TaskPollingMonitor - >>> barrier register (monitor: local)
+Aug-20 17:18:59.579 [main] DEBUG nextflow.script.ProcessConfig - Config settings `withLabel:process_single` matches labels `process_single` for process with name EBIMETAGENOMICS:MOBILOMEANNOTATION:PRODIGAL
+Aug-20 17:18:59.580 [main] DEBUG nextflow.script.ProcessConfig - Config settings `withName:PRODIGAL` matches process EBIMETAGENOMICS:MOBILOMEANNOTATION:PRODIGAL
+Aug-20 17:18:59.583 [main] DEBUG nextflow.executor.ExecutorFactory - << taskConfig executor: null
+Aug-20 17:18:59.583 [main] DEBUG nextflow.executor.ExecutorFactory - >> processorType: 'local'
+Aug-20 17:18:59.589 [main] DEBUG nextflow.script.ProcessConfig - Config settings `withLabel:process_single` matches labels `process_single` for process with name EBIMETAGENOMICS:MOBILOMEANNOTATION:ARAGORN
+Aug-20 17:18:59.589 [main] DEBUG nextflow.script.ProcessConfig - Config settings `withName:ARAGORN` matches process EBIMETAGENOMICS:MOBILOMEANNOTATION:ARAGORN
+Aug-20 17:18:59.591 [main] DEBUG nextflow.executor.ExecutorFactory - << taskConfig executor: null
+Aug-20 17:18:59.591 [main] DEBUG nextflow.executor.ExecutorFactory - >> processorType: 'local'
+Aug-20 17:18:59.600 [main] DEBUG nextflow.script.ProcessConfig - Config settings `withLabel:process_single` matches labels `process_single` for process with name EBIMETAGENOMICS:MOBILOMEANNOTATION:TRNAS_INTEGRATOR
+Aug-20 17:18:59.601 [main] DEBUG nextflow.executor.ExecutorFactory - << taskConfig executor: null
+Aug-20 17:18:59.601 [main] DEBUG nextflow.executor.ExecutorFactory - >> processorType: 'local'
+Aug-20 17:18:59.606 [main] DEBUG nextflow.script.ProcessConfig - Config settings `withName:VIRIFY_QC` matches process EBIMETAGENOMICS:MOBILOMEANNOTATION:VIRIFY_QC
+Aug-20 17:18:59.607 [main] DEBUG nextflow.executor.ExecutorFactory - << taskConfig executor: null
+Aug-20 17:18:59.607 [main] DEBUG nextflow.executor.ExecutorFactory - >> processorType: 'local'
+Aug-20 17:18:59.619 [main] DEBUG nextflow.script.ProcessConfig - Config settings `withLabel:process_medium` matches labels `process_medium` for process with name EBIMETAGENOMICS:MOBILOMEANNOTATION:ICEFINDER2_LITE:HMMSCAN
+Aug-20 17:18:59.620 [main] DEBUG nextflow.executor.ExecutorFactory - << taskConfig executor: null
+Aug-20 17:18:59.620 [main] DEBUG nextflow.executor.ExecutorFactory - >> processorType: 'local'
+Aug-20 17:18:59.626 [main] DEBUG nextflow.script.ProcessConfig - Config settings `withLabel:process_single` matches labels `process_single` for process with name EBIMETAGENOMICS:MOBILOMEANNOTATION:ICEFINDER2_LITE:PRESCAN_TO_FASTA
+Aug-20 17:18:59.628 [main] DEBUG nextflow.executor.ExecutorFactory - << taskConfig executor: null
+Aug-20 17:18:59.628 [main] DEBUG nextflow.executor.ExecutorFactory - >> processorType: 'local'
+Aug-20 17:18:59.638 [main] DEBUG nextflow.script.ProcessConfig - Config settings `withLabel:process_medium` matches labels `process_medium` for process with name EBIMETAGENOMICS:MOBILOMEANNOTATION:ICEFINDER2_LITE:MACSYFINDER
+Aug-20 17:18:59.639 [main] DEBUG nextflow.script.ProcessConfig - Config settings `withName:MACSYFINDER` matches process EBIMETAGENOMICS:MOBILOMEANNOTATION:ICEFINDER2_LITE:MACSYFINDER
+Aug-20 17:18:59.640 [main] DEBUG nextflow.executor.ExecutorFactory - << taskConfig executor: null
+Aug-20 17:18:59.640 [main] DEBUG nextflow.executor.ExecutorFactory - >> processorType: 'local'
+Aug-20 17:18:59.646 [main] DEBUG nextflow.script.ProcessConfig - Config settings `withLabel:process_medium` matches labels `process_medium` for process with name EBIMETAGENOMICS:MOBILOMEANNOTATION:ICEFINDER2_LITE:BLASTP_PROKKA
+Aug-20 17:18:59.647 [main] DEBUG nextflow.script.ProcessConfig - Config settings `withName:BLASTP_PROKKA` matches process EBIMETAGENOMICS:MOBILOMEANNOTATION:ICEFINDER2_LITE:BLASTP_PROKKA
+Aug-20 17:18:59.648 [main] DEBUG nextflow.executor.ExecutorFactory - << taskConfig executor: null
+Aug-20 17:18:59.648 [main] DEBUG nextflow.executor.ExecutorFactory - >> processorType: 'local'
+Aug-20 17:18:59.653 [main] DEBUG nextflow.script.ProcessConfig - Config settings `withLabel:process_single` matches labels `process_single` for process with name EBIMETAGENOMICS:MOBILOMEANNOTATION:ICEFINDER2_LITE:PROCESS_BLASTP_PROKKA
+Aug-20 17:18:59.654 [main] DEBUG nextflow.executor.ExecutorFactory - << taskConfig executor: null
+Aug-20 17:18:59.655 [main] DEBUG nextflow.executor.ExecutorFactory - >> processorType: 'local'

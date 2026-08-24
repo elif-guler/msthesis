@@ -1,0 +1,2 @@
+iss_13	mobile_element_type=IS200/IS605_without_TIR	no_cds
+iss_69	mobile_element_type=IS3_with_TIR	no_cds

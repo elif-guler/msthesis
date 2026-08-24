@@ -1,0 +1,125 @@
+{
+  "tool": {
+    "name": "MGnify BGC mapper",
+    "version": "mgnify_pipelines_toolkit_v1.4.18",
+    "description": "BGC subregions integrated from GECCO/antiSMASH/SanntiS into a base GFF.",
+    "configuration": {}
+  },
+  "records": [
+    {
+      "name": "contig_1",
+      "subregions": [
+        {
+          "start": 358708,
+          "end": 379608,
+          "label": "terpene-precursor",
+          "details": {
+            "ID": "contig_1|bgc:358709-379608",
+            "bgc_tools": [
+              "antismash"
+            ],
+            "sources": [
+              "antiSMASH:8.0.1"
+            ],
+            "antismash_region_id": [
+              "contig_1_region1"
+            ],
+            "antismash_product": [
+              "terpene-precursor"
+            ]
+          }
+        },
+        {
+          "start": 492772,
+          "end": 548552,
+          "label": "MergedBGC",
+          "details": {
+            "ID": "contig_1|bgc:492773-548552",
+            "bgc_tools": [
+              "antismash",
+              "gecco"
+            ],
+            "member_bgcs": "2",
+            "sources": [
+              "GECCO v0.10.1",
+              "antiSMASH:8.0.1"
+            ],
+            "antismash_region_id": [
+              "contig_1_region2"
+            ],
+            "antismash_product": [
+              "NRP-metallophore,NRPS"
+            ],
+            "gecco_bgc_type": [
+              "NRP"
+            ]
+          }
+        },
+        {
+          "start": 926726,
+          "end": 953019,
+          "label": "azole-containing-RiP",
+          "details": {
+            "ID": "contig_1|bgc:926727-953019",
+            "bgc_tools": [
+              "antismash"
+            ],
+            "sources": [
+              "antiSMASH:8.0.1"
+            ],
+            "antismash_region_id": [
+              "contig_1_region3"
+            ],
+            "antismash_product": [
+              "azole-containing-RiPP"
+            ]
+          }
+        },
+        {
+          "start": 3935993,
+          "end": 3968408,
+          "label": "MergedBGC",
+          "details": {
+            "ID": "contig_1|bgc:3935994-3968408",
+            "bgc_tools": [
+              "antismash",
+              "gecco"
+            ],
+            "member_bgcs": "2",
+            "sources": [
+              "GECCO v0.10.1",
+              "antiSMASH:8.0.1"
+            ],
+            "antismash_region_id": [
+              "contig_1_region4"
+            ],
+            "antismash_product": [
+              "NI-siderophore"
+            ],
+            "gecco_bgc_type": [
+              "Unknown"
+            ]
+          }
+        },
+        {
+          "start": 3993790,
+          "end": 4012425,
+          "label": "Unknown",
+          "details": {
+            "ID": "contig_1|bgc:3993791-4012425",
+            "bgc_tools": [
+              "gecco"
+            ],
+            "sources": [
+              "GECCO v0.10.1"
+            ],
+            "gecco_bgc_type": [
+              "Unknown"
+            ]
+          }
+        }
+      ]
+    }
+  ],
+  "timestamp": "2026-08-19T11:31:11.665621+00:00"
+}

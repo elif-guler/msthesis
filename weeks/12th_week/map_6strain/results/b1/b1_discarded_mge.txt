@@ -1,0 +1,5 @@
+CO	contig_1_001:314810-330364	CO_overlap_with_MGE
+CO	contig_1_003:724827-742827	CO_overlap_with_MGE
+iss_185	mobile_element_type=IS3_with_TIR	no_cds
+iss_196	mobile_element_type=IS4_without_TIR	no_cds
+iss_202	mobile_element_type=IS3_with_TIR	no_cds

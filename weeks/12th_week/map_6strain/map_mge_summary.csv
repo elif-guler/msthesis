@@ -1,0 +1,13 @@
+strain,marker_type,observed,permutations,ge_observed,pvalue
+a,fur,0,0,0,1
+a,seqwin,7,10000,7930,0.793021
+b1,fur,0,0,0,1
+b1,seqwin,7,10000,9734,0.973403
+b2,fur,2,10000,7561,0.756124
+b2,seqwin,11,10000,10000,1
+d,fur,2,10000,3417,0.341766
+d,seqwin,19,10000,10000,1
+e,fur,2,10000,7207,0.720728
+e,seqwin,18,10000,10000,1
+f,fur,2,10000,3400,0.340066
+f,seqwin,19,10000,10000,1

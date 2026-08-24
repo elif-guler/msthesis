@@ -1,0 +1,2 @@
+CO	contig_1_009:3239850-3247554	CO_overlap_with_MGE
+iss_55	mobile_element_type=ISNCY_with_TIR	no_cds

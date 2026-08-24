@@ -1,0 +1,646 @@
+{
+  "tool": {
+    "name": "MGnify BGC mapper",
+    "version": "mgnify_pipelines_toolkit_v1.4.18",
+    "description": "BGC subregions integrated from GECCO/antiSMASH/SanntiS into a base GFF.",
+    "configuration": {}
+  },
+  "records": [
+    {
+      "name": "contig_1",
+      "subregions": [
+        {
+          "start": 250817,
+          "end": 255974,
+          "label": "Unknown",
+          "details": {
+            "ID": "contig_1|bgc:250818-255974",
+            "bgc_tools": [
+              "gecco"
+            ],
+            "sources": [
+              "GECCO v0.10.1"
+            ],
+            "gecco_bgc_type": [
+              "Unknown"
+            ]
+          }
+        },
+        {
+          "start": 290632,
+          "end": 311532,
+          "label": "terpene-precursor",
+          "details": {
+            "ID": "contig_1|bgc:290633-311532",
+            "bgc_tools": [
+              "antismash"
+            ],
+            "sources": [
+              "antiSMASH:8.0.1"
+            ],
+            "antismash_region_id": [
+              "contig_1_region1"
+            ],
+            "antismash_product": [
+              "terpene-precursor"
+            ]
+          }
+        },
+        {
+          "start": 330266,
+          "end": 341819,
+          "label": "Unknown",
+          "details": {
+            "ID": "contig_1|bgc:330267-341819",
+            "bgc_tools": [
+              "gecco"
+            ],
+            "sources": [
+              "GECCO v0.10.1"
+            ],
+            "gecco_bgc_type": [
+              "Unknown"
+            ]
+          }
+        },
+        {
+          "start": 347268,
+          "end": 366354,
+          "label": "Unknown",
+          "details": {
+            "ID": "contig_1|bgc:347269-366354",
+            "bgc_tools": [
+              "gecco"
+            ],
+            "sources": [
+              "GECCO v0.10.1"
+            ],
+            "gecco_bgc_type": [
+              "Unknown"
+            ]
+          }
+        },
+        {
+          "start": 396352,
+          "end": 419804,
+          "label": "RiPP",
+          "details": {
+            "ID": "contig_1|bgc:396353-419804",
+            "bgc_tools": [
+              "gecco"
+            ],
+            "sources": [
+              "GECCO v0.10.1"
+            ],
+            "gecco_bgc_type": [
+              "RiPP"
+            ]
+          }
+        },
+        {
+          "start": 478688,
+          "end": 534505,
+          "label": "MergedBGC",
+          "details": {
+            "ID": "contig_1|bgc:478689-534505",
+            "bgc_tools": [
+              "antismash",
+              "gecco"
+            ],
+            "member_bgcs": "2",
+            "sources": [
+              "GECCO v0.10.1",
+              "antiSMASH:8.0.1"
+            ],
+            "antismash_region_id": [
+              "contig_1_region2"
+            ],
+            "antismash_product": [
+              "NRP-metallophore,NRPS"
+            ],
+            "gecco_bgc_type": [
+              "NRP"
+            ]
+          }
+        },
+        {
+          "start": 629046,
+          "end": 641554,
+          "label": "Unknown",
+          "details": {
+            "ID": "contig_1|bgc:629047-641554",
+            "bgc_tools": [
+              "gecco"
+            ],
+            "sources": [
+              "GECCO v0.10.1"
+            ],
+            "gecco_bgc_type": [
+              "Unknown"
+            ]
+          }
+        },
+        {
+          "start": 907318,
+          "end": 914620,
+          "label": "Unknown",
+          "details": {
+            "ID": "contig_1|bgc:907319-914620",
+            "bgc_tools": [
+              "gecco"
+            ],
+            "sources": [
+              "GECCO v0.10.1"
+            ],
+            "gecco_bgc_type": [
+              "Unknown"
+            ]
+          }
+        },
+        {
+          "start": 944739,
+          "end": 948544,
+          "label": "Unknown",
+          "details": {
+            "ID": "contig_1|bgc:944740-948544",
+            "bgc_tools": [
+              "gecco"
+            ],
+            "sources": [
+              "GECCO v0.10.1"
+            ],
+            "gecco_bgc_type": [
+              "Unknown"
+            ]
+          }
+        },
+        {
+          "start": 961256,
+          "end": 982388,
+          "label": "RiPP",
+          "details": {
+            "ID": "contig_1|bgc:961257-982388",
+            "bgc_tools": [
+              "gecco"
+            ],
+            "sources": [
+              "GECCO v0.10.1"
+            ],
+            "gecco_bgc_type": [
+              "RiPP"
+            ]
+          }
+        },
+        {
+          "start": 989675,
+          "end": 1000214,
+          "label": "Unknown",
+          "details": {
+            "ID": "contig_1|bgc:989676-1000214",
+            "bgc_tools": [
+              "gecco"
+            ],
+            "sources": [
+              "GECCO v0.10.1"
+            ],
+            "gecco_bgc_type": [
+              "Unknown"
+            ]
+          }
+        },
+        {
+          "start": 1084146,
+          "end": 1101009,
+          "label": "Unknown",
+          "details": {
+            "ID": "contig_1|bgc:1084147-1101009",
+            "bgc_tools": [
+              "gecco"
+            ],
+            "sources": [
+              "GECCO v0.10.1"
+            ],
+            "gecco_bgc_type": [
+              "Unknown"
+            ]
+          }
+        },
+        {
+          "start": 1190458,
+          "end": 1208197,
+          "label": "Unknown",
+          "details": {
+            "ID": "contig_1|bgc:1190459-1208197",
+            "bgc_tools": [
+              "gecco"
+            ],
+            "sources": [
+              "GECCO v0.10.1"
+            ],
+            "gecco_bgc_type": [
+              "Unknown"
+            ]
+          }
+        },
+        {
+          "start": 1317788,
+          "end": 1331128,
+          "label": "Unknown",
+          "details": {
+            "ID": "contig_1|bgc:1317789-1331128",
+            "bgc_tools": [
+              "gecco"
+            ],
+            "sources": [
+              "GECCO v0.10.1"
+            ],
+            "gecco_bgc_type": [
+              "Unknown"
+            ]
+          }
+        },
+        {
+          "start": 1345934,
+          "end": 1364265,
+          "label": "Unknown",
+          "details": {
+            "ID": "contig_1|bgc:1345935-1364265",
+            "bgc_tools": [
+              "gecco"
+            ],
+            "sources": [
+              "GECCO v0.10.1"
+            ],
+            "gecco_bgc_type": [
+              "Unknown"
+            ]
+          }
+        },
+        {
+          "start": 1373661,
+          "end": 1377698,
+          "label": "Unknown",
+          "details": {
+            "ID": "contig_1|bgc:1373662-1377698",
+            "bgc_tools": [
+              "gecco"
+            ],
+            "sources": [
+              "GECCO v0.10.1"
+            ],
+            "gecco_bgc_type": [
+              "Unknown"
+            ]
+          }
+        },
+        {
+          "start": 1399028,
+          "end": 1413553,
+          "label": "Unknown",
+          "details": {
+            "ID": "contig_1|bgc:1399029-1413553",
+            "bgc_tools": [
+              "gecco"
+            ],
+            "sources": [
+              "GECCO v0.10.1"
+            ],
+            "gecco_bgc_type": [
+              "Unknown"
+            ]
+          }
+        },
+        {
+          "start": 1772546,
+          "end": 1782050,
+          "label": "Unknown",
+          "details": {
+            "ID": "contig_1|bgc:1772547-1782050",
+            "bgc_tools": [
+              "gecco"
+            ],
+            "sources": [
+              "GECCO v0.10.1"
+            ],
+            "gecco_bgc_type": [
+              "Unknown"
+            ]
+          }
+        },
+        {
+          "start": 1809265,
+          "end": 1826143,
+          "label": "Unknown",
+          "details": {
+            "ID": "contig_1|bgc:1809266-1826143",
+            "bgc_tools": [
+              "gecco"
+            ],
+            "sources": [
+              "GECCO v0.10.1"
+            ],
+            "gecco_bgc_type": [
+              "Unknown"
+            ]
+          }
+        },
+        {
+          "start": 1896496,
+          "end": 1906487,
+          "label": "Unknown",
+          "details": {
+            "ID": "contig_1|bgc:1896497-1906487",
+            "bgc_tools": [
+              "gecco"
+            ],
+            "sources": [
+              "GECCO v0.10.1"
+            ],
+            "gecco_bgc_type": [
+              "Unknown"
+            ]
+          }
+        },
+        {
+          "start": 1918431,
+          "end": 1938839,
+          "label": "Unknown",
+          "details": {
+            "ID": "contig_1|bgc:1918432-1938839",
+            "bgc_tools": [
+              "gecco"
+            ],
+            "sources": [
+              "GECCO v0.10.1"
+            ],
+            "gecco_bgc_type": [
+              "Unknown"
+            ]
+          }
+        },
+        {
+          "start": 2035598,
+          "end": 2053224,
+          "label": "Unknown",
+          "details": {
+            "ID": "contig_1|bgc:2035599-2053224",
+            "bgc_tools": [
+              "gecco"
+            ],
+            "sources": [
+              "GECCO v0.10.1"
+            ],
+            "gecco_bgc_type": [
+              "Unknown"
+            ]
+          }
+        },
+        {
+          "start": 2139463,
+          "end": 2165640,
+          "label": "azole-containing-RiP",
+          "details": {
+            "ID": "contig_1|bgc:2139464-2165640",
+            "bgc_tools": [
+              "antismash"
+            ],
+            "sources": [
+              "antiSMASH:8.0.1"
+            ],
+            "antismash_region_id": [
+              "contig_1_region3"
+            ],
+            "antismash_product": [
+              "azole-containing-RiPP"
+            ]
+          }
+        },
+        {
+          "start": 2203082,
+          "end": 2206442,
+          "label": "Unknown",
+          "details": {
+            "ID": "contig_1|bgc:2203083-2206442",
+            "bgc_tools": [
+              "gecco"
+            ],
+            "sources": [
+              "GECCO v0.10.1"
+            ],
+            "gecco_bgc_type": [
+              "Unknown"
+            ]
+          }
+        },
+        {
+          "start": 2236396,
+          "end": 2252619,
+          "label": "Saccharide",
+          "details": {
+            "ID": "contig_1|bgc:2236397-2252619",
+            "bgc_tools": [
+              "gecco"
+            ],
+            "sources": [
+              "GECCO v0.10.1"
+            ],
+            "gecco_bgc_type": [
+              "Saccharide"
+            ]
+          }
+        },
+        {
+          "start": 2266276,
+          "end": 2271193,
+          "label": "Unknown",
+          "details": {
+            "ID": "contig_1|bgc:2266277-2271193",
+            "bgc_tools": [
+              "gecco"
+            ],
+            "sources": [
+              "GECCO v0.10.1"
+            ],
+            "gecco_bgc_type": [
+              "Unknown"
+            ]
+          }
+        },
+        {
+          "start": 2336663,
+          "end": 2345253,
+          "label": "Unknown",
+          "details": {
+            "ID": "contig_1|bgc:2336664-2345253",
+            "bgc_tools": [
+              "gecco"
+            ],
+            "sources": [
+              "GECCO v0.10.1"
+            ],
+            "gecco_bgc_type": [
+              "Unknown"
+            ]
+          }
+        },
+        {
+          "start": 3070229,
+          "end": 3084047,
+          "label": "Unknown",
+          "details": {
+            "ID": "contig_1|bgc:3070230-3084047",
+            "bgc_tools": [
+              "gecco"
+            ],
+            "sources": [
+              "GECCO v0.10.1"
+            ],
+            "gecco_bgc_type": [
+              "Unknown"
+            ]
+          }
+        },
+        {
+          "start": 3266897,
+          "end": 3281060,
+          "label": "Unknown",
+          "details": {
+            "ID": "contig_1|bgc:3266898-3281060",
+            "bgc_tools": [
+              "gecco"
+            ],
+            "sources": [
+              "GECCO v0.10.1"
+            ],
+            "gecco_bgc_type": [
+              "Unknown"
+            ]
+          }
+        },
+        {
+          "start": 3343130,
+          "end": 3384360,
+          "label": "arylpolyene",
+          "details": {
+            "ID": "contig_1|bgc:3343131-3384360",
+            "bgc_tools": [
+              "antismash"
+            ],
+            "sources": [
+              "antiSMASH:8.0.1"
+            ],
+            "antismash_region_id": [
+              "contig_1_region4"
+            ],
+            "antismash_product": [
+              "arylpolyene"
+            ]
+          }
+        },
+        {
+          "start": 3784846,
+          "end": 3803421,
+          "label": "Saccharide",
+          "details": {
+            "ID": "contig_1|bgc:3784847-3803421",
+            "bgc_tools": [
+              "gecco"
+            ],
+            "sources": [
+              "GECCO v0.10.1"
+            ],
+            "gecco_bgc_type": [
+              "Saccharide"
+            ]
+          }
+        },
+        {
+          "start": 3933231,
+          "end": 3955990,
+          "label": "Unknown",
+          "details": {
+            "ID": "contig_1|bgc:3933232-3955990",
+            "bgc_tools": [
+              "gecco"
+            ],
+            "sources": [
+              "GECCO v0.10.1"
+            ],
+            "gecco_bgc_type": [
+              "Unknown"
+            ]
+          }
+        },
+        {
+          "start": 3971581,
+          "end": 3978696,
+          "label": "RiPP",
+          "details": {
+            "ID": "contig_1|bgc:3971582-3978696",
+            "bgc_tools": [
+              "gecco"
+            ],
+            "sources": [
+              "GECCO v0.10.1"
+            ],
+            "gecco_bgc_type": [
+              "RiPP"
+            ]
+          }
+        },
+        {
+          "start": 4095424,
+          "end": 4109597,
+          "label": "Unknown",
+          "details": {
+            "ID": "contig_1|bgc:4095425-4109597",
+            "bgc_tools": [
+              "gecco"
+            ],
+            "sources": [
+              "GECCO v0.10.1"
+            ],
+            "gecco_bgc_type": [
+              "Unknown"
+            ]
+          }
+        },
+        {
+          "start": 4185452,
+          "end": 4214768,
+          "label": "Unknown",
+          "details": {
+            "ID": "contig_1|bgc:4185453-4214768",
+            "bgc_tools": [
+              "gecco"
+            ],
+            "sources": [
+              "GECCO v0.10.1"
+            ],
+            "gecco_bgc_type": [
+              "Unknown"
+            ]
+          }
+        },
+        {
+          "start": 4328008,
+          "end": 4335062,
+          "label": "Unknown",
+          "details": {
+            "ID": "contig_1|bgc:4328009-4335062",
+            "bgc_tools": [
+              "gecco"
+            ],
+            "sources": [
+              "GECCO v0.10.1"
+            ],
+            "gecco_bgc_type": [
+              "Unknown"
+            ]
+          }
+        }
+      ]
+    }
+  ],
+  "timestamp": "2026-08-19T11:31:12.371902+00:00"
+}

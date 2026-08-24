@@ -1,0 +1,5 @@
+# integron_finder 2.0.6 
+# cmd: integron_finder --union-integrases --local-max --cpu 6 --gbk f_100kb_contigs.fasta
+ID_replicon	CALIN	complete	In0	topology	size
+contig_1	0	0	14	lin	5068389
+contig_2	1	0	3	lin	130440
