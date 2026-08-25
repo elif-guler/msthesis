@@ -1,0 +1,298 @@
+#+TITLE: Setting up and running MAP for MGE prediction
+
+* MAP (Mobile Annotation Pipeline)
+
+The check is whether either tool's markers tend to land inside
+mobile genetic elements (MGEs) more than you'd expect by chance. The SeqWin
+paper did something similar in their Supplementary Note 6: they submitted
+their reference genomes to the Mobilome Annotation Pipeline (MAP, from
+EBI-Metagenomics), got back a list of predicted MGEs per genome, and checked
+which of their marker "signatures" fell inside those regions.
+
+I already had a Monte Carlo permutation test built for this from an earlier
+week of work, but it used a much cruder definition of "MGE"
+keyword-matching NCBI's gene annotations for words like /transposase/ or
+/phage/. That's not what the paper did. So the plan: run MAP properly on my six
+strains (~a~, ~b1~, ~b2~, ~d~, ~e~, ~f~), get an algorithm-based MGE
+prediction out of it, and redo the permutation test against that — for fur,
+which I'd tested before with the old method, and for seqwin, which I hadn't
+tested against MGEs at all yet.
+
+* Getting the container runtime to work at all
+
+The very first thing I tried was running MAP with Apptainer/Singularity, as
+the pipeline's own usage guide recommends didn't work. Every
+container extraction failed with "Operation not permitted," even on a
+trivial test like pulling the ~alpine~ image. It turned out Ubuntu 24.04+
+locks down unprivileged user namespaces by default, which is exactly what
+unprivileged Apptainer needs to unpack a container. I didn't have (and
+didn't really want) the kind of root access needed to loosen that system
+policy on a shared server, so I just switched container engines entirely:
+installed Docker, added myself to the ~docker~ group, and reran everything
+with ~-profile docker~ instead of ~-profile singularity~. That solved it.
+
+Then came a second wall: Nextflow itself wouldn't run. Two
+separate version problems, stacked on top of each other:
+
+- The newest Nextflow (26.x, which auto-installs by default) parses
+  pipeline scripts more strictly than older versions did, and MAP's ~dev~
+  branch code has a loose top-level ~if~ block that the new parser flatly
+  rejects. Pinning ~NXF_VER=24.10.5~ fixed that.
+- Even once I'd pinned an older Nextflow, it broke on the system's default
+  Java (21) with a cryptic "Unsupported class file major version 69" error
+  from the Groovy compiler. I installed OpenJDK 17 alongside the existing
+  JDKs and pointed ~JAVA_HOME~ at it. Both variables went into ~.bashrc~ so
+  I wouldn't have to remember them every session.
+
+* Downloading the databases
+
+MAP needs on the order of ten reference databases — geNomad, CheckV,
+ICEfinder2's models, VFDB, PATHOFACT2, CDD, AMRFinderPlus, DeepARG,
+CARD/RGI, antiSMASH. The pipeline has a built-in ~--download_dbs~ mode for
+this, which sounds convenient, and mostly is, except it surfaced a string
+of small bugs one at a time:
+
+- *VFDB step ran out of memory at 36 GB.* The pipeline's default resource
+  tiers assume you're on an HPC cluster with hundreds of GB of RAM per job.
+  My server had 30 GB total. I wrote a ~low_mem.config~ that overrides every
+  resource tier (~process_single~ through ~process_high_memory~) down to
+  values that actually fit.
+- *The geNomad download "succeeded" but the next step couldn't find it.*
+  The downloaded tarball extracts into a folder called ~genomad_db~, but the
+  process expects ~genomad_db_v1.9/~. I patched the process script to add
+  ~mv genomad_db genomad_db_v1.9~ right after extraction.
+- *VFDB's own download step failed with "curl: command not found."* The
+  container it runs in (built around DIAMOND) has ~wget~ but not ~curl~,
+  and the script assumed ~curl~. Swapped it for ~wget -O~.
+- *DeepARG wanted three parameters*: ~deeparg_model~,
+  ~deeparg_tool_version~, ~deeparg_db_version~. These default to ~null~ and
+  are required, but weren't mentioned anywhere in the usage docs I'd been
+  following (which I later realized describe a newer feature set than what
+  was actually in the code). I set the model to ~"LS"~ (long-sequence,
+  matching how MAP calls genes with Prodigal before running DeepARG), the
+  tool version to ~"1.0.4"~ (from the container tag I'd already pulled),
+  and the DB version to ~2~ (matching the ~database/v2~ folder that got
+  downloaded — and it has to be a bare number, not a quoted string, or the
+  pipeline's schema validation rejects it).
+- *RGI's database was missing files it needed later.* The raw CARD download
+  only gives you ~card.json~; the ~card_database_*_all.fasta~ files that RGI
+  actually needs are supposed to be *generated* from that JSON via
+  ~rgi card_annotation~, and the download step never did that step. I ran
+  it by hand inside the RGI container.
+
+* Building the config and the samplesheet
+
+Once the databases existed, I built ~my_paths.config~ pointing at each one's
+real on-disk location. One thing here: the icefinder_hmm_models~ parameter
+is documented as "a path without extension" but the actual downloaded HMM
+files were named things like ~icescan.hmm.h3i~ — so the basename Nextflow
+needed to glob against was ~icescan.hmm~, not ~icescan~. I only found this
+because ~hmmscan~ failed with "HMM file icescan not found," which was
+confusing until I actually looked at what files were sitting in that directory.
+
+For the samplesheet, I kept it simple: just ~sample~ and ~assembly~,
+nothing in ~proteins_gff~/~proteins_faa~.
+
+* Picking a pipeline version
+
+MAP has a tagged stable release (~v2.0.2~) and an unreleased ~dev~ branch.
+The stable release doesn't have the ~--download_dbs~ automation or the
+PATHOFACT2/AMR/BGC subworkflows my usage guide described, and on top of
+that it wouldn't even parse under the Nextflow version I needed for other
+reasons. So I used ~dev~ instead — but pinned to one specific commit hash
+rather than the floating branch name, so that once I'd hand-patched a few
+files, a fresh pull wouldn't silently undo my fixes.
+
+The exact commit I used:
+(~3aa408d26d987c0f721c07d4f0fed52a871de117~) is *not* the same commit
+the SeqWin paper cites.
+
+* AMRFinderPlus's own little landmine
+
+One more pipeline bug: the AMRFinderPlus module does
+~mv ${db} amrfinderdb~ to stage its database under a fixed name. My
+downloaded database directory happened to already be called ~amrfinderdb~
+— so Nextflow staged the input under that exact name, and the command
+became ~mv amrfinderdb amrfinderdb~, which Unix refuses to do (you can't
+move something onto itself). Rather than edit the pipeline code again, I
+just renamed my local database folder to ~amrfinderplus_db~ and updated the
+config. Now the ~mv~ is a genuine rename and works fine.
+
+* The first full run, and where it got stuck
+
+With all of that sorted, the full run — mobilome prediction plus the
+PATHOFACT2/AMR/BGC functional annotation subworkflows, skipping SanntiS
+since I hadn't downloaded its ~100 GB InterProScan database and didn't need
+BGC prediction for this analysis anyway — got almost all the way through.
+Everything succeeded except one process, over and over: *ISEScan on strain
+~e~*.
+
+Digging into the traceback, ISEScan tries to deduplicate overlapping
+insertion-sequence hits with an all-vs-all pairwise comparison, and for
+strain ~e~ specifically that blew up into something like 100,000+ hits,
+which needs a 43 GB in-memory distance matrix to process. My server had
+30 GB total. No amount of reducing thread count or bumping the memory
+config got around a hard ceiling like that — the process kept getting
+killed by the OOM killer. That's arguably a real observation about strain
+~e~'s assembly too (unusually repeat-heavy), although I don't want to turn
+that into a biological conclusion without looking at the assembly and
+ISEScan output more carefully. In the moment, though, it was just a wall I
+couldn't run through.
+
+* Moving the whole thing to thymine
+
+At that point I had access to ~thymine~.
+
+The move itself was straightforward in principle (~rsync~ the whole project
+directory, including the 28 GB of databases and the 101 GB Nextflow work
+cache, so I wouldn't have to redo any of it) but every piece of environment
+setup had to be redone from scratch on the new machine: Docker install and
+group membership again, Java 17 install again (only 21 and 8 were there by
+default), NXF_VER pinned again. None of that carries over between machines
+just because the files did.
+
+My three pipeline patches didn't carry over either.I'd
+edited files inside ~~/.nextflow/assets/...~, which is Nextflow's own cache
+directory, not part of the project folder I'd rsynced. So the first run on
+~thymine~ failed on the exact same geNomad bug I'd already fixed once.
+
+And this time, ISEScan on ~e~ finished. The rest of the
+pipeline followed through cleanly — INTEGRATOR, FASTA_WRITER, GFF
+validation, the combined functional-annotation report, GFF compression and
+indexing, MultiQC — and the whole thing wrapped up in over nine hours
+of wall time, about 80 CPU-hours total.
+
+#+begin_example
+Completed at: 21-Aug-2026 23:01:35
+Duration    : 9h 8m 38s
+CPU hours   : 79.7 (11.7% cached)
+Succeeded   : 69
+Cached      : 209
+#+end_example
+
+Six genomes, six ~mobilome.gff.gz~ files, sitting at
+~results/<strain>/gff/<strain>_mobilome.gff.gz~.
+
+* Adapting the permutation test
+
+With real MAP output in hand, adapting my earlier fur-only permutation
+script was actually the easy part. The BLAST-to-intervals step
+(~make_intervals.py~) didn't need to change at all — mapping markers onto a
+reference genome is the same job regardless of what you're comparing them
+against afterward.
+
+The only real code change was in ~annotate_mge.py~: instead of
+keyword-searching NCBI's GFF for words like /transposase/, it now treats
+the features in MAP's ~mobilome.gff.gz~ as the MGE prediction reference.
+This is an important distinction: I'm not independently deciding which
+MAP features "count" as MGEs after the fact; I'm using MAP's own mobilome
+annotation as the definition of the MGE regions in this analysis.
+
+I wrote a new driver script, ~map_mge_test.sh~, that loops over all six
+strains and both marker sets and runs the same BLAST → count overlaps →
+shuffle 10,000 times → empirical p-value pipeline for each combination.
+
+One subtlety I almost got wrong: the ~shuffle~ tool needs a *template* of
+valid genomic positions to draw its random intervals from, and that's a
+different file from the MGE reference used to count overlaps. I'd
+initially assumed the same GFF could serve both purposes (it had, in the
+old keyword-based version, since NCBI's annotation happened to double as
+both), but with MAP's output that's no longer true — I ended up using the
+NCBI reference GFF for shuffling and MAP's ~mobilome.gff.gz~ for the actual
+overlap count.
+
+The important thing about the permutation test is that the observed
+overlap is compared against a null distribution generated by randomly
+placing the same marker intervals within the valid genomic template. I ran
+10,000 permutations for each case where at least one marker could be
+mapped to the reference. The empirical p-value therefore answers the
+specific question: how often does a random placement of the marker
+intervals produce an MGE overlap count at least as large as the observed
+one?
+
+* What came out of it
+
+None of the twelve strain/marker-type combinations showed anything close
+to significant enrichment — for the combinations where a valid
+permutation test could actually be performed, every p-value came back well
+above 0.05:
+
+#+begin_example
+strain,marker_type,observed,permutations,ge_observed,pvalue
+a,fur,0,0,0,1
+a,seqwin,7,10000,7930,0.793021
+b1,fur,0,0,0,1
+b1,seqwin,7,10000,9734,0.973403
+b2,fur,2,10000,7561,0.756124
+b2,seqwin,11,10000,10000,1
+d,fur,2,10000,3417,0.341766
+d,seqwin,19,10000,10000,1
+e,fur,2,10000,7207,0.720728
+e,seqwin,18,10000,10000,1
+f,fur,2,10000,3400,0.340066
+f,seqwin,19,10000,10000,1
+#+end_example
+
+The valid permutation tests therefore provide no evidence of enrichment
+of either marker set within MAP-predicted mobilome regions. For fur, the
+smallest empirical p-value among the successfully tested strains was
+0.342; for seqwin, all empirical p-values were at least 0.793.
+
+This lines up with what I'd already found for fur on its own with the
+older, keyword-based method — it doesn't specifically appear to be
+enriched in MGEs — and now extends the same question to seqwin using
+algorithm-based MAP mobilome predictions.
+
+One thing I don't want to gloss over: for strains ~a~ and ~b1~, fur's
+markers produced *zero* BLAST hits against the reference genome at all, so
+no permutation test could actually run there. The ~pvalue=1~ you see for
+those two rows is a forced placeholder, not a real statistical result.
+
+That means I should *not* interpret those two rows as evidence that fur is
+not enriched in MGEs in strains ~a~ and ~b1~. Before I write up the result
+as "no enrichment across the board," I want to go check whether those
+marker files are actually empty for those two strains or whether something
+about the BLAST parameters is too strict — that distinction matters for
+how I describe the finding.
+
+* Plotting the null distributions
+
+Lastly, I put together a small grid plot — one panel per strain × marker
+type, twelve panels total — each showing the histogram of the 10,000
+shuffled overlap counts with the real observed count marked as a red
+dashed line and the p-value written in the corner.
+
+For the two ~fur~ cases with zero markers placed, the panel just says so
+plainly ("no permutations run — 0 markers placed on reference") instead of
+quietly showing an empty or misleading histogram.
+
+I arranged the final figure with the two marker types as rows and the six
+strains as columns. That makes the comparison between fur and seqwin
+within each strain much easier to see than the original vertical
+strain-by-marker layout.
+
+The figure is useful as a sanity check as well as a presentation figure:
+if the observed overlap were unusually large, I'd expect its vertical line
+to sit out in the upper tail of the corresponding null distribution. In
+the successfully tested cases, it doesn't.
+
+The result I'm interested in here is not that the two marker tools "never"
+find MGEs. The permutation test is asking a narrower question: whether the
+markers occur within MAP-predicted mobilome regions *more often than would
+be expected from their random genomic placement*.
+
+For the valid tests, the answer appears to be no. The observed overlaps
+are compatible with the null distributions generated by random placement
+of the marker intervals.
+
+The definition of an MGE here comes directly
+from MAP's mobilome predictions, so the result is conditional on what MAP
+detects and how its individual prediction tools behave. Also, the
+permutation test assumes that the randomisation procedure is an
+appropriate representation of the null distribution; in particular, the
+genomic template used for shuffling determines what counts as a valid
+random marker placement.
+
+None of those invalidate the analysis, but they're things I'd rather state
+explicitly than pretend the test is answering a bigger question than it
+actually is.
