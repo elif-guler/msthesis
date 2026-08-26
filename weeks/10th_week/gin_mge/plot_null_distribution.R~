@@ -4,7 +4,7 @@ library(ggplot2)
 shuffles <- read.table("mtb/pool_100/shuffle_counts.txt", header = FALSE)
 colnames(shuffles) <- c("count")
 
-observed_val <- 13  # Observed MGE overlaps in pool
+observed_val <- 1  # Observed MGE overlaps in pool
 n_perm <- nrow(shuffles)
 ge_count <- sum(shuffles$count >= observed_val)
 p_val <- (ge_count + 1) / (n_perm + 1)
