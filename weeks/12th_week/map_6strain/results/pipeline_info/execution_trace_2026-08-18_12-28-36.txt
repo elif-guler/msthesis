@@ -1,5 +1,0 @@
-task_id	hash	native_id	name	status	exit	submit	duration	realtime	%cpu	peak_rss	peak_vmem	rchar	wchar
-8	f2/781aba	-	DOWNLOAD_DATABASES:DB_DOWNLOAD_VFDB	FAILED	-	-	-	-	-	-	-	-	-
-3	d7/e48951	24535	DOWNLOAD_DATABASES:CHECKV_DOWNLOADDATABASE	FAILED	127	2026-08-18 12:28:38.809	23ms	1ms	-	-	-	-	-
-1	0d/cc486b	24522	DOWNLOAD_DATABASES:LOCALCDSEARCH_DOWNLOAD (cdd)	FAILED	127	2026-08-18 12:28:38.803	28ms	2ms	-	-	-	-	-
-4	bb/d8d01b	24505	DOWNLOAD_DATABASES:PATHOFACT2_DOWNLOADDATA (${task.process})	FAILED	127	2026-08-18 12:28:38.792	35ms	16ms	-	-	-	-	-

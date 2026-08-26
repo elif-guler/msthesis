@@ -1,3 +1,0 @@
-task_id	hash	native_id	name	status	exit	submit	duration	realtime	%cpu	peak_rss	peak_vmem	rchar	wchar
-4	ff/4e3f59	-	DOWNLOAD_DATABASES:DB_DOWNLOAD_VFDB	FAILED	-	-	-	-	-	-	-	-	-
-2	9d/f3d6b9	27579	DOWNLOAD_DATABASES:LOCALCDSEARCH_DOWNLOAD (cdd)	ABORTED	-	2026-08-18 12:39:41.393	-	-	-	-	-	-	-

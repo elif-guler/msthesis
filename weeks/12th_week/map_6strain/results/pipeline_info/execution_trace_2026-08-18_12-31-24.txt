@@ -1,3 +1,0 @@
-task_id	hash	native_id	name	status	exit	submit	duration	realtime	%cpu	peak_rss	peak_vmem	rchar	wchar
-2	e6/c07032	25534	DOWNLOAD_DATABASES:DB_DOWNLOAD_MOBILOME_DBS	FAILED	255	2026-08-18 12:31:28.496	49ms	15ms	-	-	-	-	-
-9	f3/f35d64	25524	DOWNLOAD_DATABASES:RGI_DOWNLOADDB	FAILED	255	2026-08-18 12:31:28.489	88ms	50ms	-	-	-	-	-
